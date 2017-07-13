@@ -14,7 +14,6 @@ app.post('/webhook', line.middleware(config), (req, res) => {
   Promise
     .all(req.body.events.map(handleEvent))
     .then((result) => res.json(result));
-  res.send("hello");
 });
 
 const client = new line.Client(config);

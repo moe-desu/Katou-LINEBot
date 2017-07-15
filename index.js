@@ -67,7 +67,7 @@ function handleEvent(event) {
     var keyword = msgText.substr(14);
     return client.replyMessage(token, {
       type: 'text',
-      text: myfunc.wiki(keyword);
+      text: myfunc.wiki(keyword)
     });
   }
 }

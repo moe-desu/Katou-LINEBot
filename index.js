@@ -3,7 +3,7 @@
 //importing library
 const express = require('express');
 const line = require('@line/bot-sdk');
-var myfunc = require('myfunc');
+var myfunc = require('./myfunc');
 
 //configure the bot information and adding express to app variable
 const config = {
@@ -49,7 +49,7 @@ function handleEvent(event) {
   if (msgText.indexOf('Katou ramal') > -1) {
     return client.replyMessage(token, {
       type: 'text',
-      text: 'myfunc.ramal'
+      text: myfunc.ramal
     });
   }
 

@@ -1,5 +1,6 @@
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
@@ -17,13 +18,11 @@ function shuffle(array) {
   return array;
 }
 
-function ramal(){
-  var ramalan = ['halo','hehe','lala'];
+function ramal() {
+  var ramalan = ['halo', 'hehe', 'lala'];
   var ramalanKocok = shuffle(ramalan);
   randomIndex = Math.floor(Math.random() * ramalanKocok.length);
   return ramalan[randomIndex];
 }
 
-module.export.ramal = ramal;
-
-console.log(ramal());
+module.exports.ramal = ramal();

@@ -35,11 +35,11 @@ function handleEvent(event) {
 
   //kalkulator
   if(msgText.indexOf('Katou berapa') > -1){
-    var hasil = eval(msgText.substr(13));
+    var angka = msgText.substr(13);
 
     return client.replyMessage(token, {
       type:'text',
-      text:hasil
+      text:'Hasil dari '+angka+' : '+eval(angka);
     });
   }
 

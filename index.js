@@ -62,11 +62,18 @@ function handleEvent(event) {
     });
   }
 
-
+  //wikipedia
+  if (msgText.indexOf('Katou apa itu') > -1) {
+    var keyword = msgText.substr(14);
+    return client.replyMessage(token, {
+      type: 'text',
+      text: myfunc.wiki(keyword);
+    });
+  }
 }
 
 //running the server
 app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
-  console.log(`listening on : ` + app.get('port'));
+  console.log('listening on : ' + app.get('port'));
 });

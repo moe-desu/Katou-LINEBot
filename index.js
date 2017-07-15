@@ -40,7 +40,7 @@ function handleEvent(event) {
 
     return client.replyMessage(token, {
       type:'text',
-      text:'Hasil dari '+angka+' : '+eval(angka)
+      text:'Hasil dari '+angka+' adalah '+eval(angka)
     });
   }
 

@@ -55,7 +55,7 @@ function handleEvent(event) {
 
   //selamat ulang tahun
   if (msgText.indexOf('Katou ucapkan selamat ulang tahun ke') > -1) {
-    var nama = msgText.substr(38);
+    var nama = msgText.substr(37);
     return client.replyMessage(token, {
       type: 'text',
       text: 'Selamat Ulang Tahun ' + nama + ' :D'

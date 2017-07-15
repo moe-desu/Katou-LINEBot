@@ -3,6 +3,7 @@
 //importing library
 const express = require('express');
 const line = require('@line/bot-sdk');
+var myfunc = require('myfunc');
 
 //configure the bot information and adding express to app variable
 const config = {
@@ -35,12 +36,20 @@ function handleEvent(event) {
   }
 
   //kalkulator
-  if(msgText.indexOf('Katou berapa') > -1){
+  if (msgText.indexOf('Katou berapa') > -1) {
     var angka = msgText.substr(13);
 
     return client.replyMessage(token, {
-      type:'text',
-      text:'Hasil dari '+angka+' adalah '+eval(angka)
+      type: 'text',
+      text: 'Hasil dari ' + angka + ' adalah ' + eval(angka)
+    });
+  }
+
+  //ramal
+  if (msgText.indexOf('Katou ramal') > -1) {
+    return client.replyMessage(token, {
+      type: 'text',
+      text: myfunc.ramal
     });
   }
 

@@ -23,7 +23,8 @@ const client = new line.Client(config);
 
 //handling the event
 function handleEvent(event) {
-  //this is where you write all your code
+  //this is where you write all your code....
+
   //define variable with event value
   var msgText = event.message.text;
   var token = event.replyToken;
@@ -36,10 +37,11 @@ function handleEvent(event) {
   //kalkulator
   if(msgText.indexOf('Katou berapa') > -1){
     var angka = msgText.substr(13);
+    var hasil = eval(angka);
 
     return client.replyMessage(token, {
       type:'text',
-      text:'Hasil dari '+angka+' : '+eval(angka);
+      text:'Hasil dari '+angka+' : '+hasil;
     });
   }
 

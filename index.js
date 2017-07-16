@@ -70,6 +70,19 @@ function handleEvent(event) {
       text: myfunc.wiki(keyword)
     });
   }
+
+  //cari lokasi
+  if (msgText.indexOf('Katou cari lokasi') > -1) {
+    var keyword = msgText.substr(18);
+    var location = myfunc.cariLokasi(keyword);
+    return client.replyMessage(token, {
+      type: "location",
+      title: keyword,
+      address: location[0],
+      latitude: location[1],
+      longitude: location[2]
+    });
+  }
 }
 
 //running the server

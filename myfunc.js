@@ -55,5 +55,32 @@ var wiki = function(keyword) {
   }
 }
 
+var cariLokasi = function(keyword) {
+  var replaced = keyword.replace(/ /g, '+');
+  var key = 'AIzaSyDlrK6kokD3dDhSoWQKCz3oMAaJMCqaQqM';
+  var response = request(
+    'GET',
+    'https://maps.googleapis.com/maps/api/geocode/json?address=' + replaced + '&key=' + key
+  );
+  if (response.statusCode == 200) {
+    var json = JSON.parse(response.getBody('utf8'));
+    var results = json.results;
+
+    for (i in results) {
+      var formatted_address = results[i].formatted_address;
+      var geometry = results[i].geometry;
+      var lat = geometry.location.lat;
+      var lng = geometry.location.lng;
+
+      if (formatted_address.length > 100) {
+        formatted_address = formatted_address.substr(0, 90) + '...';
+      }
+
+      return [formatted_address, lat, lng];
+    }
+  }
+}
+
+exports.cariLokasi = cariLokasi;
 exports.ramal = ramal;
 exports.wiki = wiki;

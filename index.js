@@ -78,9 +78,9 @@ function handleEvent(event) {
     return client.replyMessage(token, {
       type: "location",
       title: keyword,
-      address: location[0],
-      latitude: location[1],
-      longitude: location[2]
+      address: location.address,
+      latitude: location.latitude,
+      longitude: location.longitude
     });
   }
 }

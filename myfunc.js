@@ -76,7 +76,11 @@ var cariLokasi = function(keyword) {
         formatted_address = formatted_address.substr(0, 90) + '...';
       }
 
-      return [formatted_address, lat, lng];
+      return {
+        address : formatted_address,
+        latitude : lat, 
+        longitude : lng
+      };
     }
   }
 }

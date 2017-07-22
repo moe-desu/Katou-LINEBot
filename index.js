@@ -33,6 +33,12 @@ function handleEvent(event) {
   //periksa source
   var source = event.source.type;
   var id;
+  var userType;
+  if (source === 'user') {
+    userType = 'userId';
+  } else if (source === 'group') {
+    userType = 'groupId';
+  }
   if(source === 'user'){
     id = event.source.userId;
   }else if(source === 'group'){
@@ -46,7 +52,7 @@ function handleEvent(event) {
     if (msgText.indexOf('Katou id') > -1) {
       return client.replyMessage(token, {
         type: 'text',
-        text: source + " : " +data[0].userId
+        text: source + " : " +data[0][userType]
       });
     }
 

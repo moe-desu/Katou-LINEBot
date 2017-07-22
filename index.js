@@ -81,6 +81,7 @@ function handleEvent(event) {
           text: "Sambungan ke database error"
         });
       } else {
+        db = database;
         db.collection('groupId').find({
           "groupId": id
         }).toArray(function(err, results) {
@@ -103,23 +104,22 @@ function handleEvent(event) {
             data = results;
           }
         });
+        //check id
+        if (msgText.indexOf('Katou id') > -1) {
+          if (data) {
+            return client.replyMessage(token, {
+              type: 'text',
+              text: data
+            });
+          } else {
+            return client.replyMessage(token, {
+              type: 'text',
+              text: 'data kosong'
+            });
+          }
+        }
       }
     });
-  }
-
-  //check id
-  if (msgText.indexOf('Katou id') > -1) {
-    if (data) {
-      return client.replyMessage(token, {
-        type: 'text',
-        text: data
-      });
-    } else {
-      return client.replyMessage(token, {
-        type: 'text',
-        text: 'data kosong'
-      });
-    }
   }
 
   //return kosong bila msg type selain text

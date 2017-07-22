@@ -36,92 +36,85 @@ function handleEvent(event) {
   var data = null;
   //ambil id source
   var db;
-  if (source === 'user') {
-    id = event.source.userId;
-    //check if user already inserted to userId collection
-    MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou', function(err, database) {
-      if (err) {
-        return client.replyMessage(token, {
-          type: 'text',
-          text: "Sambungan ke database error"
-        });
-      } else {
-        db = database;
-        db.collection('userId').find({
-          "userId": id
-        }).toArray(function(err, results) {
-          if (err) {
-            return client.replyMessage(token, {
-              type: 'text',
-              text: err
-            });
-            db.collection('userId').save({"userid": id}, function(err, result) {
-              if (err) {
-                return client.replyMessage(token, {
-                  type: 'text',
-                  text: err
-                });
-              } else {
-                return client.replyMessage(token, {
-                  type: 'text',
-                  text: 'sukses ditambahakan'
-                });
-              }
-            });
-          } else {
-            data = results;
-          }
-        });
-      }
-    });
-  } else if (source === 'group') {
-    id = event.source.groupId;
-    //check if user already inserted to groupId collection
-    MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou', function(err, database) {
-      if (err) {
-        return client.replyMessage(token, {
-          type: 'text',
-          text: "Sambungan ke database error"
-        });
-      } else {
-        db = database;
-        db.collection('groupId').find({
-          "groupId": id
-        }).toArray(function(err, results) {
-          if (err) {
-            db.collection('userId').save({"groupId": id}, function(err, result) {
-              if (err) {
-                return client.replyMessage(token, {
-                  type: 'text',
-                  text: err
-                });
-              } else {
-                return client.replyMessage(token, {
-                  type: 'text',
-                  text: 'success'
-                });
-              }
-            });
-          } else {
-            data = results;
-          }
-        });
-        //check id
-        if (msgText.indexOf('Katou id') > -1) {
-          if (data) {
-            return client.replyMessage(token, {
-              type: 'text',
-              text: data
-            });
-          } else {
-            return client.replyMessage(token, {
-              type: 'text',
-              text: 'data kosong'
-            });
-          }
+  //check id
+  if (msgText.indexOf('Katou id') > -1) {
+    if (source === 'user') {
+      id = event.source.userId;
+      //check if user already inserted to userId collection
+      MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou', function(err, database) {
+        if (err) {
+          return client.replyMessage(token, {
+            type: 'text',
+            text: "Sambungan ke database error"
+          });
+        } else {
+          db = database;
+          db.collection('userId').find({
+            "userId": id
+          }).toArray(function(err, results) {
+            if (err) {
+              return client.replyMessage(token, {
+                type: 'text',
+                text: err
+              });
+              db.collection('userId').save({
+                "userid": id
+              }, function(err, result) {
+                if (err) {
+                  return client.replyMessage(token, {
+                    type: 'text',
+                    text: err
+                  });
+                } else {
+                  return client.replyMessage(token, {
+                    type: 'text',
+                    text: 'sukses ditambahakan'
+                  });
+                }
+              });
+            } else {
+              data = results;
+            }
+          });
         }
-      }
-    });
+      });
+    } else if (source === 'group') {
+      id = event.source.groupId;
+      //check if user already inserted to groupId collection
+      MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou', function(err, database) {
+        if (err) {
+          return client.replyMessage(token, {
+            type: 'text',
+            text: "Sambungan ke database error"
+          });
+        } else {
+          db = database;
+          db.collection('groupId').find({
+            "groupId": id
+          }).toArray(function(err, results) {
+            if (err) {
+              db.collection('userId').save({
+                "groupId": id
+              }, function(err, result) {
+                if (err) {
+                  return client.replyMessage(token, {
+                    type: 'text',
+                    text: err
+                  });
+                } else {
+                  return client.replyMessage(token, {
+                    type: 'text',
+                    text: 'success'
+                  });
+                }
+              });
+            } else {
+              data = results;
+            }
+          });
+        }
+      });
+    }
   }
 
   //return kosong bila msg type selain text

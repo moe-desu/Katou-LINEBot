@@ -173,17 +173,22 @@ var hapusIdGame = function(type, id) {
 
 var data;
 var data2;
-tekaTeki().then(function(items) {
-  data = items;
-  console.log(items[0].tekateki);
-  data2 = addidTekaTeki('user','123',items[0]._id).then(function(items){
-    console.log(data2);
+checkId('user','123').then(function(hasil){
+  tekaTeki().then(function(items) {
+    data = items;
+    console.log(items[0].tekateki);
+    data2 = addidTekaTeki('user','123',items[0]._id).then(function(items){
+      console.log(data2);
+    }, function(err) {
+      console.error('The promise was rejected', err, err.stack);
+    });
   }, function(err) {
     console.error('The promise was rejected', err, err.stack);
   });
 }, function(err) {
   console.error('The promise was rejected', err, err.stack);
 });
+
 
 exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;

@@ -121,11 +121,11 @@ var checkId = function(type, id) {
     var collection = db.collection(userType);
 
     return collection.find({
-      userType: id
+      ((userType === 'user') ? 'userId' : 'groupId'): id
     }).toArray().then(function(hasil) {
       if (hasil == false) {
         return collection.insert({
-          userType:id,
+          ((userType === 'user') ? 'userId' : 'groupId'):id,
           "game":"",
           "gameid":""
         }).then(function(hasilInsert){

@@ -173,7 +173,7 @@ var hapusIdGame = function(type, id) {
 
 var data;
 var data2;
-tekaTeki('userId','123').then(function(items) {
+tekaTeki().then(function(items) {
   data = items;
   console.log(items[0].tekateki);
   data2 = addidTekaTeki('user','123',items[0]._id).then(function(items){

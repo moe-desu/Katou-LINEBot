@@ -96,12 +96,14 @@ var checkId = function(type, id) {
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
     var collection = db.collection(userType);
     if (type === 'user') {
-      return collection.find({"userId":id}).toArray().then(function(hasil) {
+      return collection.find({
+        "userId": id
+      }).toArray().then(function(hasil) {
         if (hasil == false) {
           return collection.insert({
-            "userId":id,
-            "game":"",
-            "gameid":"",
+            "userId": id,
+            "game": "",
+            "gameid": "",
           }).then(function(hasilInsert) {
             return hasilInsert.ops;
           });
@@ -110,12 +112,14 @@ var checkId = function(type, id) {
         }
       });
     } else if (type === 'group') {
-      return collection.find({"groupId":id}).toArray().then(function(hasil) {
+      return collection.find({
+        "groupId": id
+      }).toArray().then(function(hasil) {
         if (hasil == false) {
           return collection.insert({
-            "groupId":id,
-            "game":"",
-            "gameid":"",
+            "groupId": id,
+            "game": "",
+            "gameid": "",
           }).then(function(hasilInsert) {
             return hasilInsert.ops;
           });
@@ -127,22 +131,63 @@ var checkId = function(type, id) {
   });
 }
 
-// var tekaTeki = function(){
-//   MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db){
-//     var collection = db.collection('tekateki');
-//
-//     return collection.find().toArray();
-//   });
-// }
+var tekaTeki = function(type, id) {
+  return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
+    var collection = db.collection('tekateki');
+
+    return collection.aggregate([{
+      $sample: {
+        size: 1
+      }
+    }]).toArray();
+  });
+}
+
+var addidTekaTeki = function(type, id, idtekateki) {
+  return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
+    var collection = db.collection('userId');
+
+    return collection.update({
+      "userId": id
+    }, {
+      "userId": id,
+      "game": "tekaTeki",
+      "gameid": idtekateki
+    });
+  });
+}
+
+var hapusIdGame = function(type, id) {
+  return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
+    var collection = db.collection('userId');
+
+    return collection.update({
+      "userId": id
+    }, {
+      "userId": id,
+      "game": "",
+      "gameid": ""
+    });
+  });
+}
 
 // var data;
-// .then(function(items) {
+// var data2;
+// tekaTeki('userId','123').then(function(items) {
 //   data = items;
 //   console.log(data);
+//   data2 = addidTekaTeki('user','123',items[0]._id).then(function(items){
+//     console.log(data2);
+//   }, function(err) {
+//     console.error('The promise was rejected', err, err.stack);
+//   });
 // }, function(err) {
 //   console.error('The promise was rejected', err, err.stack);
 // });
 
+exports.tekaTeki = tekaTeki;
+exports.addidTekaTeki = addidTekaTeki;
+exports.hapusIdGame = hapusIdGame;
 exports.checkId = checkId;
 exports.cariLokasi = cariLokasi;
 exports.ramal = ramal;

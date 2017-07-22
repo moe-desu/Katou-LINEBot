@@ -58,6 +58,9 @@ function handleEvent(event) {
         type: 'text',
         text: 'sedang main game'
       });
+      if (data[0].game === "tekaTeki") {
+
+      }
     } else {
       //checkId
       if (msgText.indexOf('Katou id') > -1) {
@@ -69,9 +72,16 @@ function handleEvent(event) {
 
       //games tekateki
       if (msgText.indexOf('Katou main tekateki') > -1) {
-        return client.replyMessage(token, {
-          type: 'text',
-          text: source + " : " + data[0][userType]
+        myfunc.tekaTeki(userType, data[0][userType]).then(function(tekateki) {
+          return client.replyMessage(token, [{
+            type: 'text',
+            text: tekaTeki[0].tekateki
+          }, {
+            type: 'text',
+            text: tekaTeki[0].teks
+          }]);
+        }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
         });
       }
 

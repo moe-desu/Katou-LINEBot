@@ -39,75 +39,90 @@ function handleEvent(event) {
   } else if (source === 'group') {
     userType = 'groupId';
   }
-  if(source === 'user'){
+  if (source === 'user') {
     id = event.source.userId;
-  }else if(source === 'group'){
+  } else if (source === 'group') {
     id = event.source.groupId;
   }
   var data;
   //ambil id source
   myfunc.checkId(source, id).then(function(items) {
-    data = items;
-    //checkId
-    if (msgText.indexOf('Katou id') > -1) {
-      return client.replyMessage(token, {
-        type: 'text',
-        text: source + " : " +data[0][userType]
-      });
-    }
-
     //return kosong bila msg type selain text
     if (event.type !== 'message' || event.message.type !== 'text') {
       return Promise.resolve(null);
     }
 
-    //kalkulator
-    if (msgText.indexOf('Katou berapa') > -1) {
-      var angka = msgText.substr(13);
-
+    data = items;
+    if (data[0].game !== "") {
       return client.replyMessage(token, {
         type: 'text',
-        text: 'Hasil dari ' + angka + ' adalah ' + eval(angka)
+        text: 'sedang main game'
       });
-    }
+    } else {
+      //checkId
+      if (msgText.indexOf('Katou id') > -1) {
+        return client.replyMessage(token, {
+          type: 'text',
+          text: source + " : " + data[0][userType]
+        });
+      }
 
-    //ramal
-    if (msgText.indexOf('Katou ramal') > -1) {
-      return client.replyMessage(token, {
-        type: 'text',
-        text: myfunc.ramal
-      });
-    }
+      //games tekateki
+      if (msgText.indexOf('Katou main tekateki') > -1) {
+        return client.replyMessage(token, {
+          type: 'text',
+          text: source + " : " + data[0][userType]
+        });
+      }
 
-    //selamat ulang tahun
-    if (msgText.indexOf('Katou ucapkan selamat ulang tahun ke') > -1) {
-      var nama = msgText.substr(37);
-      return client.replyMessage(token, {
-        type: 'text',
-        text: 'Selamat Ulang Tahun ' + nama + ' :D'
-      });
-    }
+      //kalkulator
+      if (msgText.indexOf('Katou berapa') > -1) {
+        var angka = msgText.substr(13);
 
-    //wikipedia
-    if (msgText.indexOf('Katou apa itu') > -1) {
-      var keyword = msgText.substr(14);
-      return client.replyMessage(token, {
-        type: 'text',
-        text: myfunc.wiki(keyword)
-      });
-    }
+        return client.replyMessage(token, {
+          type: 'text',
+          text: 'Hasil dari ' + angka + ' adalah ' + eval(angka)
+        });
+      }
 
-    //cari lokasi
-    if (msgText.indexOf('Katou cari lokasi') > -1) {
-      var keyword = msgText.substr(18);
-      var location = myfunc.cariLokasi(keyword);
-      return client.replyMessage(token, {
-        type: "location",
-        title: keyword,
-        address: location.address,
-        latitude: location.latitude,
-        longitude: location.longitude
-      });
+      //ramal
+      if (msgText.indexOf('Katou ramal') > -1) {
+        return client.replyMessage(token, {
+          type: 'text',
+          text: myfunc.ramal
+        });
+      }
+
+      //selamat ulang tahun
+      if (msgText.indexOf('Katou ucapkan selamat ulang tahun ke') > -1) {
+        var nama = msgText.substr(37);
+        return client.replyMessage(token, {
+          type: 'text',
+          text: 'Selamat Ulang Tahun ' + nama + ' :D'
+        });
+      }
+
+      //wikipedia
+      if (msgText.indexOf('Katou apa itu') > -1) {
+        var keyword = msgText.substr(14);
+        return client.replyMessage(token, {
+          type: 'text',
+          text: myfunc.wiki(keyword)
+        });
+      }
+
+      //cari lokasi
+      if (msgText.indexOf('Katou cari lokasi') > -1) {
+        var keyword = msgText.substr(18);
+        var location = myfunc.cariLokasi(keyword);
+        return client.replyMessage(token, {
+          type: "location",
+          title: keyword,
+          address: location.address,
+          latitude: location.latitude,
+          longitude: location.longitude
+        });
+      }
     }
   }, function(err) {
     console.error('The promise was rejected', err, err.stack);

@@ -1,30 +1,6 @@
 var request = require('sync-request');
 const MongoClient = require('mongodb').MongoClient;
 
-// var db;
-
-// var tekaTeki = function(type,id){
-//   MongoClient.connect('mongodb://rehre:akmal2340@ds053788.mlab.com:53788/katou',function(err,database){
-//     if(err){
-//       console.log(err);
-//     }else{
-//       db = database;
-//       //check if its user or group
-//       if(type === 'user'){
-//         //check if user already inserted to userId collection
-//
-//       }else if(type === 'group'){
-//         //check if user already inserted to userId collection
-//
-//       }
-//
-//       db.collection('tekateki').find().toArray(function(err, results) {
-//         console.log(results);
-//       });
-//     }
-//   });
-// }
-
 function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue, randomIndex;
@@ -110,10 +86,6 @@ var cariLokasi = function(keyword) {
   }
 }
 
-var type = 'group';
-var id = 222;
-var data;
-
 var checkId = function(type, id) {
   var userType;
   if (type === 'user') {
@@ -124,7 +96,7 @@ var checkId = function(type, id) {
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
     var collection = db.collection(userType);
     if (type === 'user') {
-      return collection.find().toArray({"userId":id}).then(function(hasil) {
+      return collection.find({"userId":id}).toArray().then(function(hasil) {
         if (hasil == false) {
           return collection.insert({
             "userId":id,
@@ -138,7 +110,7 @@ var checkId = function(type, id) {
         }
       });
     } else if (type === 'group') {
-      return collection.find().toArray({"groupId":id}).then(function(hasil) {
+      return collection.find({"groupId":id}).toArray().then(function(hasil) {
         if (hasil == false) {
           return collection.insert({
             "groupId":id,
@@ -155,7 +127,16 @@ var checkId = function(type, id) {
   });
 }
 
-// checkId(type, id).then(function(items) {
+// var tekaTeki = function(){
+//   MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db){
+//     var collection = db.collection('tekateki');
+//
+//     return collection.find().toArray();
+//   });
+// }
+
+// var data;
+// .then(function(items) {
 //   data = items;
 //   console.log(data);
 // }, function(err) {

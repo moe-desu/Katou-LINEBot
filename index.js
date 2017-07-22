@@ -33,143 +33,80 @@ function handleEvent(event) {
   //periksa source
   var source = event.source.type;
   var id;
-  var data = null;
+  if(source === 'user'){
+    id = event.source.userid;
+  }else if(source === 'group'){
+    id = event.source.userid;
+  }
+  var data;
   //ambil id source
-  var db;
-  //check id
-  if (msgText.indexOf('Katou id') > -1) {
-    if (source === 'user') {
-      id = event.source.userId;
-      //check if user already inserted to userId collection
-      MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou', function(err, database) {
-        if (err) {
-          return client.replyMessage(token, {
-            type: 'text',
-            text: "Sambungan ke database error"
-          });
-        } else {
-          db = database;
-          db.collection('userId').find({
-            "userId": id
-          }).toArray(function(err, results) {
-            if (err) {
-              return client.replyMessage(token, {
-                type: 'text',
-                text: err
-              });
-              db.collection('userId').save({
-                "userid": id
-              }, function(err, result) {
-                if (err) {
-                  return client.replyMessage(token, {
-                    type: 'text',
-                    text: err
-                  });
-                } else {
-                  return client.replyMessage(token, {
-                    type: 'text',
-                    text: 'sukses ditambahakan'
-                  });
-                }
-              });
-            } else {
-              data = results;
-            }
-          });
-        }
-      });
-    } else if (source === 'group') {
-      id = event.source.groupId;
-      //check if user already inserted to groupId collection
-      MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou', function(err, database) {
-        if (err) {
-          return client.replyMessage(token, {
-            type: 'text',
-            text: "Sambungan ke database error"
-          });
-        } else {
-          db = database;
-          db.collection('groupId').find({
-            "groupId": id
-          }).toArray(function(err, results) {
-            if (err) {
-              db.collection('userId').save({
-                "groupId": id
-              }, function(err, result) {
-                if (err) {
-                  return client.replyMessage(token, {
-                    type: 'text',
-                    text: err
-                  });
-                } else {
-                  return client.replyMessage(token, {
-                    type: 'text',
-                    text: 'success'
-                  });
-                }
-              });
-            } else {
-              data = results;
-            }
-          });
-        }
+  myfunc.checkId(source, id).then(function(items) {
+    data = items;
+    //checkId
+    if (msgText.indexOf('Katou id') > -1) {
+      return client.replyMessage(token, {
+        type: 'text',
+        text: source + data[0].source;
       });
     }
-  }
 
-  //return kosong bila msg type selain text
-  if (event.type !== 'message' || event.message.type !== 'text') {
-    return Promise.resolve(null);
-  }
+    //return kosong bila msg type selain text
+    if (event.type !== 'message' || event.message.type !== 'text') {
+      return Promise.resolve(null);
+    }
 
-  //kalkulator
-  if (msgText.indexOf('Katou berapa') > -1) {
-    var angka = msgText.substr(13);
+    //kalkulator
+    if (msgText.indexOf('Katou berapa') > -1) {
+      var angka = msgText.substr(13);
 
-    return client.replyMessage(token, {
-      type: 'text',
-      text: 'Hasil dari ' + angka + ' adalah ' + eval(angka)
-    });
-  }
+      return client.replyMessage(token, {
+        type: 'text',
+        text: 'Hasil dari ' + angka + ' adalah ' + eval(angka)
+      });
+    }
 
-  //ramal
-  if (msgText.indexOf('Katou ramal') > -1) {
-    return client.replyMessage(token, {
-      type: 'text',
-      text: myfunc.ramal
-    });
-  }
+    //ramal
+    if (msgText.indexOf('Katou ramal') > -1) {
+      return client.replyMessage(token, {
+        type: 'text',
+        text: myfunc.ramal
+      });
+    }
 
-  //selamat ulang tahun
-  if (msgText.indexOf('Katou ucapkan selamat ulang tahun ke') > -1) {
-    var nama = msgText.substr(37);
-    return client.replyMessage(token, {
-      type: 'text',
-      text: 'Selamat Ulang Tahun ' + nama + ' :D'
-    });
-  }
+    //selamat ulang tahun
+    if (msgText.indexOf('Katou ucapkan selamat ulang tahun ke') > -1) {
+      var nama = msgText.substr(37);
+      return client.replyMessage(token, {
+        type: 'text',
+        text: 'Selamat Ulang Tahun ' + nama + ' :D'
+      });
+    }
 
-  //wikipedia
-  if (msgText.indexOf('Katou apa itu') > -1) {
-    var keyword = msgText.substr(14);
-    return client.replyMessage(token, {
-      type: 'text',
-      text: myfunc.wiki(keyword)
-    });
-  }
+    //wikipedia
+    if (msgText.indexOf('Katou apa itu') > -1) {
+      var keyword = msgText.substr(14);
+      return client.replyMessage(token, {
+        type: 'text',
+        text: myfunc.wiki(keyword)
+      });
+    }
 
-  //cari lokasi
-  if (msgText.indexOf('Katou cari lokasi') > -1) {
-    var keyword = msgText.substr(18);
-    var location = myfunc.cariLokasi(keyword);
-    return client.replyMessage(token, {
-      type: "location",
-      title: keyword,
-      address: location.address,
-      latitude: location.latitude,
-      longitude: location.longitude
-    });
-  }
+    //cari lokasi
+    if (msgText.indexOf('Katou cari lokasi') > -1) {
+      var keyword = msgText.substr(18);
+      var location = myfunc.cariLokasi(keyword);
+      return client.replyMessage(token, {
+        type: "location",
+        title: keyword,
+        address: location.address,
+        latitude: location.latitude,
+        longitude: location.longitude
+      });
+    }
+  }, function(err) {
+    console.error('The promise was rejected', err, err.stack);
+  });
+
 }
 
 //running the server

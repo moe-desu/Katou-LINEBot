@@ -19,6 +19,7 @@
     "express": "^4.15.3",
     "mongodb": "^2.2.30",
     "request": "^2.81.0",
+    "rsvp": "^4.0.1",
     "sync-request": "^4.1.0"
   }
 }

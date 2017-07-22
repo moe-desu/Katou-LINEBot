@@ -1,29 +1,29 @@
 var request = require('sync-request');
 const MongoClient = require('mongodb').MongoClient;
 
-var db;
+// var db;
 
-var tekaTeki = function(type,id){
-  MongoClient.connect('mongodb://rehre:akmal2340@ds053788.mlab.com:53788/katou',function(err,database){
-    if(err){
-      console.log(err);
-    }else{
-      db = database;
-      //check if its user or group
-      if(type === 'user'){
-        //check if user already inserted to userId collection
-
-      }else if(type === 'group'){
-        //check if user already inserted to userId collection
-
-      }
-
-      db.collection('tekateki').find().toArray(function(err, results) {
-        console.log(results);
-      });
-    }
-  });
-}
+// var tekaTeki = function(type,id){
+//   MongoClient.connect('mongodb://rehre:akmal2340@ds053788.mlab.com:53788/katou',function(err,database){
+//     if(err){
+//       console.log(err);
+//     }else{
+//       db = database;
+//       //check if its user or group
+//       if(type === 'user'){
+//         //check if user already inserted to userId collection
+//
+//       }else if(type === 'group'){
+//         //check if user already inserted to userId collection
+//
+//       }
+//
+//       db.collection('tekateki').find().toArray(function(err, results) {
+//         console.log(results);
+//       });
+//     }
+//   });
+// }
 
 function shuffle(array) {
   var currentIndex = array.length,
@@ -102,14 +102,37 @@ var cariLokasi = function(keyword) {
       }
 
       return {
-        address : formatted_address,
-        latitude : lat,
-        longitude : lng
+        address: formatted_address,
+        latitude: lat,
+        longitude: lng
       };
     }
   }
 }
 
+var checkId = function(type, id) {
+  return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
+    var collection = db.collection('userId');
+
+    return collection.find({
+      "userid": id
+    }).toArray().then(function(hasil) {
+      if (hasil == false) {
+        return collection.insert({
+          "user":id,
+          "game":"",
+          "gameid":""
+        }).then(function(hasilInsert){
+          return hasilInsert.ops;
+        });
+      } else {
+        return hasil;
+      }
+    });
+  });
+}
+
+exports.checkId = checkId;
 exports.cariLokasi = cariLokasi;
 exports.ramal = ramal;
 exports.wiki = wiki;

@@ -38,7 +38,7 @@ function handleEvent(event) {
   if (source === 'user') {
     id = event.source.userId;
     //check if user already inserted to userId collection
-    MongoClient.connect('mongodb://rehre:akmal2340@ds053788.mlab.com:53788/katou', function(err, database) {
+    MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou', function(err, database) {
       if (err) {
         return client.replyMessage(token, {
           type: 'text',
@@ -72,7 +72,7 @@ function handleEvent(event) {
   } else if (source === 'group') {
     id = event.source.groupId;
     //check if user already inserted to groupId collection
-    MongoClient.connect('mongodb://rehre:akmal2340@ds053788.mlab.com:53788/katou', function(err, database) {
+    MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou', function(err, database) {
       if (err) {
         return client.replyMessage(token, {
           type: 'text',

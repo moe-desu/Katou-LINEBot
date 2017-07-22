@@ -81,7 +81,11 @@ function handleEvent(event) {
             text: itemGame[0].teks
           }]);
 
-          myfunc.addidTekaTeki(userType,data[0][userType],itemGame[0]._id);
+          myfunc.addidTekaTeki(userType,data[0][userType],itemGame[0]._id).then(function(tambahberhasil){
+            
+          }, function(err) {
+            console.error('The promise was rejected', err, err.stack);
+          });
         }, function(err) {
           console.error('The promise was rejected', err, err.stack);
         });

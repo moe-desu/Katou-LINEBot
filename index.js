@@ -21,7 +21,6 @@ app.post('/webhook', line.middleware(config), (req, res) => {
 
 //create a new LINE Client object
 const client = new line.Client(config);
-
 //handling the event
 function handleEvent(event) {
   //this is where you write all your code....
@@ -30,9 +29,29 @@ function handleEvent(event) {
   var msgText = event.message.text;
   var token = event.replyToken;
 
+  //periksa source
+  var source = event.source.type;
+  var id;
+ //ambil id source
+ if(source === 'user'){
+   id = event.source.userId;
+ }else if(source ==='group'){
+   id = event.source.groupId;
+ }
+
   //return kosong bila msg type selain text
   if (event.type !== 'message' || event.message.type !== 'text') {
     return Promise.resolve(null);
+  }
+
+  //check id
+  if (msgText.indexOf('Katou id') > -1) {
+    var angka = msgText.substr(13);
+
+    return client.replyMessage(token, {
+      type: 'text',
+      text: source+' : '+id
+    });
   }
 
   //kalkulator

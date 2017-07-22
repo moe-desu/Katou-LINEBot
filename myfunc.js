@@ -1,4 +1,21 @@
 var request = require('sync-request');
+const MongoClient = require('mongodb').MongoClient;
+
+var db;
+
+function tekaTeki(){
+  MongoClient.connect('mongodb://rehre:akmal2340@ds053788.mlab.com:53788/tekatekikatou',function(err,database){
+    if(err){
+      console.log(err);
+    }else{
+      console.log('success');
+      db = database;
+      db.collection('tekateki').find().toArray(function(err, results) {
+        console.log(results);
+      });
+    }
+  });
+}
 
 function shuffle(array) {
   var currentIndex = array.length,
@@ -78,7 +95,7 @@ var cariLokasi = function(keyword) {
 
       return {
         address : formatted_address,
-        latitude : lat, 
+        latitude : lat,
         longitude : lng
       };
     }

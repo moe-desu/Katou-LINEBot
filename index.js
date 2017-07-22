@@ -33,7 +33,7 @@ function handleEvent(event) {
   //periksa source
   var source = event.source.type;
   var id;
-  var data == null;
+  var data = null;
   //ambil id source
   var db;
   if (source === 'user') {

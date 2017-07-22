@@ -120,14 +120,28 @@ var checkId = function(type, id) {
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
     var collection = db.collection(userType);
 
-    return collection.find({
-      ((userType === 'user') ? 'userId' : 'groupId'): id
+    return collection.find(function(){
+      if(type === 'user'){
+        return {'userId':id};
+      }else if(type === 'group'){
+        return {'groupId':id};
+      }
     }).toArray().then(function(hasil) {
       if (hasil == false) {
-        return collection.insert({
-          ((userType === 'user') ? 'userId' : 'groupId'):id,
-          "game":"",
-          "gameid":""
+        return collection.insert(function(){
+          if(type === 'user'){
+            return {
+              'userId':id,
+              "game":"",
+              "gameid":""
+            };
+          }else if(type === 'group'){
+            return {
+              'groupId':id,
+              "game":"",
+              "gameid":""
+            };
+          }
         }).then(function(hasilInsert){
           return hasilInsert.ops;
         });

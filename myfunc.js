@@ -110,45 +110,48 @@ var cariLokasi = function(keyword) {
   }
 }
 
+var type = 'group';
+var id = 222;
+var data;
+
 var checkId = function(type, id) {
   var userType;
-  if(type === 'user'){
+  if (type === 'user') {
     userType = 'userId';
-  }else if(type === 'group'){
+  } else if (type === 'group') {
     userType = 'groupId';
   }
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
     var collection = db.collection(userType);
-
-    return collection.find(function(){
-      if(type === 'user'){
-        return {'userId':id};
-      }else if(type === 'group'){
-        return {'groupId':id};
-      }
-    }).toArray().then(function(hasil) {
-      if (hasil == false) {
-        return collection.insert(function(){
-          if(type === 'user'){
-            return {
-              'userId':id,
-              "game":"",
-              "gameid":""
-            };
-          }else if(type === 'group'){
-            return {
-              'groupId':id,
-              "game":"",
-              "gameid":""
-            };
-          }
-        }).then(function(hasilInsert){
-          return hasilInsert.ops;
-        });
-      } else {
-        return hasil;
-      }
-    });
+    if (type === 'user') {
+      return collection.find().toArray({"userId":id}).then(function(hasil) {
+        if (hasil == false) {
+          return collection.insert({
+            "userId":id,
+            "game":"",
+            "gameid":"",
+          }).then(function(hasilInsert) {
+            return hasilInsert.ops;
+          });
+        } else {
+          return hasil;
+        }
+      });
+    } else if (type === 'group') {
+      return collection.find().toArray({"groupId":id}).then(function(hasil) {
+        if (hasil == false) {
+          return collection.insert({
+            "groupId":id,
+            "game":"",
+            "gameid":"",
+          }).then(function(hasilInsert) {
+            return hasilInsert.ops;
+          });
+        } else {
+          return hasil;
+        }
+      });
+    }
   });
 }
 

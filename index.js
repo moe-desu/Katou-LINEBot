@@ -33,8 +33,9 @@ function handleEvent(event) {
   //periksa source
   var source = event.source.type;
   var id;
-  var data;
+  var data == null;
   //ambil id source
+  var db;
   if (source === 'user') {
     id = event.source.userId;
     //check if user already inserted to userId collection
@@ -45,11 +46,12 @@ function handleEvent(event) {
           text: "Sambungan ke database error"
         });
       } else {
-        database.collection('userId').find({
+        db = database;
+        db.collection('userId').find({
           "userId": id
         }).toArray(function(err, results) {
           if (err) {
-            database.collection('userId').insertOne({
+            db.collection('userId').insertOne({
               "userId": id,
               "game": "",
               "gameid": ""
@@ -79,11 +81,11 @@ function handleEvent(event) {
           text: "Sambungan ke database error"
         });
       } else {
-        database.collection('groupId').find({
+        db.collection('groupId').find({
           "groupId": id
         }).toArray(function(err, results) {
           if (err) {
-            database.collection('groupId').insertOne({
+            db.collection('groupId').insertOne({
               "groupId": id,
               "game": "",
               "gameid": ""
@@ -107,10 +109,17 @@ function handleEvent(event) {
 
   //check id
   if (msgText.indexOf('Katou id') > -1) {
-    return client.replyMessage(token, {
-      type: 'text',
-      text: data
-    });
+    if (data) {
+      return client.replyMessage(token, {
+        type: 'text',
+        text: data
+      });
+    } else {
+      return client.replyMessage(token, {
+        type: 'text',
+        text: 'data kosong'
+      });
+    }
   }
 
   //return kosong bila msg type selain text

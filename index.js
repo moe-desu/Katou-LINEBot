@@ -75,7 +75,7 @@ function handleEvent(event) {
         myfunc.tekaTeki().then(function(itemGame){
           return client.replyMessage(token, {
             type: 'text',
-            text: itemGame[0].tekateki;
+            text: itemGame[0].tekateki
           });
         }, function(err) {
           console.error('The promise was rejected', err, err.stack);

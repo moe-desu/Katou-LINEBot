@@ -115,11 +115,11 @@ var checkId = function(type, id) {
     var collection = db.collection('userId');
 
     return collection.find({
-      "userid": id
+      "userId": id
     }).toArray().then(function(hasil) {
       if (hasil == false) {
         return collection.insert({
-          "user":id,
+          "userId":id,
           "game":"",
           "gameid":""
         }).then(function(hasilInsert){
@@ -131,6 +131,13 @@ var checkId = function(type, id) {
     });
   });
 }
+
+// checkId(type, id).then(function(items) {
+//   data = items;
+//   console.log(data);
+// }, function(err) {
+//   console.error('The promise was rejected', err, err.stack);
+// });
 
 exports.checkId = checkId;
 exports.cariLokasi = cariLokasi;

@@ -46,7 +46,7 @@ function handleEvent(event) {
     if (msgText.indexOf('Katou id') > -1) {
       return client.replyMessage(token, {
         type: 'text',
-        text: source + data[0].source
+        text: source + data[0].userId
       });
     }
 

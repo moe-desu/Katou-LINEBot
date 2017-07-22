@@ -34,9 +34,9 @@ function handleEvent(event) {
   var source = event.source.type;
   var id;
   if(source === 'user'){
-    id = event.source.userid;
+    id = event.source.userId;
   }else if(source === 'group'){
-    id = event.source.userid;
+    id = event.source.groupId;
   }
   var data;
   //ambil id source

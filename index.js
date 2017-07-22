@@ -51,18 +51,12 @@ function handleEvent(event) {
           "userId": id
         }).toArray(function(err, results) {
           if (err) {
-            db.collection('userId').insertOne({
-              "userId": id,
-              "game": "",
-              "gameid": ""
-            }, function(err, result) {
+            db.collection('userId').save({"userid": id}, function(err, result) {
               if (err) {
-                return client.replyMessage(token, {
-                  type: 'text',
-                  text: "gagal menambahkan id ke database"
-                });
+                console.log(err)
               } else {
-                data = result;
+                console.log('saved to database');
+                res.redirect('/');
               }
             });
           } else {
@@ -86,18 +80,17 @@ function handleEvent(event) {
           "groupId": id
         }).toArray(function(err, results) {
           if (err) {
-            db.collection('groupId').insertOne({
-              "groupId": id,
-              "game": "",
-              "gameid": ""
-            }, function(err, result) {
+            db.collection('userId').save({"groupId": id}, function(err, result) {
               if (err) {
                 return client.replyMessage(token, {
                   type: 'text',
-                  text: "gagal menambahkan id ke database"
+                  text: err
                 });
               } else {
-                data = result;
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: 'success'
+                });
               }
             });
           } else {

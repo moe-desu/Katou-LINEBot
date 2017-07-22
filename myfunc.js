@@ -3,13 +3,21 @@ const MongoClient = require('mongodb').MongoClient;
 
 var db;
 
-function tekaTeki(){
-  MongoClient.connect('mongodb://rehre:akmal2340@ds053788.mlab.com:53788/tekatekikatou',function(err,database){
+var tekaTeki = function(type,id){
+  MongoClient.connect('mongodb://rehre:akmal2340@ds053788.mlab.com:53788/katou',function(err,database){
     if(err){
       console.log(err);
     }else{
-      console.log('success');
       db = database;
+      //check if its user or group
+      if(type === 'user'){
+        //check if user already inserted to userId collection
+
+      }else if(type === 'group'){
+        //check if user already inserted to userId collection
+
+      }
+
       db.collection('tekateki').find().toArray(function(err, results) {
         console.log(results);
       });

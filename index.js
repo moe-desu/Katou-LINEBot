@@ -3,6 +3,7 @@
 //importing library
 const express = require('express');
 const line = require('@line/bot-sdk');
+const MongoClient = require('mongodb').MongoClient;
 var myfunc = require('./myfunc');
 
 //configure the bot information and adding express to app variable
@@ -32,26 +33,89 @@ function handleEvent(event) {
   //periksa source
   var source = event.source.type;
   var id;
- //ambil id source
- if(source === 'user'){
-   id = event.source.userId;
- }else if(source ==='group'){
-   id = event.source.groupId;
- }
-
-  //return kosong bila msg type selain text
-  if (event.type !== 'message' || event.message.type !== 'text') {
-    return Promise.resolve(null);
+  var data;
+  //ambil id source
+  if (source === 'user') {
+    id = event.source.userId;
+    //check if user already inserted to userId collection
+    MongoClient.connect('mongodb://rehre:akmal2340@ds053788.mlab.com:53788/katou', function(err, database) {
+      if (err) {
+        return client.replyMessage(token, {
+          type: 'text',
+          text: "Sambungan ke database error"
+        });
+      } else {
+        database.collection('userId').find({
+          "userId": id;
+        }).toArray(function(err, results) {
+          if (err) {
+            database.collection('userId').insertOne({
+              "userId": id,
+              "game": "",
+              "gameid": ""
+            }, function(err, result) {
+              if (err) {
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: "gagal menambahkan id ke database"
+                });
+              } else {
+                data = result;
+              }
+            });
+          } else {
+            data = results;
+          }
+        });
+      }
+    });
+  } else if (source === 'group') {
+    id = event.source.groupId;
+    //check if user already inserted to groupId collection
+    MongoClient.connect('mongodb://rehre:akmal2340@ds053788.mlab.com:53788/katou', function(err, database) {
+      if (err) {
+        return client.replyMessage(token, {
+          type: 'text',
+          text: "Sambungan ke database error"
+        });
+      } else {
+        database.collection('groupId').find({
+          "groupId": id;
+        }).toArray(function(err, results) {
+          if (err) {
+            database.collection('groupId').insertOne({
+              "groupId": id,
+              "game": "",
+              "gameid": ""
+            }, function(err, result) {
+              if (err) {
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: "gagal menambahkan id ke database"
+                });
+              } else {
+                data = result;
+              }
+            });
+          } else {
+            data = results;
+          }
+        });
+      }
+    });
   }
 
   //check id
   if (msgText.indexOf('Katou id') > -1) {
-    var angka = msgText.substr(13);
-
     return client.replyMessage(token, {
       type: 'text',
-      text: source+' : '+id
+      text: data;
     });
+  }
+
+  //return kosong bila msg type selain text
+  if (event.type !== 'message' || event.message.type !== 'text') {
+    return Promise.resolve(null);
   }
 
   //kalkulator

@@ -73,11 +73,17 @@ function handleEvent(event) {
       //games tekateki
       if (msgText.indexOf('Katou main tekateki') > -1) {
         myfunc.tekaTeki().then(function(tekatekiku){
-          dateGame = tekatekiku;
+          dataGame = tekatekiku;
           return client.replyMessage(token, {
             type: 'text',
-            text: dateGame[0].tekateki
+            text: dataGame[0].tekateki
           });
+        }, function(err) {
+          return client.replyMessage(token, {
+            type: 'text',
+            text: "errorr"
+          });
+          console.error('The promise was rejected', err, err.stack);
         });
       }
 

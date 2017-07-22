@@ -51,12 +51,21 @@ function handleEvent(event) {
           "userId": id
         }).toArray(function(err, results) {
           if (err) {
+            return client.replyMessage(token, {
+              type: 'text',
+              text: err
+            });
             db.collection('userId').save({"userid": id}, function(err, result) {
               if (err) {
-                console.log(err)
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: err
+                });
               } else {
-                console.log('saved to database');
-                res.redirect('/');
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: 'sukses ditambahakan'
+                });
               }
             });
           } else {

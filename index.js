@@ -72,7 +72,7 @@ function handleEvent(event) {
 
       //games tekateki
       if (msgText.indexOf('Katou main tekateki') > -1) {
-        myfunc.tekaTeki(userType, data[0][userType]).then(function(tekateki) {
+        myfunc.tekaTeki().then(function(tekateki) {
           return client.replyMessage(token, {
             type: 'text',
             text: tekaTeki[0].tekateki

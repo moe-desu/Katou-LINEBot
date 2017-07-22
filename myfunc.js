@@ -131,7 +131,7 @@ var checkId = function(type, id) {
   });
 }
 
-var tekaTeki = function(type, id) {
+var tekaTeki = function() {
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
     var collection = db.collection('tekateki');
 
@@ -171,19 +171,19 @@ var hapusIdGame = function(type, id) {
   });
 }
 
-// var data;
-// var data2;
-// tekaTeki('userId','123').then(function(items) {
-//   data = items;
-//   console.log(data);
-//   data2 = addidTekaTeki('user','123',items[0]._id).then(function(items){
-//     console.log(data2);
-//   }, function(err) {
-//     console.error('The promise was rejected', err, err.stack);
-//   });
-// }, function(err) {
-//   console.error('The promise was rejected', err, err.stack);
-// });
+var data;
+var data2;
+tekaTeki('userId','123').then(function(items) {
+  data = items;
+  console.log(items[0].tekateki);
+  data2 = addidTekaTeki('user','123',items[0]._id).then(function(items){
+    console.log(data2);
+  }, function(err) {
+    console.error('The promise was rejected', err, err.stack);
+  });
+}, function(err) {
+  console.error('The promise was rejected', err, err.stack);
+});
 
 exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;

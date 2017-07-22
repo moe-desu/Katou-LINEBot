@@ -46,7 +46,7 @@ function handleEvent(event) {
         });
       } else {
         database.collection('userId').find({
-          "userId": id;
+          "userId": id
         }).toArray(function(err, results) {
           if (err) {
             database.collection('userId').insertOne({
@@ -80,7 +80,7 @@ function handleEvent(event) {
         });
       } else {
         database.collection('groupId').find({
-          "groupId": id;
+          "groupId": id
         }).toArray(function(err, results) {
           if (err) {
             database.collection('groupId').insertOne({
@@ -109,7 +109,7 @@ function handleEvent(event) {
   if (msgText.indexOf('Katou id') > -1) {
     return client.replyMessage(token, {
       type: 'text',
-      text: data;
+      text: data
     });
   }
 

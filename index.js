@@ -56,7 +56,7 @@ function handleEvent(event) {
     if (data[0].game !== "") {
       return client.replyMessage(token, {
         type: 'text',
-        text: 'sedang main game id :'+data[0].gameid.$oid 
+        text: 'sedang main game id :'+data[0].gameid
       });
       if (data[0].game === "tekaTeki") {
 

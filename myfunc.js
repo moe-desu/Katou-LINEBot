@@ -192,20 +192,8 @@ var hapusIdGame = function(type, id) {
   });
 }
 
-// var data;
-// var data2;
-// checkId('user','123').then(function(hasil){
-//   tekaTeki().then(function(items) {
-//     data = items;
-//     console.log(items[0].tekateki);
-//     data2 = addidTekaTeki('user','123',items[0]._id).then(function(items){
-//       console.log(data2);
-//     }, function(err) {
-//       console.error('The promise was rejected', err, err.stack);
-//     });
-//   }, function(err) {
-//     console.error('The promise was rejected', err, err.stack);
-//   });
+// checkId('user','U0a3ed589559d8671cb59fd0d44cd892e').then(function(hasil){
+//   console.log(hasil);
 // }, function(err) {
 //   console.error('The promise was rejected', err, err.stack);
 // });

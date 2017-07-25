@@ -60,7 +60,7 @@ function handleEvent(event) {
           jawabanUser = jawabanUser.toLowerCase();
           myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban){
             if(jawabanUser === jawaban){
-              hapusIdGame(userType,data[0][userType]).then(function(data){
+              myfunc.hapusIdGame(userType,data[0][userType]).then(function(data){
                 return client.replyMessage(token, [{
                   type: 'text',
                   text: 'yey jawaban mu benar'
@@ -80,9 +80,9 @@ function handleEvent(event) {
 
         var jawabanTekaTeki;
         if(msgText.indexOf('Katou nyerah') > -1){
-          checkTekaTeki(data[0].gameid).then(function(jawaban){
+          myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban){
             jawabanTekaTeki = jawaban;
-            hapusIdGame(userType,data[0][userType]).then(function(data){
+            myfunc.hapusIdGame(userType,data[0][userType]).then(function(data){
               return client.replyMessage(token, [{
                 type: 'text',
                 text: 'Sayang sekali :( jawaban yang benar adalah : '+jawabanTekaTeki

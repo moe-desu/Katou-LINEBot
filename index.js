@@ -80,7 +80,14 @@ function handleEvent(event) {
             type: 'text',
             text: itemGame[0].teks
           }]);
-          myfunc.addidTekaTeki(userType,data[0][userType],itemGame[0]._id);
+          myfunc.addidTekaTeki(userType,data[0][userType],itemGame[0]._id).then(function(database){
+            return client.replyMessage(token, {
+              type: 'text',
+              text: database
+            });
+          }, function(err) {
+            console.error('The promise was rejected', err, err.stack);
+          });
         }, function(err) {
           console.error('The promise was rejected', err, err.stack);
         });

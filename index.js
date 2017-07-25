@@ -71,20 +71,21 @@ function handleEvent(event) {
       }
 
       //games tekateki
+      var itemtekaTeki;
       if (msgText.indexOf('Katou main tekateki') > -1) {
         myfunc.tekaTeki().then(function(itemGame){
-          return client.replyMessage(token, [{
-            type: 'text',
-            text: itemGame[0].tekateki
-          },{
-            type: 'text',
-            text: itemGame[0].teks
-          }]);
+          itemtekaTeki = itemGame;
           myfunc.addidTekaTeki('userId','U0a3ed589559d8671cb59fd0d44cd892e','123').then(function(database){
-            return client.replyMessage(token, {
+            return client.replyMessage(token, [{
               type: 'text',
-              text: 'berhasil '+database
-            });
+              text: itemGame[0].tekateki
+            },{
+              type: 'text',
+              text: itemGame[0].teks
+            },{
+              type: 'text',
+              text: database
+            }]);
           }, function(err) {
             console.error('The promise was rejected', err, err.stack);
           });

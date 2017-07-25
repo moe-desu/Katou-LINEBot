@@ -145,15 +145,25 @@ var tekaTeki = function() {
 
 var addidTekaTeki = function(type, id, idtekateki) {
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
-    var collection = db.collection('userId');
+    var collection = db.collection(type);
 
-    return collection.update({
-      "userId": id
-    }, {
-      "userId": id,
-      "game": "tekaTeki",
-      "gameid": idtekateki
-    });
+    if(type === "userId"){
+      return collection.update({
+        "userId": id
+      }, {
+        "userId": id,
+        "game": "tekaTeki",
+        "gameid": idtekateki
+      });
+    }else if(type === "groupId"){
+      return collection.update({
+        "groupId": id
+      }, {
+        "groupId": id,
+        "game": "tekaTeki",
+        "gameid": idtekateki
+      });
+    }
   });
 }
 

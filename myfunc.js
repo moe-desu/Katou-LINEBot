@@ -1,5 +1,6 @@
 var request = require('sync-request');
 const MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
 function shuffle(array) {
   var currentIndex = array.length,
@@ -167,6 +168,16 @@ var addidTekaTeki = function(type, id, idtekateki) {
   });
 }
 
+var checkTekaTeki = function(idTekateki){
+  return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db){
+    var collection = db.collection('tekateki');
+
+    return collection.find(ObjectId(idTekateki)).toArray().then(function(jawaban){
+      return jawaban[0].jawaban;
+    });
+  });
+}
+
 var hapusIdGame = function(type, id) {
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
     var collection = db.collection('userId');
@@ -199,9 +210,14 @@ var hapusIdGame = function(type, id) {
 //   console.error('The promise was rejected', err, err.stack);
 // });
 
+// checkTekaTeki('597323cef36d2812888d8b22').then(function(jawaban){
+//   console.log(jawaban);
+// });
+
 
 exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;
+exports.checkTekaTeki = checkTekaTeki;
 exports.hapusIdGame = hapusIdGame;
 exports.checkId = checkId;
 exports.cariLokasi = cariLokasi;

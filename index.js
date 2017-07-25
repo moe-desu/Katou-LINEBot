@@ -55,6 +55,7 @@ function handleEvent(event) {
     data = items;
     if (data[0].game !== "") {
       if (data[0].game === "tekaTeki") {
+        var jawabanTekaTeki;
         if(msgText.indexOf('Katou jawab') > -1){
           var jawabanUser = msgText.substr(12);
           jawabanUser = jawabanUser.toLowerCase();
@@ -81,10 +82,7 @@ function handleEvent(event) {
               });
             }
           });
-        }
-
-        var jawabanTekaTeki;
-        if(msgText.indexOf('Katou nyerah') > -1){
+        }else if(msgText.indexOf('Katou nyerah') > -1){
           myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban){
             jawabanTekaTeki = jawaban[0].jawaban;
             jawabanAlasan = jawaban[0].alasan;
@@ -100,6 +98,11 @@ function handleEvent(event) {
                 text: 'jika ingin bermain lagi ketik Katou main tekateki'
               }]);
             });
+          });
+        }else{
+          return client.replyMessage(token, {
+            type: 'text',
+            text: 'dijawab dulu teka teki diatas atau ketik katou nyerah'
           });
         }
       }

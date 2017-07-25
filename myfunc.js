@@ -200,12 +200,6 @@ var hapusIdGame = function(type, id) {
   });
 }
 
-checkTekaTeki("5976b114734d1d6202aa1240").then(function(jawaban){
-  console.log(jawaban)
-},function(err){
-
-});
-
 exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;
 exports.checkTekaTeki = checkTekaTeki;

@@ -54,12 +54,44 @@ function handleEvent(event) {
 
     data = items;
     if (data[0].game !== "") {
-      return client.replyMessage(token, {
-        type: 'text',
-        text: 'sedang main game id :'+data[0].gameid
-      });
       if (data[0].game === "tekaTeki") {
+        if(msgText.indexOf('Katou jawab') > -1){
+          msgText = msgText.toLowerCase();
+          myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban){
+            if(msgText === jawaban){
+              hapusIdGame(userType,data[0][userType]).then(function(data){
+                return client.replyMessage(token, [{
+                  type: 'text',
+                  text: 'yey jawaban mu benar'
+                },{
+                  type: 'text',
+                  text: 'jika ingin bermain lagi ketik Katou main tekateki'
+                }]);
+              });
+            }else{
+              return client.replyMessage(token, {
+                type: 'text',
+                text: 'Jawaban mu salah'
+              });
+            }
+          });
+        }
 
+        var jawabanTekaTeki;
+        if(msgText.indexOf('Katou nyerah') > -1){
+          checkId(userType,data[0][userType]).then(function(jawaban){
+            jawabanTekaTeki = jawaban;
+            hapusIdGame(userType,data[0][userType]).then(function(data){
+              return client.replyMessage(token, [{
+                type: 'text',
+                text: 'Sayang sekali :( jawaban yang benar adalah : '+jawabanTekaTeki
+              },{
+                type: 'text',
+                text: 'jika ingin bermain lagi ketik Katou main tekateki'
+              }]);
+            });
+          });
+        }
       }
     } else {
       //checkId

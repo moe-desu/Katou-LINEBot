@@ -180,27 +180,27 @@ var checkTekaTeki = function(idTekateki){
 
 var hapusIdGame = function(type, id) {
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
-    var collection = db.collection('userId');
+    var collection = db.collection(type);
 
-    return collection.update({
-      "userId": id
-    }, {
-      "userId": id,
-      "game": "",
-      "gameid": ""
-    });
+    if(type === 'userId'){
+      return collection.update({
+        "userId": id
+      }, {
+        "userId": id,
+        "game": "",
+        "gameid": ""
+      });
+    }else if(type === 'groupId'){
+      return collection.update({
+        "groupId": id
+      }, {
+        "groupId": id,
+        "game": "",
+        "gameid": ""
+      });
+    }
   });
 }
-
-// checkId('user','U0a3ed589559d8671cb59fd0d44cd892e').then(function(hasil){
-//   console.log(hasil);
-// }, function(err) {
-//   console.error('The promise was rejected', err, err.stack);
-// });
-
-// checkTekaTeki('597323cef36d2812888d8b22').then(function(jawaban){
-//   console.log(jawaban);
-// });
 
 
 exports.tekaTeki = tekaTeki;

@@ -64,9 +64,17 @@ function handleEvent(event) {
     } else {
       //checkId
       if (msgText.indexOf('Katou id') > -1) {
-        return client.replyMessage(token, {
-          type: 'text',
-          text: source + " : " + data[0][userType]
+        // return client.replyMessage(token, {
+        //   type: 'text',
+        //   text: source + " : " + data[0][userType]
+        // });
+        myfunc.addidTekaTeki('userId','U0a3ed589559d8671cb59fd0d44cd892e','123').then(function(database){
+          return client.replyMessage(token, {
+            type: 'text',
+            text: 'berhasil '+database
+          });
+        }, function(err) {
+          console.error('The promise was rejected', err, err.stack);
         });
       }
 
@@ -80,14 +88,6 @@ function handleEvent(event) {
             type: 'text',
             text: itemGame[0].teks
           }]);
-          myfunc.addidTekaTeki(userType,data[0][userType],itemGame[0]._id).then(function(database){
-            return client.replyMessage(token, {
-              type: 'text',
-              text: database
-            });
-          }, function(err) {
-            console.error('The promise was rejected', err, err.stack);
-          });
         }, function(err) {
           console.error('The promise was rejected', err, err.stack);
         });

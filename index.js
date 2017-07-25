@@ -82,9 +82,6 @@ function handleEvent(event) {
             },{
               type: 'text',
               text: itemtekaTeki[0].teks
-            },{
-              type: 'text',
-              text: database
             }]);
           }, function(err) {
             console.error('The promise was rejected', err, err.stack);

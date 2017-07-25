@@ -63,11 +63,11 @@ function handleEvent(event) {
           myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban){
             jawabanTekaTeki = jawaban[0].jawaban;
             jawabanAlasan = jawaban[0].alasan;
-            if(jawabanUser === jawabanTekaTeki){
+            if(jawabanUser === jawabanTekaTeki.toLowerCase()){
               myfunc.hapusIdGame(userType,data[0][userType]).then(function(data){
                 return client.replyMessage(token, [{
                   type: 'text',
-                  text: 'yey jawaban mu benar : '+jawabanTekaTeki
+                  text: 'yey jawaban mu benar : '+jawabanTekaTeki.toLowerCase()
                 },{
                   type: 'text',
                   text: jawabanAlasan
@@ -90,7 +90,7 @@ function handleEvent(event) {
             myfunc.hapusIdGame(userType,data[0][userType]).then(function(data){
               return client.replyMessage(token, [{
                 type: 'text',
-                text: 'jawaban yang benar adalah : '+jawabanTekaTeki
+                text: 'jawaban yang benar adalah : '+jawabanTekaTeki.toLowerCase()
               },{
                 type: 'text',
                 text: jawabanAlasan

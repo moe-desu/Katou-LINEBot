@@ -56,9 +56,10 @@ function handleEvent(event) {
     if (data[0].game !== "") {
       if (data[0].game === "tekaTeki") {
         if(msgText.indexOf('Katou jawab') > -1){
-          msgText = msgText.toLowerCase();
+          jawabanUser = msgText.substr(12);
+          jawabanUser = jawabanUser.toLowerCase();
           myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban){
-            if(msgText === jawaban){
+            if(jawabanUser === jawaban){
               hapusIdGame(userType,data[0][userType]).then(function(data){
                 return client.replyMessage(token, [{
                   type: 'text',
@@ -79,7 +80,7 @@ function handleEvent(event) {
 
         var jawabanTekaTeki;
         if(msgText.indexOf('Katou nyerah') > -1){
-          checkId(userType,data[0][userType]).then(function(jawaban){
+          checkTekaTeki(data[0].gameid).then(function(jawaban){
             jawabanTekaTeki = jawaban;
             hapusIdGame(userType,data[0][userType]).then(function(data){
               return client.replyMessage(token, [{

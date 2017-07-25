@@ -56,6 +56,7 @@ function handleEvent(event) {
     if (data[0].game !== "") {
       if (data[0].game === "tekaTeki") {
         var jawabanTekaTeki;
+        var jawabanAlasan;
         if(msgText.indexOf('Katou jawab') > -1){
           var jawabanUser = msgText.substr(12);
           jawabanUser = jawabanUser.toLowerCase();

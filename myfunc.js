@@ -172,7 +172,7 @@ var checkTekaTeki = function(idTekateki){
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db){
     var collection = db.collection('tekateki');
 
-    return collection.find(ObjectId(idTekateki));
+    return collection.find(ObjectId(idTekateki)).toArray();
   });
 }
 
@@ -200,6 +200,11 @@ var hapusIdGame = function(type, id) {
   });
 }
 
+checkTekaTeki("5976b114734d1d6202aa1240").then(function(jawaban){
+  console.log(jawaban)
+},function(err){
+
+});
 
 exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;

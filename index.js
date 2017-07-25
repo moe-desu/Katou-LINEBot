@@ -59,11 +59,16 @@ function handleEvent(event) {
           var jawabanUser = msgText.substr(12);
           jawabanUser = jawabanUser.toLowerCase();
           myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban){
-            if(jawabanUser === jawaban){
+            jawabanTekaTeki = jawaban[0].jawaban;
+            jawabanAlasan = jawaban[0].alasan;
+            if(jawabanUser === jawabanTekaTeki){
               myfunc.hapusIdGame(userType,data[0][userType]).then(function(data){
                 return client.replyMessage(token, [{
                   type: 'text',
-                  text: 'yey jawaban mu benar'
+                  text: 'yey jawaban mu benar : '+jawabanTekaTeki
+                },{
+                  type: 'text',
+                  text: jawabanAlasan
                 },{
                   type: 'text',
                   text: 'jika ingin bermain lagi ketik Katou main tekateki'
@@ -81,11 +86,15 @@ function handleEvent(event) {
         var jawabanTekaTeki;
         if(msgText.indexOf('Katou nyerah') > -1){
           myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban){
-            jawabanTekaTeki = jawaban;
+            jawabanTekaTeki = jawaban[0].jawaban;
+            jawabanAlasan = jawaban[0].alasan;
             myfunc.hapusIdGame(userType,data[0][userType]).then(function(data){
               return client.replyMessage(token, [{
                 type: 'text',
-                text: 'Sayang sekali :( jawaban yang benar adalah : '+jawabanTekaTeki
+                text: 'jawaban yang benar adalah : '+jawabanTekaTeki
+              },{
+                type: 'text',
+                text: jawabanAlasan
               },{
                 type: 'text',
                 text: 'jika ingin bermain lagi ketik Katou main tekateki'

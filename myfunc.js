@@ -172,9 +172,7 @@ var checkTekaTeki = function(idTekateki){
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db){
     var collection = db.collection('tekateki');
 
-    return collection.find(ObjectId(idTekateki)).toArray().then(function(jawaban){
-      return jawaban[0].jawaban;
-    });
+    return collection.find(ObjectId(idTekateki));
   });
 }
 

@@ -56,7 +56,7 @@ function handleEvent(event) {
     if (data[0].game !== "") {
       if (data[0].game === "tekaTeki") {
         if(msgText.indexOf('Katou jawab') > -1){
-          jawabanUser = msgText.substr(12);
+          jawabanUser = msgText.substr(13);
           jawabanUser = jawabanUser.toLowerCase();
           myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban){
             if(jawabanUser === jawaban){

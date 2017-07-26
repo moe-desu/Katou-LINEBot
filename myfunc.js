@@ -299,18 +299,9 @@ var stalkIg = function(keyword) {
           "type": "carousel",
           "columns": [{
             "thumbnailImageUrl": profile_pic,
-            "title": "this is menu",
-            "text": "description",
-            "actions": [{
-                "type": "postback",
-                "label": "Buy",
-                "data": "action=buy&itemid=111"
-              },
-              {
-                "type": "postback",
-                "label": "Add to cart",
-                "data": "action=add&itemid=111"
-              },
+            "title": username,
+            "text": deskripsi_profil,
+            "actions": [
               {
                 "type": "uri",
                 "label": "View detail",

@@ -315,7 +315,10 @@ var stalkIg = function(keyword) {
   }
 }
 
-// console.log(stalkIg('lalala'));
+// var data = stalkIg('lalala');
+//
+//
+// console.log(data.template.columns);
 
 exports.stalkIg = stalkIg;
 exports.tekaTeki = tekaTeki;

@@ -207,6 +207,7 @@ var hapusIdGame = function(type, id) {
 }
 
 var stalkIg = function(keyword) {
+  var jsonIg;
   var url = "https://www.instagram.com/" + keyword + "/?__a=1"
   var response = request(
     'GET',
@@ -240,7 +241,7 @@ var stalkIg = function(keyword) {
         var deskripsi_post = "Likes : " + likeCount + "\nComments : " + commentCount;
       }
 
-      return {
+      jsonIg = {
         type: "template",
         altText: "Stalk",
         template: {
@@ -289,9 +290,9 @@ var stalkIg = function(keyword) {
             }
           ]
         }
-      }
+      };
     } else {
-      return {
+      jsonIg = {
         type: "template",
         altText: "Stalk",
         template: {
@@ -308,8 +309,9 @@ var stalkIg = function(keyword) {
             ]
           }]
         }
-      }
+      };
     }
+    return jsonIg;
   }
 }
 

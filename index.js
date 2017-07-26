@@ -226,10 +226,7 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou stalk') > -1) {
           var keyword = msgText.substr(12);
           var objectIg = myfunc.stalkIg(keyword);
-          return client.replyMessage(token, {
-            type : "text",
-            text: objectIg
-          });
+          return client.replyMessage(token, JSON.stringify(objectIg));
         }
 
       }

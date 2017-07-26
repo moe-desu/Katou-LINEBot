@@ -23,7 +23,13 @@ function shuffle(array) {
 }
 
 var ramal = function() {
-  var ramalan = ['halo', 'hehe', 'lala'];
+  var ramalan = [
+    "Berhati-hatilah hari ini adalah hari tersial mu",
+    "Hari ini mungkin agak menyusahkan bagimu jadi berhati-hatilah",
+    "Hari ini mungkin kamu akan menemukan jodohmu",
+    "Hari ini mungkin akan sangat menguntungkan bagi keuanganmu",
+    "Tiada hari yang lebih baik dari hari ini bagimu"
+  ];
   var ramalanKocok = shuffle(ramalan);
   randomIndex = Math.floor(Math.random() * ramalanKocok.length);
   return ramalan[randomIndex];
@@ -148,7 +154,7 @@ var addidTekaTeki = function(type, id, idtekateki) {
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
     var collection = db.collection(type);
 
-    if(type === "userId"){
+    if (type === "userId") {
       return collection.update({
         "userId": id
       }, {
@@ -156,7 +162,7 @@ var addidTekaTeki = function(type, id, idtekateki) {
         "game": "tekaTeki",
         "gameid": idtekateki
       });
-    }else if(type === "groupId"){
+    } else if (type === "groupId") {
       return collection.update({
         "groupId": id
       }, {
@@ -168,8 +174,8 @@ var addidTekaTeki = function(type, id, idtekateki) {
   });
 }
 
-var checkTekaTeki = function(idTekateki){
-  return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db){
+var checkTekaTeki = function(idTekateki) {
+  return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
     var collection = db.collection('tekateki');
 
     return collection.find(ObjectId(idTekateki)).toArray();
@@ -180,7 +186,7 @@ var hapusIdGame = function(type, id) {
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
     var collection = db.collection(type);
 
-    if(type === 'userId'){
+    if (type === 'userId') {
       return collection.update({
         "userId": id
       }, {
@@ -188,7 +194,7 @@ var hapusIdGame = function(type, id) {
         "game": "",
         "gameid": ""
       });
-    }else if(type === 'groupId'){
+    } else if (type === 'groupId') {
       return collection.update({
         "groupId": id
       }, {
@@ -200,6 +206,114 @@ var hapusIdGame = function(type, id) {
   });
 }
 
+var stalkIg = function(keyword) {
+  var url = "https://www.instagram.com/" + keyword + "/?__a=1"
+  var response = request(
+    'GET',
+    url
+  );
+  if (response.statusCode == 200) {
+    var json = JSON.parse(response.getBody('utf8'));
+    var user = json.user;
+    var media = json.user.media;
+    var nodes = media.nodes;
+
+    var count = media.count;
+    var username = user.username;
+    var followers = user.followed_by;
+    var follows = user.follows;
+    var followers = followers.count;
+    var following = follows.count;
+    var profile_pic = user.profile_pic_url;
+    var is_private = user.is_private;
+    var profile_url = "https://www.instagram.com/" + username;
+
+    var deskripsi_profil = "Follow : " + following + "/nFollowers : " + followers;
+
+    if (count != '0' && is_private != 'true') {
+      for (i in nodes) {
+        var items = nodes[0];
+        var src = items.thumbnail_src;
+        var code = "https://www.instagram.com/p/" + items.code;
+        var commentCount = items.comments.count;
+        var likeCount = items.likes.count;
+        var deskripsi_post = "Likes : " + likeCount + "\nComments : " + commentCount;
+      }
+
+      return {
+        "type": "template",
+        "altText": "Stalk",
+        "template": {
+          "type": "carousel",
+          "columns": [{
+              "thumbnailImageUrl": profile_pic,
+              "title": username,
+              "text": deskripsi_profil,
+              "actions": [{
+                  "type": "uri",
+                  "label": "Ke profil",
+                  "data": profile_url
+                },
+                {
+                  "type": "uri",
+                  "label": "Ke postingan",
+                  "data": code
+                },
+                {
+                  "type": "uri",
+                  "label": "Download gambar post",
+                  "uri": src
+                }
+              ]
+            },
+            {
+              "thumbnailImageUrl": src,
+              "title": "Postingan Terakhir",
+              "text": deskripsi_post,
+              "actions": [{
+                  "type": "uri",
+                  "label": "Ke profil",
+                  "data": profile_url
+                },
+                {
+                  "type": "uri",
+                  "label": "Ke postingan",
+                  "data": code
+                },
+                {
+                  "type": "uri",
+                  "label": "Download gambar post",
+                  "uri": src
+                }
+              ]
+            }
+          ]
+        }
+      }
+    } else {
+      return {
+        "type": "template",
+        "altText": "Stalk",
+        "template": {
+          "type": "carousel",
+          "columns": [{
+            "thumbnailImageUrl": profile_pic,
+            "title": username,
+            "text": deskripsi_profil,
+            "actions": [{
+                "type": "uri",
+                "label": "Ke profil",
+                "data": profile_url
+              }
+            ]
+          }]
+        }
+      }
+    }
+  }
+}
+
+exports.stalkIg = stalkIg;
 exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;
 exports.checkTekaTeki = checkTekaTeki;

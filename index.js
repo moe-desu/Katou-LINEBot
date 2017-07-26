@@ -228,7 +228,7 @@ function handleEvent(event) {
           var objectIg = myfunc.stalkIg(keyword);
           return client.replyMessage(token, {
             type:"text",
-            text: objectIg.type
+            text: objectIg.template.columns[0]
           });
         }
 

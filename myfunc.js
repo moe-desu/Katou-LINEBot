@@ -258,7 +258,7 @@ var stalkIg = function(keyword) {
                 {
                   "type": "uri",
                   "label": "Ke Post",
-                  "data": code
+                  "data": profile_pic
                 },
                 {
                   "type": "uri",
@@ -268,7 +268,7 @@ var stalkIg = function(keyword) {
               ]
             },
             {
-              "thumbnailImageUrl": src,
+              "thumbnailImageUrl": profile_pic,
               "title": "Postingan Terakhir",
               "text": deskripsi_post,
               "actions": [{
@@ -279,7 +279,7 @@ var stalkIg = function(keyword) {
                 {
                   "type": "uri",
                   "label": "Ke Post",
-                  "data": code
+                  "data": profile_pic
                 },
                 {
                   "type": "uri",

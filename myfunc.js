@@ -229,8 +229,7 @@ var stalkIg = function(keyword) {
     var is_private = user.is_private;
     var profile_url = "https://www.instagram.com/" + username;
 
-    var deskripsi_profil = "Follow : " + following + "\
-    Followers : " + followers;
+    var deskripsi_profil = "Follow : " + following + "\nFollowers : " + followers;
 
     if (count != '0' && is_private != 'true') {
       for (i in nodes) {
@@ -239,54 +238,53 @@ var stalkIg = function(keyword) {
         var code = "https://www.instagram.com/p/" + items.code;
         var commentCount = items.comments.count;
         var likeCount = items.likes.count;
-        var deskripsi_post = "Likes : " + likeCount + "\
-        Comments : " + commentCount;
+        var deskripsi_post = "Likes : " + likeCount + "\nComments : " + commentCount;
       }
 
       jsonIg = {
-        type: "template",
-        altText: "Stalk",
-        template: {
-          type: "carousel",
-          columns: [{
-              thumbnailImageUrl: profile_pic,
-              title: username,
-              text: deskripsi_profil,
-              actions: [{
-                  type: "uri",
-                  label: "Ke profil",
-                  data: profile_url
+        "type": "template",
+        "altText": "this is a carousel template",
+        "template": {
+          "type": "carousel",
+          "columns": [{
+              "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+              "title": "this is menu",
+              "text": "description",
+              "actions": [{
+                  "type": "postback",
+                  "label": "Buy",
+                  "data": "action=buy&itemid=111"
                 },
                 {
-                  type: "uri",
-                  label: "Ke postingan",
-                  data: code
+                  "type": "postback",
+                  "label": "Add to cart",
+                  "data": "action=add&itemid=111"
                 },
                 {
-                  type: "uri",
-                  label: "Download gambar post",
-                  uri: src
+                  "type": "uri",
+                  "label": "View detail",
+                  "uri": "http://example.com/page/111"
                 }
               ]
             },
             {
-              thumbnailImageUrl: src,
-              title: "Postingan Terakhir",
-              text: deskripsi_post,
-              actions: [{
-                  type: "uri",
-                  label: "Ke profil",
-                  data: profile_url
+              "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+              "title": "this is menu",
+              "text": "description",
+              "actions": [{
+                  "type": "postback",
+                  "label": "Buy",
+                  "data": "action=buy&itemid=222"
                 },
                 {
-                  type: "uri",
-                  label: "Ke postingan",
-                  data: code
+                  "type": "postback",
+                  "label": "Add to cart",
+                  "data": "action=add&itemid=222"
                 },
                 {
-                  type: "uri",
-                  label: "Download gambar post",
-                  uri: src
+                  "type": "uri",
+                  "label": "View detail",
+                  "uri": "http://example.com/page/222"
                 }
               ]
             }
@@ -315,11 +313,6 @@ var stalkIg = function(keyword) {
     return jsonIg;
   }
 }
-
-// var data = stalkIg('lalala');
-//
-//
-// console.log(data.template.columns[0].actions);
 
 exports.stalkIg = stalkIg;
 exports.tekaTeki = tekaTeki;

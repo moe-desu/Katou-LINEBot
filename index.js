@@ -176,7 +176,7 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou ramal') > -1) {
           return client.replyMessage(token, {
             type: 'text',
-            text: myfunc.ramal
+            text: myfunc.ramal()
           });
         }
 

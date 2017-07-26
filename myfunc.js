@@ -314,6 +314,8 @@ var stalkIg = function(keyword) {
   }
 }
 
+console.log(ramal());
+
 exports.stalkIg = stalkIg;
 exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;

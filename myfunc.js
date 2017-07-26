@@ -229,7 +229,7 @@ var stalkIg = function(keyword) {
     var is_private = user.is_private;
     var profile_url = "https://www.instagram.com/" + username;
 
-    var deskripsi_profil = "Follow : " + following + "\nFollowers : " + followers;
+    var deskripsi_profil = "Following : " + following + "\nFollowers : " + followers;
 
     if (count != '0' && is_private != 'true') {
       for (i in nodes) {
@@ -243,48 +243,48 @@ var stalkIg = function(keyword) {
 
       jsonIg = {
         "type": "template",
-        "altText": "this is a carousel template",
+        "altText": "Stalk",
         "template": {
           "type": "carousel",
           "columns": [{
-              "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-              "title": "this is menu",
-              "text": "description",
+              "thumbnailImageUrl": profile_pic,
+              "title": username,
+              "text": deskripsi_profil,
               "actions": [{
-                  "type": "postback",
-                  "label": "Buy",
-                  "data": "action=buy&itemid=111"
-                },
-                {
-                  "type": "postback",
-                  "label": "Add to cart",
-                  "data": "action=add&itemid=111"
+                  "type": "uri",
+                  "label": "Ke Profil",
+                  "data": profile_url
                 },
                 {
                   "type": "uri",
-                  "label": "View detail",
-                  "uri": "http://example.com/page/111"
+                  "label": "Ke Post",
+                  "data": code
+                },
+                {
+                  "type": "uri",
+                  "label": "Download Gambar Post",
+                  "uri": profile_pic
                 }
               ]
             },
             {
-              "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-              "title": "this is menu",
-              "text": "description",
+              "thumbnailImageUrl": src,
+              "title": "Postingan Terakhir",
+              "text": deskripsi_post,
               "actions": [{
-                  "type": "postback",
-                  "label": "Buy",
-                  "data": "action=buy&itemid=222"
-                },
-                {
-                  "type": "postback",
-                  "label": "Add to cart",
-                  "data": "action=add&itemid=222"
+                  "type": "uri",
+                  "label": "Ke Profil",
+                  "data": profile_url
                 },
                 {
                   "type": "uri",
-                  "label": "View detail",
-                  "uri": "http://example.com/page/222"
+                  "label": "Ke Post",
+                  "data": code
+                },
+                {
+                  "type": "uri",
+                  "label": "Download Gambar Post",
+                  "uri": profile_pic
                 }
               ]
             }

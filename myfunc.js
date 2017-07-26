@@ -229,7 +229,8 @@ var stalkIg = function(keyword) {
     var is_private = user.is_private;
     var profile_url = "https://www.instagram.com/" + username;
 
-    var deskripsi_profil = "Follow : " + following + "/nFollowers : " + followers;
+    var deskripsi_profil = "Follow : " + following + "\
+    Followers : " + followers;
 
     if (count != '0' && is_private != 'true') {
       for (i in nodes) {
@@ -238,7 +239,8 @@ var stalkIg = function(keyword) {
         var code = "https://www.instagram.com/p/" + items.code;
         var commentCount = items.comments.count;
         var likeCount = items.likes.count;
-        var deskripsi_post = "Likes : " + likeCount + "\nComments : " + commentCount;
+        var deskripsi_post = "Likes : " + likeCount + "\
+        Comments : " + commentCount;
       }
 
       jsonIg = {
@@ -301,13 +303,11 @@ var stalkIg = function(keyword) {
             "thumbnailImageUrl": profile_pic,
             "title": username,
             "text": deskripsi_profil,
-            "actions": [
-              {
-                "type": "uri",
-                "label": "View detail",
-                "uri": "http://example.com/page/111"
-              }
-            ]
+            "actions": [{
+              "type": "uri",
+              "label": "Ke Profil",
+              "uri": profile_url
+            }]
           }]
         }
       };

@@ -253,38 +253,38 @@ var stalkIg = function(keyword) {
               "actions": [{
                   "type": "uri",
                   "label": "Ke Profil",
-                  "data": profile_url
+                  "uri": profile_url
                 },
                 {
                   "type": "uri",
                   "label": "Ke Post",
-                  "data": profile_pic
+                  "uri": code
                 },
                 {
                   "type": "uri",
                   "label": "Download Gambar Post",
-                  "uri": profile_pic
+                  "uri": src
                 }
               ]
             },
             {
-              "thumbnailImageUrl": profile_pic,
+              "thumbnailImageUrl": src,
               "title": "Postingan Terakhir",
               "text": deskripsi_post,
               "actions": [{
                   "type": "uri",
                   "label": "Ke Profil",
-                  "data": profile_url
+                  "uri": profile_url
                 },
                 {
                   "type": "uri",
                   "label": "Ke Post",
-                  "data": profile_pic
+                  "uri": code
                 },
                 {
                   "type": "uri",
                   "label": "Download Gambar Post",
-                  "uri": profile_pic
+                  "uri": src
                 }
               ]
             }

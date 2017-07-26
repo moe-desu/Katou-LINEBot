@@ -126,7 +126,7 @@ function handleEvent(event) {
         }
       } else {
         //katou merespon
-        if (msgText.indexOf('Katou') > -1) {
+        if (msgText === 'Katou') {
           return client.replyMessage(token, {
             type: 'text',
             text: 'iya'

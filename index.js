@@ -275,10 +275,7 @@ function handleEvent(event) {
               ]
             }
           };
-          return client.replyMessage(token, {
-            type: "text",
-            text: objectIg.template.columns[0].title
-          });
+          return client.replyMessage(token, objectIg);
         }
 
       }

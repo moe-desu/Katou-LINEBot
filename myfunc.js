@@ -241,49 +241,49 @@ var stalkIg = function(keyword) {
       }
 
       return {
-        "type": "template",
-        "altText": "Stalk",
-        "template": {
-          "type": "carousel",
-          "columns": [{
-              "thumbnailImageUrl": profile_pic,
-              "title": username,
-              "text": deskripsi_profil,
-              "actions": [{
-                  "type": "uri",
-                  "label": "Ke profil",
-                  "data": profile_url
+        type: "template",
+        altText: "Stalk",
+        template: {
+          type: "carousel",
+          columns: [{
+              thumbnailImageUrl: profile_pic,
+              title: username,
+              text: deskripsi_profil,
+              actions: [{
+                  type: "uri",
+                  label: "Ke profil",
+                  data: profile_url
                 },
                 {
-                  "type": "uri",
-                  "label": "Ke postingan",
-                  "data": code
+                  type: "uri",
+                  label: "Ke postingan",
+                  data: code
                 },
                 {
-                  "type": "uri",
-                  "label": "Download gambar post",
-                  "uri": src
+                  type: "uri",
+                  label: "Download gambar post",
+                  uri: src
                 }
               ]
             },
             {
-              "thumbnailImageUrl": src,
-              "title": "Postingan Terakhir",
-              "text": deskripsi_post,
-              "actions": [{
-                  "type": "uri",
-                  "label": "Ke profil",
-                  "data": profile_url
+              thumbnailImageUrl: src,
+              title: "Postingan Terakhir",
+              text: deskripsi_post,
+              actions: [{
+                  type: "uri",
+                  label: "Ke profil",
+                  data: profile_url
                 },
                 {
-                  "type": "uri",
-                  "label": "Ke postingan",
-                  "data": code
+                  type: "uri",
+                  label: "Ke postingan",
+                  data: code
                 },
                 {
-                  "type": "uri",
-                  "label": "Download gambar post",
-                  "uri": src
+                  type: "uri",
+                  label: "Download gambar post",
+                  uri: src
                 }
               ]
             }
@@ -292,18 +292,18 @@ var stalkIg = function(keyword) {
       }
     } else {
       return {
-        "type": "template",
-        "altText": "Stalk",
-        "template": {
-          "type": "carousel",
-          "columns": [{
-            "thumbnailImageUrl": profile_pic,
-            "title": username,
-            "text": deskripsi_profil,
-            "actions": [{
-                "type": "uri",
-                "label": "Ke profil",
-                "data": profile_url
+        type: "template",
+        altText: "Stalk",
+        template: {
+          type: "carousel",
+          columns: [{
+            thumbnailImageUrl: profile_pic,
+            title: username,
+            text: deskripsi_profil,
+            actions: [{
+                type: "uri",
+                label: "Ke profil",
+                data: profile_url
               }
             ]
           }]

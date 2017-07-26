@@ -225,7 +225,7 @@ function handleEvent(event) {
         //katou stalk ig
         if (msgText.indexOf('Katou stalk') > -1) {
           var keyword = msgText.substr(12);
-          return client.replyMessage(token, {
+          var tmpObj = {
             "type": "template",
             "altText": "this is a carousel template",
             "template": {
@@ -274,7 +274,8 @@ function handleEvent(event) {
                 }
               ]
             }
-          });
+          };
+          return client.replyMessage(token, tmpObj);
         }
 
       }

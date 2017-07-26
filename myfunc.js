@@ -313,7 +313,7 @@ var stalkIg = function(keyword) {
   }
 }
 
-console.log(stalkIg('lalala'));
+// console.log(stalkIg('lalala'));
 
 exports.stalkIg = stalkIg;
 exports.tekaTeki = tekaTeki;

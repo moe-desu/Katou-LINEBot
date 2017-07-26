@@ -209,25 +209,26 @@ function handleEvent(event) {
             latitude: location.latitude,
             longitude: location.longitude
           });
-
-          //katou tulis
-          if (msgText.indexOf('Katou tulis') > -1) {
-            var keyword = msgText.substr(12);
-            keyword = encodeURI(keyword);
-            return client.replyMessage(token, {
-              type: "image",
-              originalContentUrl: "https://chart.apis.google.com/chart?chs=300x50&cht=p3&chtt="+keyword+"&chts=FFFFFF,24&chf=bg,s,000000",
-              previewImageUrl: "https://chart.apis.google.com/chart?chs=300x50&cht=p3&chtt="+keyword+"&chts=FFFFFF,24&chf=bg,s,000000"
-            });
-          }
-
-          //katou stalk ig
-          if (msgText.indexOf('Katou stalk') > -1) {
-            var keyword = msgText.substr(12);
-            var objectIg = myfunc.stalkIg(keyword);
-            return client.replyMessage(token, objectIg);
-          }
         }
+
+        //katou tulis
+        if (msgText.indexOf('Katou tulis') > -1) {
+          var keyword = msgText.substr(12);
+          keyword = encodeURI(keyword);
+          return client.replyMessage(token, {
+            type: "image",
+            originalContentUrl: "https://chart.apis.google.com/chart?chs=300x50&cht=p3&chtt=" + keyword + "&chts=FFFFFF,24&chf=bg,s,000000",
+            previewImageUrl: "https://chart.apis.google.com/chart?chs=300x50&cht=p3&chtt=" + keyword + "&chts=FFFFFF,24&chf=bg,s,000000"
+          });
+        }
+
+        //katou stalk ig
+        if (msgText.indexOf('Katou stalk') > -1) {
+          var keyword = msgText.substr(12);
+          var objectIg = myfunc.stalkIg(keyword);
+          return client.replyMessage(token, objectIg);
+        }
+
       }
     }, function(err) {
       console.error('The promise was rejected', err, err.stack);

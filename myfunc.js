@@ -11,10 +11,12 @@ function shuffle(array) {
 
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
+
     currentIndex -= 1;
 
     // And swap it with the current element.
     temporaryValue = array[currentIndex];
+
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
@@ -99,6 +101,8 @@ var checkId = function(type, id) {
     userType = 'userId';
   } else if (type === 'group') {
     userType = 'groupId';
+  } else if (type === 'room') {
+    userType = 'roomId';
   }
   return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
     var collection = db.collection(userType);
@@ -125,6 +129,22 @@ var checkId = function(type, id) {
         if (hasil == false) {
           return collection.insert({
             "groupId": id,
+            "game": "",
+            "gameid": "",
+          }).then(function(hasilInsert) {
+            return hasilInsert.ops;
+          });
+        } else {
+          return hasil;
+        }
+      });
+    } else if (type === 'room') {
+      return collection.find({
+        "roomId": id
+      }).toArray().then(function(hasil) {
+        if (hasil == false) {
+          return collection.insert({
+            "roomId": id,
             "game": "",
             "gameid": "",
           }).then(function(hasilInsert) {
@@ -170,6 +190,14 @@ var addidTekaTeki = function(type, id, idtekateki) {
         "game": "tekaTeki",
         "gameid": idtekateki
       });
+    } else if (type === "roomId") {
+      return collection.update({
+        "roomId": id
+      }, {
+        "roomId": id,
+        "game": "tekaTeki",
+        "gameid": idtekateki
+      });
     }
   });
 }
@@ -199,6 +227,14 @@ var hapusIdGame = function(type, id) {
         "groupId": id
       }, {
         "groupId": id,
+        "game": "",
+        "gameid": ""
+      });
+    } else if (type === 'roomId') {
+      return collection.update({
+        "roomId": id
+      }, {
+        "roomId": id,
         "game": "",
         "gameid": ""
       });
@@ -314,8 +350,145 @@ var stalkIg = function(keyword) {
   }
 }
 
-console.log(ramal());
+var ubahAlay = function(teks) {
+  var teksKeyword = teks.toLowerCase();
 
+  var abjadBener = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z"
+  ];
+
+  var abjadAlay = [
+    "4",
+    "6",
+    "c",
+    "D",
+    "3",
+    "F",
+    "9",
+    "H",
+    "!",
+    "j",
+    "k",
+    "1",
+    "m",
+    "11",
+    "0",
+    "p",
+    "Q",
+    "12",
+    "s",
+    "7",
+    "v",
+    "V",
+    "w",
+    "*",
+    "y",
+    "z"
+  ];
+
+  var hasilConvert;
+
+  hasilConvert = teksKeyword
+    .replace(abjadBener[0], abjadAlay[0])
+    .replace(abjadBener[1], abjadAlay[1])
+    .replace(abjadBener[2], abjadAlay[2])
+    .replace(abjadBener[3], abjadAlay[3])
+    .replace(abjadBener[4], abjadAlay[4])
+    .replace(abjadBener[5], abjadAlay[5])
+    .replace(abjadBener[6], abjadAlay[6])
+    .replace(abjadBener[7], abjadAlay[7])
+    .replace(abjadBener[8], abjadAlay[8])
+    .replace(abjadBener[9], abjadAlay[9])
+    .replace(abjadBener[10], abjadAlay[10])
+    .replace(abjadBener[11], abjadAlay[11])
+    .replace(abjadBener[12], abjadAlay[12])
+    .replace(abjadBener[13], abjadAlay[13])
+    .replace(abjadBener[14], abjadAlay[14])
+    .replace(abjadBener[15], abjadAlay[15])
+    .replace(abjadBener[16], abjadAlay[16])
+    .replace(abjadBener[17], abjadAlay[17])
+    .replace(abjadBener[18], abjadAlay[18])
+    .replace(abjadBener[19], abjadAlay[19])
+    .replace(abjadBener[20], abjadAlay[20])
+    .replace(abjadBener[21], abjadAlay[21])
+    .replace(abjadBener[22], abjadAlay[22])
+    .replace(abjadBener[23], abjadAlay[23])
+    .replace(abjadBener[24], abjadAlay[24])
+    .replace(abjadBener[25], abjadAlay[25]);
+
+
+  return hasilConvert;
+}
+
+var translateAlay = function(teks) {
+  var teksKeyword = teks.toLowerCase();
+
+  var abjadAlay = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+  var abjadBener = ["4", "6", "c", "D", "3", "F", "9", "H", "!", "j", "k", "L", "m", "11", "0", "p", "Q", "12", "s", "7", "v", "V", "w", "*", "y", "z"];
+
+  var hasilConvert;
+
+  hasilConvert = teksKeyword
+    .replace(abjadBener[0], abjadAlay[0])
+    .replace(abjadBener[1], abjadAlay[1])
+    .replace(abjadBener[2], abjadAlay[2])
+    .replace(abjadBener[3], abjadAlay[3])
+    .replace(abjadBener[4], abjadAlay[4])
+    .replace(abjadBener[5], abjadAlay[5])
+    .replace(abjadBener[6], abjadAlay[6])
+    .replace(abjadBener[7], abjadAlay[7])
+    .replace(abjadBener[8], abjadAlay[8])
+    .replace(abjadBener[9], abjadAlay[9])
+    .replace(abjadBener[10], abjadAlay[10])
+    .replace(abjadBener[11], abjadAlay[11])
+    .replace(abjadBener[12], abjadAlay[12])
+    .replace(abjadBener[13], abjadAlay[13])
+    .replace(abjadBener[14], abjadAlay[14])
+    .replace(abjadBener[15], abjadAlay[15])
+    .replace(abjadBener[16], abjadAlay[16])
+    .replace(abjadBener[17], abjadAlay[17])
+    .replace(abjadBener[18], abjadAlay[18])
+    .replace(abjadBener[19], abjadAlay[19])
+    .replace(abjadBener[20], abjadAlay[20])
+    .replace(abjadBener[21], abjadAlay[21])
+    .replace(abjadBener[22], abjadAlay[22])
+    .replace(abjadBener[23], abjadAlay[23])
+    .replace(abjadBener[24], abjadAlay[24])
+    .replace(abjadBener[25], abjadAlay[25]);
+
+
+  return hasilConvert;
+}
+
+
+exports.ubahAlay = ubahAlay;
+exports.translateAlay = translateAlay;
 exports.stalkIg = stalkIg;
 exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;

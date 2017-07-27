@@ -53,11 +53,15 @@ function handleEvent(event) {
       userType = 'userId';
     } else if (source === 'group') {
       userType = 'groupId';
+    } else if (source === 'room') {
+      userType = 'roomId';
     }
     if (source === 'user') {
       id = event.source.userId;
     } else if (source === 'group') {
       id = event.source.groupId;
+    } else if (source === 'room') {
+      id = event.source.roomId;
     }
     var data;
     //ambil id source
@@ -227,6 +231,24 @@ function handleEvent(event) {
           var keyword = msgText.substr(12);
           var objectIg = myfunc.stalkIg(keyword);
           return client.replyMessage(token, objectIg);
+        }
+
+        //katou ubah alay
+        if (msgText.indexOf('Katou ubah alay') > -1) {
+          var keyword = msgText.substr(16);
+          return client.replyMessage(token, {
+            type: 'text',
+            text: myfunc.ubahAlay(keyword)
+          });
+        }
+
+        //katou terjemahkan alay
+        if (msgText.indexOf('Katou ubah alay') > -1) {
+          var keyword = msgText.substr(16);
+          return client.replyMessage(token, {
+            type: 'text',
+            text: myfunc.translateAlay(keyword);
+          });
         }
 
       }

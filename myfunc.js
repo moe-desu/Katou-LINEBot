@@ -541,6 +541,7 @@ var translateAlay = function(teks) {
 }
 
 
+
 exports.ubahAlay = ubahAlay;
 exports.translateAlay = translateAlay;
 exports.stalkIg = stalkIg;

@@ -448,9 +448,63 @@ var ubahAlay = function(teks) {
 var translateAlay = function(teks) {
   var teksKeyword = teks.toLowerCase();
 
-  var abjadAlay = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+  var abjadAlay = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z"
+  ];
 
-  var abjadBener = ["4", "6", "c", "D", "3", "F", "9", "H", "!", "j", "k", "L", "m", "11", "0", "p", "Q", "12", "s", "7", "v", "V", "w", "*", "y", "z"];
+  var abjadBener = [
+    "4",
+    "6",
+    "c",
+    "D",
+    "3",
+    "F",
+    "9",
+    "H",
+    "!",
+    "j",
+    "k",
+    "1",
+    "m",
+    "11",
+    "0",
+    "p",
+    "Q",
+    "12",
+    "s",
+    "7",
+    "v",
+    "V",
+    "w",
+    "*",
+    "y",
+    "z"
+  ];
 
   var hasilConvert;
 

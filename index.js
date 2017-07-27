@@ -243,8 +243,8 @@ function handleEvent(event) {
         }
 
         //katou terjemahkan alay
-        if (msgText.indexOf('Katou ubah alay') > -1) {
-          var keyword = msgText.substr(16);
+        if (msgText.indexOf('Katou terjemahkan alay') > -1) {
+          var keyword = msgText.substr(23);
           return client.replyMessage(token, {
             type: 'text',
             text: myfunc.translateAlay(keyword);

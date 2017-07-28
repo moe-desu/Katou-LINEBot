@@ -1,4 +1,5 @@
 var request = require('sync-request');
+var xmlParserString = require('xml2js').parseString;
 const MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 
@@ -540,8 +541,27 @@ var translateAlay = function(teks) {
   return hasilConvert;
 }
 
+var terjemahkan = function(keyword, lang) {
+  var key = "trnsl.1.1.20170707T101448Z.97d0be7226643896.37de4347e7f5ac433179a779aadeb974e50247b7";
+  var url = "https://translate.yandex.net/api/v1.5/tr/translate?key=" + key + "&text=" + keyword + "&lang=" + lang + "&format=plain&option="
+  var response = request(
+    'GET',
+    url
+  );
+  if (response.statusCode == 200) {
+    xmlParserString(response.body, function(err, result) {
+      if (err) {
+        return err;
+      } else {
+        var terjemahan = result['Translation']['text'];
+        return terjemahan;
+      }
+    });
+  }
+}
 
 
+exports.terjemahkan = terjemahkan;
 exports.ubahAlay = ubahAlay;
 exports.translateAlay = translateAlay;
 exports.stalkIg = stalkIg;

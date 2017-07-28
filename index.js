@@ -251,6 +251,16 @@ function handleEvent(event) {
           });
         }
 
+        //katou terjemahkan
+        if (msgText.indexOf('Katou terjemahkan') > -1) {
+          var lang = msgText.substr(18,5);
+          var keyword = msgText.substr(24);
+          return client.replyMessage(token, {
+            type: 'text',
+            text: myfunc.terjemahkan(keyword,lang)
+          });
+        }
+
       }
     }, function(err) {
       console.error('The promise was rejected', err, err.stack);

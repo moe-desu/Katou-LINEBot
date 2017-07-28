@@ -1,7 +1,9 @@
-var request = require('sync-request');
-var xmlParserString = require('xml2js').parseString;
+const request = require('sync-request');
 const MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectID;
+const ObjectId = require('mongodb').ObjectID;
+
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
 
 function shuffle(array) {
   var currentIndex = array.length,
@@ -549,14 +551,8 @@ var terjemahkan = function(keyword, lang) {
     url
   );
   if (response.statusCode == 200) {
-    xmlParserString(response.body, function(err, result) {
-      if (err) {
-        return err;
-      } else {
-        var terjemahan = result['Translation']['text'];
-        return terjemahan[0];
-      }
-    });
+    var dom = new JSDOM(response.body);
+    return dom.window.document.querySelector("Translation text").textContent;
   }
 }
 

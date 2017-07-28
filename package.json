@@ -17,8 +17,8 @@
   "dependencies": {
     "@line/bot-sdk": "^2.0.0",
     "express": "^4.15.3",
+    "jsdom": "^11.1.0",
     "mongodb": "^2.2.30",
-    "sync-request": "^4.1.0",
-    "xml2js": "^0.4.17"
+    "sync-request": "^4.1.0"
   }
 }

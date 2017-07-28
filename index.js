@@ -257,7 +257,7 @@ function handleEvent(event) {
           var keyword = msgText.substr(24);
           return client.replyMessage(token, {
             type: 'text',
-            text: myfunc.terjemahkan(keyword, lang);
+            text: myfunc.terjemahkan(keyword, lang)
           });
         }
 

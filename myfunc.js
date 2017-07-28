@@ -554,12 +554,11 @@ var terjemahkan = function(keyword, lang) {
         return err;
       } else {
         var terjemahan = result['Translation']['text'];
-        return terjemahan;
+        return terjemahan[0];
       }
     });
   }
 }
-
 
 exports.terjemahkan = terjemahkan;
 exports.ubahAlay = ubahAlay;

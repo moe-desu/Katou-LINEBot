@@ -556,6 +556,27 @@ var terjemahkan = function(keyword, lang) {
   }
 }
 
+var weather = function(keyword){
+  var url = "http://api.openweathermap.org/data/2.5/weather?q="+keyword+"&units=metric&APPID=2505c1215671faf783b59b44620d4218";
+  var response = request(
+    'GET',
+    url
+  );
+  if(response.statusCode == 200){
+    var json = JSON.parse(response.getBody('utf8'));
+
+    var name = json.name;
+    var suhu = json.main.temp+' C';
+    var kelembaban = json.main.humidity+' %';
+    var tekanan = json.main.pressure+' HPa';
+    var kecepatan_angin = json.wind.speed+' C';
+
+    var cuaca = "Temperatur di kota "+name+" : "+suhu+", Kelembaban : "+kelembaban+", Tekanan udara : "+tekanan+", dan Kecepatan angin : "+kecepatan_angin;
+    return cuaca;
+  }
+}
+
+exports.weather = weather;
 exports.terjemahkan = terjemahkan;
 exports.ubahAlay = ubahAlay;
 exports.translateAlay = translateAlay;

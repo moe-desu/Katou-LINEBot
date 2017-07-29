@@ -262,6 +262,15 @@ function handleEvent(event) {
           });
         }
 
+        //katou cuaca
+        if (msgText.indexOf('Katou cuaca') > -1) {
+          var keyword = msgText.substr(12);
+          return client.replyMessage(token, {
+            type: 'text',
+            text: myfunc.weather(keyword);
+          });
+        }
+
       }
     }, function(err) {
       console.error('The promise was rejected', err, err.stack);

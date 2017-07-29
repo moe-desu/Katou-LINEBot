@@ -267,7 +267,7 @@ function handleEvent(event) {
           var keyword = msgText.substr(12);
           return client.replyMessage(token, {
             type: 'text',
-            text: myfunc.weather(keyword);
+            text: myfunc.weather(keyword)
           });
         }
 

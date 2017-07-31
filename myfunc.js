@@ -576,6 +576,38 @@ var weather = function(keyword){
   }
 }
 
+var search9gag = function(keyword){
+  var url ="https://9gag.com/"+keyword;
+  var response = request(
+    'GET',
+    url
+  );
+  if(response.statusCode == 200){
+    var dom = new JSDOM(response.body);
+    const document = dom.window.document;
+    const bodyEl = document.body;
+    var image = bodyEl.querySelectorAll(".badge-item-img");
+    var title = [];
+    var img = [];
+
+    for(i = 0; i < image.length; i++){
+      title.push(image[i].getAttribute('alt'));
+    }
+
+    for(i = 0; i < image.length; i++){
+      img.push(image[i].getAttribute('src'));
+    }
+
+    var rand = Math.floor(Math.random() * image.length);
+
+    return {
+      memeTitle: title[rand],
+      memeImg: img[rand]
+    };
+  }
+}
+
+exports.search9gag = search9gag;
 exports.weather = weather;
 exports.terjemahkan = terjemahkan;
 exports.ubahAlay = ubahAlay;

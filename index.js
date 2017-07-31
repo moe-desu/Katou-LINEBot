@@ -271,6 +271,33 @@ function handleEvent(event) {
           });
         }
 
+        //katou 9gag keyword
+        if (msgText.indexOf('Katou 9gag') > -1) {
+          var keyword = msgText.substr(11);
+          var items9gag = search9gag(keyword);
+          return client.replyMessage(token, [{
+            type: 'text',
+            text: items9gag.memeTitle
+          },{
+            type: 'image',
+            originalContentUrl: items9gag.memeImg,
+            previewImageUrl: items9gag.memeImg
+          }]);
+        }
+
+        //katou 9ga
+        if (msgText.indexOf('Katou 9gag') > -1) {
+          var items9gag = search9gag('hot');
+          return client.replyMessage(token, [{
+            type: 'text',
+            text: items9gag.memeTitle
+          },{
+            type: 'image',
+            originalContentUrl: items9gag.memeImg,
+            previewImageUrl: items9gag.memeImg
+          }]);
+        }
+
       }
     }, function(err) {
       console.error('The promise was rejected', err, err.stack);

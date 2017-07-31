@@ -274,7 +274,7 @@ function handleEvent(event) {
         //katou 9gag keyword
         if (msgText.indexOf('Katou 9gag') > -1) {
           var keyword = msgText.substr(11);
-          var items9gag = search9gag(keyword);
+          var items9gag = myfunc.search9gag(keyword);
           return client.replyMessage(token, [{
             type: 'text',
             text: items9gag.memeTitle
@@ -287,11 +287,15 @@ function handleEvent(event) {
 
         //katou 9gag
         if (msgText === 'Katou 9gag') {
-          var items9gag = search9gag('hot');
+          var items9gag = myfunc.search9gag('hot');
           return client.replyMessage(token, [{
             type: 'text',
-            text: items9gag.memeTitle + items9gag.memeImg;
-          });
+            text: items9gag.memeTitle
+          },{
+            type: 'image',
+            originalContentUrl: items9gag.memeImg,
+            previewImageUrl: items9gag.memeImg
+          }]);
         }
 
       }

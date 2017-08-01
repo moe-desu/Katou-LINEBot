@@ -321,6 +321,24 @@ function handleEvent(event) {
           });
         }
 
+        //katou cari gambar
+        if (msgText.indexOf('Katou cari gambar ') > -1) {
+          var keyword = msgText.substr(18);
+          var itemsGambar = myfunc.searchImg(keyword);
+          if (itemsGambar === 'error') {
+            return client.replyMessage(token, {
+              type: 'text',
+              text: 'Gambar gagal ditemukan atau LIMIT'
+            });
+          } else {
+            return client.replyMessage(token, {
+              type: 'image',
+              originalContentUrl: itemsGambar,
+              previewImageUrl: itemsGambar
+            });
+          }
+        }
+
       }
     }, function(err) {
       console.error('The promise was rejected', err, err.stack);

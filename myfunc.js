@@ -670,6 +670,42 @@ var youtubeGetUrlVideo = function(keyword) {
   }
 }
 
+var searchImg = function(keyword) {
+  var replaced = keyword.replace(/ /g, '+');
+  var key = "AIzaSyDlrK6kokD3dDhSoWQKCz3oMAaJMCqaQqM";
+  var qry = replaced;
+  var cx = "016498147224075515320:ukepxzq_vus";
+  var fileType = "png,jpg";
+  var searchType = "image";
+  var url = "https://www.googleapis.com/customsearch/v1?key=" + key + "&cx=" + cx + "&q=" + qry + "&fileType=" + fileType + "&searchType=" + searchType + "&num=10&safe=high&alt=json";
+  var response = request(
+    'GET',
+    url
+  );
+  if (response.statusCode == 200) {
+    var json = JSON.parse(response.getBody('utf8'));
+    var items = json.items;
+
+    var link = [];
+    for (i in items) {
+      link.push(items[i].link);
+    }
+
+    var rand = Math.floor(Math.random() * items.length);
+    var urlImg = link[rand];
+    var httpnya = urlImg.substr(0, 5);
+    if (httpnya === "http:") {
+      urlImg = urlImg.replace('http', 'https');
+    }
+
+    return urlImg;
+  } else {
+    return 'error'
+  }
+}
+
+//fungsi normal
+exports.searchImg = searchImg;
 exports.youtubeGetUrlVideo = youtubeGetUrlVideo;
 exports.youtubeMusic = youtubeMusic;
 exports.search9gag = search9gag;
@@ -678,11 +714,13 @@ exports.terjemahkan = terjemahkan;
 exports.ubahAlay = ubahAlay;
 exports.translateAlay = translateAlay;
 exports.stalkIg = stalkIg;
-exports.tekaTeki = tekaTeki;
-exports.addidTekaTeki = addidTekaTeki;
-exports.checkTekaTeki = checkTekaTeki;
-exports.hapusIdGame = hapusIdGame;
 exports.checkId = checkId;
 exports.cariLokasi = cariLokasi;
 exports.ramal = ramal;
 exports.wiki = wiki;
+
+//fungsi game
+exports.tekaTeki = tekaTeki;
+exports.addidTekaTeki = addidTekaTeki;
+exports.checkTekaTeki = checkTekaTeki;
+exports.hapusIdGame = hapusIdGame;

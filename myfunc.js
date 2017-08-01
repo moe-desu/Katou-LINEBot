@@ -3,7 +3,9 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 
 const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
+const {
+  JSDOM
+} = jsdom;
 
 function shuffle(array) {
   var currentIndex = array.length,
@@ -556,44 +558,44 @@ var terjemahkan = function(keyword, lang) {
   }
 }
 
-var weather = function(keyword){
-  var url = "http://api.openweathermap.org/data/2.5/weather?q="+keyword+"&units=metric&APPID=2505c1215671faf783b59b44620d4218";
+var weather = function(keyword) {
+  var url = "http://api.openweathermap.org/data/2.5/weather?q=" + keyword + "&units=metric&APPID=2505c1215671faf783b59b44620d4218";
   var response = request(
     'GET',
     url
   );
-  if(response.statusCode == 200){
+  if (response.statusCode == 200) {
     var json = JSON.parse(response.getBody('utf8'));
 
     var name = json.name;
-    var suhu = json.main.temp+' C';
-    var kelembaban = json.main.humidity+' %';
-    var tekanan = json.main.pressure+' HPa';
-    var kecepatan_angin = json.wind.speed+' C';
+    var suhu = json.main.temp + ' C';
+    var kelembaban = json.main.humidity + ' %';
+    var tekanan = json.main.pressure + ' HPa';
+    var kecepatan_angin = json.wind.speed + ' C';
 
-    var cuaca = "Temperatur di kota "+name+" : "+suhu+", Kelembaban : "+kelembaban+", Tekanan udara : "+tekanan+", dan Kecepatan angin : "+kecepatan_angin;
+    var cuaca = "Temperatur di kota " + name + " : " + suhu + ", Kelembaban : " + kelembaban + ", Tekanan udara : " + tekanan + ", dan Kecepatan angin : " + kecepatan_angin;
     return cuaca;
   }
 }
 
-var search9gag = function(keyword){
-  var url ="https://9gag.com/"+keyword;
+var search9gag = function(keyword) {
+  var url = "https://9gag.com/" + keyword;
   var response = request(
     'GET',
     url
   );
-  if(response.statusCode == 200){
+  if (response.statusCode == 200) {
     var dom = new JSDOM(response.body);
     const bodyEl = document.body;
     var image = bodyEl.querySelectorAll(".badge-item-img");
     var title = [];
     var img = [];
 
-    for(i = 0; i < image.length; i++){
+    for (i = 0; i < image.length; i++) {
       title.push(image[i].getAttribute('alt'));
     }
 
-    for(i = 0; i < image.length; i++){
+    for (i = 0; i < image.length; i++) {
       img.push(image[i].getAttribute('src'));
     }
 
@@ -606,14 +608,14 @@ var search9gag = function(keyword){
   }
 }
 
-var youtubeMusic = function(keyword){
+var youtubeMusic = function(keyword) {
   var replaced = keyword.replace(/ /g, '+');
-  var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q="+replaced+"&type=video&key=AIzaSyDlrK6kokD3dDhSoWQKCz3oMAaJMCqaQqM";
+  var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=" + replaced + "&type=video&key=AIzaSyDlrK6kokD3dDhSoWQKCz3oMAaJMCqaQqM";
   var response = request(
     'GET',
     url
   );
-  if(response.statusCode == 200){
+  if (response.statusCode == 200) {
     var json = JSON.parse(response.getBody('utf8'));
     var videoId = json.items[0].id.videoId;
     var title = json.items[0].snippet.title;
@@ -624,8 +626,6 @@ var youtubeMusic = function(keyword){
     };
   }
 }
-
-console.log(youtubeMusic(' shinzou wo sasageyo'));
 
 exports.youtubeMusic = youtubeMusic;
 exports.search9gag = search9gag;

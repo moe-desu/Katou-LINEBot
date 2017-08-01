@@ -278,7 +278,7 @@ function handleEvent(event) {
           return client.replyMessage(token, [{
             type: 'text',
             text: items9gag.memeTitle
-          },{
+          }, {
             type: 'image',
             originalContentUrl: items9gag.memeImg,
             previewImageUrl: items9gag.memeImg
@@ -291,7 +291,7 @@ function handleEvent(event) {
           return client.replyMessage(token, [{
             type: 'text',
             text: items9gag.memeTitle
-          },{
+          }, {
             type: 'image',
             originalContentUrl: items9gag.memeImg,
             previewImageUrl: items9gag.memeImg
@@ -302,11 +302,11 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou download musik') > -1) {
           var keyword = msgText.substr(21);
           var itemsMusic = myfunc.youtubeMusic(keyword);
-          var linkDownload = "Link : http://mp3you.tube/get/?direct=https://www.youtube.com/watch?v="+itemsMusic.id;
-          var messageLink = itemsMusic.judul+"\n\n"+linkDownload;
-          return client.replyMessage(token,{
+          var linkDownload = "Link : http://mp3you.tube/get/?direct=https://www.youtube.com/watch?v=" + itemsMusic.id;
+          var messageLink = itemsMusic.judul + "\n\n" + linkDownload;
+          return client.replyMessage(token, {
             type: 'text',
-            text: itemsMusic.id
+            text: messageLink
           });
         }
 

@@ -584,7 +584,6 @@ var search9gag = function(keyword){
   );
   if(response.statusCode == 200){
     var dom = new JSDOM(response.body);
-    const document = dom.window.document;
     const bodyEl = document.body;
     var image = bodyEl.querySelectorAll(".badge-item-img");
     var title = [];
@@ -607,6 +606,26 @@ var search9gag = function(keyword){
   }
 }
 
+var youtubeMusic = function(keyword){
+  var replaced = keyword.replace(/ /g, '+');
+  var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q="+replaced+"&type=video&key=AIzaSyDlrK6kokD3dDhSoWQKCz3oMAaJMCqaQqM";
+  var response = request(
+    'GET',
+    url
+  );
+  if(response.statusCode == 200){
+    var json = JSON.parse(response.getBody('utf8'));
+    var videoId = json.items[0].id.videoId;
+    var title = json.items[0].snippet.title;
+
+    return {
+      id: videoId,
+      judul: title
+    };
+  }
+}
+
+exports.youtubeMusic = youtubeMusic;
 exports.search9gag = search9gag;
 exports.weather = weather;
 exports.terjemahkan = terjemahkan;

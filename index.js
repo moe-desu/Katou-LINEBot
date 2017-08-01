@@ -32,12 +32,12 @@ function handleEvent(event) {
     if (event.source.type === 'group') {
       return client.replyMessage(token, {
         type: 'text',
-        text: 'Halo Semuanya silahkan ketik \'Katou keyword\' untuk melihat keyword :D \nJika ada masalah silahkan kontak :\nCreated by : Rehre(id:akl2340 18 tahun) ig: _rehre\nBot ini diciptakan untuk memenuhi kebutuhan personal'
+        text: 'Halo Semuanya silahkan ketik \'Katou keyword\' untuk melihat keyword :D \n\nJika ada masalah silahkan kontak :\nCreated by : Rehre(id:akl2340) 18 tahun ig: _rehre\nBot ini diciptakan untuk memenuhi kebutuhan personal'
       });
     } else if (event.source.type === 'room') {
       return client.replyMessage(token, {
         type: 'text',
-        text: 'Halo Semuanya silahkan ketik \'Katou keyword\' untuk melihat keyword :D \nJika ada masalah silahkan kontak :\nCreated by : Rehre(id:akl2340 18 tahun) ig: _rehre\nBot ini diciptakan untuk memenuhi kebutuhan personal'
+        text: 'Halo Semuanya silahkan ketik \'Katou keyword\' untuk melihat keyword :D \n\nJika ada masalah silahkan kontak :\nCreated by : Rehre(id:akl2340) 18 tahun ig: _rehre\nBot ini diciptakan untuk memenuhi kebutuhan personal'
       });
     }
   } else if (event.type === 'message') {
@@ -102,7 +102,7 @@ function handleEvent(event) {
                 });
               }
             });
-          } else if (msgText.indexOf('Katou nyerah') > -1) {
+          } else if (msgText === 'Katou nyerah') {
             myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban) {
               jawabanTekaTeki = jawaban[0].jawaban;
               jawabanAlasan = jawaban[0].alasan;
@@ -123,7 +123,7 @@ function handleEvent(event) {
             if (msgText.indexOf('Katou') > -1) {
               return client.replyMessage(token, {
                 type: 'text',
-                text: 'dijawab dulu teka teki diatas atau ketik katou nyerah'
+                text: 'dijawab dulu teka teki diatas atau ketik Katou nyerah'
               });
             }
           }
@@ -138,7 +138,7 @@ function handleEvent(event) {
         }
 
         //checkId
-        if (msgText.indexOf('Katou id') > -1) {
+        if (msgText === 'Katou id') {
           return client.replyMessage(token, {
             type: 'text',
             text: source + " : " + data[0][userType]
@@ -147,7 +147,7 @@ function handleEvent(event) {
 
         //games tekateki
         var itemtekaTeki;
-        if (msgText.indexOf('Katou main tekateki') > -1) {
+        if (msgText === 'Katou main tekateki') {
           myfunc.tekaTeki().then(function(itemGame) {
             itemtekaTeki = itemGame;
             myfunc.addidTekaTeki(userType, data[0][userType], itemtekaTeki[0]._id).then(function(database) {
@@ -177,7 +177,7 @@ function handleEvent(event) {
         }
 
         //ramal
-        if (msgText.indexOf('Katou ramal') > -1) {
+        if (msgText === 'Katou ramal') {
           return client.replyMessage(token, {
             type: 'text',
             text: myfunc.ramal()
@@ -296,6 +296,18 @@ function handleEvent(event) {
             originalContentUrl: items9gag.memeImg,
             previewImageUrl: items9gag.memeImg
           }]);
+        }
+
+        //katou download musik
+        if (msgText.indexOf('Katou download musik') > -1) {
+          var keyword = msgText.substr(21);
+          var itemsMusic = myfunc.youtubeMusic(keyword);
+          var linkDownload = "Link : http://mp3you.tube/get/?direct=https://www.youtube.com/watch?v="+itemsMusic.id;
+          var messageLink = itemsMusic.title+"\n\n"+linkDownload;
+          return client.replyMessage(token,{
+            type: 'text',
+            text: messageLink
+          });
         }
 
       }

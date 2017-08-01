@@ -1,6 +1,7 @@
 const request = require('sync-request');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
+const cheerio = require('cheerio');
 
 const jsdom = require('jsdom');
 const {
@@ -586,7 +587,7 @@ var search9gag = function(keyword) {
   );
   if (response.statusCode == 200) {
     var dom = new JSDOM(response.body);
-    const bodyEl = document.body;
+    const bodyEl = dom.window.document.body;
     var image = bodyEl.querySelectorAll(".badge-item-img");
     var title = [];
     var img = [];
@@ -627,6 +628,49 @@ var youtubeMusic = function(keyword) {
   }
 }
 
+function youtubeVideo(key) {
+  var replaced = key.replace(/ /g, '+');
+  var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&order=relevance&q=" + replaced + "&type=video&safeSearch=strict&key=AIzaSyDlrK6kokD3dDhSoWQKCz3oMAaJMCqaQqM";
+  var response = request(
+    'GET',
+    url
+  );
+  var videoId = [];
+  var thumbnails = [];
+  if (response.statusCode == 200) {
+    var json = JSON.parse(response.getBody('utf8'));
+    var items = json.items;
+    for (i in items) {
+      videoId.push(json.items[i].id.videoId);
+      thumbnails.push(json.items[i].snippet.thumbnails.default.url);
+    }
+
+    var rand = Math.floor(Math.random() * items.length);
+    return {
+      id: videoId[rand],
+      gambar: thumbnails[rand]
+    };
+  }
+}
+
+var youtubeGetUrlVideo = function(keyword) {
+  var itemsVideo = youtubeVideo(keyword);
+  var url = "http://keepvid.com/?url=http%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3D" + itemsVideo.id;
+  var response = request(
+    'GET',
+    url
+  );
+  if (response.statusCode == 200) {
+    const $ = cheerio.load(response.getBody('utf8'));
+    var linkVideo = $('td:contains(480p)').parent().children().last().children().attr('href');
+    return {
+      video: linkVideo,
+      thumbnail: itemsVideo.gambar
+    };
+  }
+}
+
+exports.youtubeGetUrlVideo = youtubeGetUrlVideo;
 exports.youtubeMusic = youtubeMusic;
 exports.search9gag = search9gag;
 exports.weather = weather;

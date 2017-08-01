@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@line/bot-sdk": "^2.0.0",
+    "cheerio": "^1.0.0-rc.2",
     "express": "^4.15.3",
     "jsdom": "^11.1.0",
     "mongodb": "^2.2.30",

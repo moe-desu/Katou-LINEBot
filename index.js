@@ -310,6 +310,17 @@ function handleEvent(event) {
           });
         }
 
+        //katou cari video
+        if (msgText.indexOf('Katou cari video') > -1) {
+          var keyword = msgText.substr(17);
+          var itemsVideo = myfunc.youtubeGetUrlVideo(keyword);
+          return client.replyMessage(token, {
+            type: 'video',
+            "originalContentUrl": itemsVideo.video,
+            "previewImageUrl": itemsVideo.thumbnail
+          });
+        }
+
       }
     }, function(err) {
       console.error('The promise was rejected', err, err.stack);

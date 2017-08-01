@@ -306,7 +306,7 @@ function handleEvent(event) {
           var messageLink = itemsMusic.judul+"\n\n"+linkDownload;
           return client.replyMessage(token,{
             type: 'text',
-            text: messageLink
+            text: itemsMusic.id
           });
         }
 

@@ -625,6 +625,8 @@ var youtubeMusic = function(keyword){
   }
 }
 
+console.log(youtubeMusic(' shinzou wo sasageyo'));
+
 exports.youtubeMusic = youtubeMusic;
 exports.search9gag = search9gag;
 exports.weather = weather;

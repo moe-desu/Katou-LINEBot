@@ -303,7 +303,7 @@ function handleEvent(event) {
           var keyword = msgText.substr(21);
           var itemsMusic = myfunc.youtubeMusic(keyword);
           var linkDownload = "Link : http://mp3you.tube/get/?direct=https://www.youtube.com/watch?v="+itemsMusic.id;
-          var messageLink = itemsMusic.title+"\n\n"+linkDownload;
+          var messageLink = itemsMusic.judul+"\n\n"+linkDownload;
           return client.replyMessage(token,{
             type: 'text',
             text: messageLink

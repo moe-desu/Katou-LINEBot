@@ -403,28 +403,28 @@ function handleEvent(event) {
                           "actions": [{
                               "type": "uri",
                               "label": "Ke Profile",
-                              "data": "https://osu.ppy.sh/u/"+profile[0].user_id
+                              "data": "http://example.com/page/111"
                             },
                             {
                               "type": "uri",
                               "label": "Download Recent Beatmap",
-                              "uri": "https://osu.ppy.sh/d/"+recent[0].beatmap_id
+                              "uri": "http://example.com/page/111"
                             }
                           ]
                         },
                         {
                           "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                          "title": "Beatmap Terakhir Dimainkan",
+                          "title": "this is menu",
                           "text": deskripsi_profil,
                           "actions": [{
-                              "type": "uri",
+                              "type": "postback",
                               "label": "Ke Profile",
-                              "data": "https://osu.ppy.sh/u/"+profile[0].user_id
+                              "data": "action=add&itemid=222"
                             },
                             {
                               "type": "uri",
                               "label": "Download Recent Beatmap",
-                              "uri": "https://osu.ppy.sh/d/"+recent[0].beatmap_id
+                              "uri": "http://example.com/page/222"
                             }
                           ]
                         }

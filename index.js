@@ -206,7 +206,7 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou cari lokasi') > -1) {
           var keyword = msgText.substr(18);
           var location = myfunc.cariLokasi(keyword);
-          if(location.err === undefined){
+          if (location.err === undefined) {
             return client.replyMessage(token, {
               type: "location",
               title: keyword,
@@ -214,7 +214,7 @@ function handleEvent(event) {
               latitude: location.latitude,
               longitude: location.longitude
             });
-          }else{
+          } else {
             return client.replyMessage(token, {
               type: 'text',
               text: location.kata
@@ -237,9 +237,9 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou stalk') > -1) {
           var keyword = msgText.substr(12);
           var objectIg = myfunc.stalkIg(keyword);
-          if(objectIg.err === undefined){
+          if (objectIg.err === undefined) {
             return client.replyMessage(token, objectIg);
-          }else{
+          } else {
             return client.replyMessage(token, {
               type: 'text',
               text: objectIg.kata
@@ -290,7 +290,7 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou 9gag') > -1) {
           var keyword = msgText.substr(11);
           var items9gag = myfunc.search9gag(keyword);
-          if(items9gag.err === undefined){
+          if (items9gag.err === undefined) {
             return client.replyMessage(token, [{
               type: 'text',
               text: items9gag.memeTitle
@@ -299,7 +299,7 @@ function handleEvent(event) {
               originalContentUrl: items9gag.memeImg,
               previewImageUrl: items9gag.memeImg
             }]);
-          }else{
+          } else {
             return client.replyMessage(token, {
               type: 'text',
               text: items9gag.kata
@@ -324,12 +324,19 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou download musik') > -1) {
           var keyword = msgText.substr(21);
           var itemsMusic = myfunc.youtubeMusic(keyword);
-          var linkDownload = "Link : http://mp3you.tube/get/?direct=https://www.youtube.com/watch?v=" + itemsMusic.id;
-          var messageLink = itemsMusic.judul + "\n\n" + linkDownload;
-          return client.replyMessage(token, {
-            type: 'text',
-            text: messageLink
-          });
+          if (itemsMusic.err === undefined) {
+            var linkDownload = "Link : http://mp3you.tube/get/?direct=https://www.youtube.com/watch?v=" + itemsMusic.id;
+            var messageLink = itemsMusic.judul + "\n\n" + linkDownload;
+            return client.replyMessage(token, {
+              type: 'text',
+              text: messageLink
+            });
+          } else {
+            return client.replyMessage(token, {
+              type: 'text',
+              text: itemsMusic.kata
+            });
+          }
         }
 
         //katou cari video

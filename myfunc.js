@@ -623,10 +623,10 @@ var search9gag = function(keyword) {
       memeTitle: title[rand],
       memeImg: img[rand]
     };
-  }else{
+  } else {
     return {
       err: 'error',
-      kata: 'Section '+keyword+' tidak ditemukan'
+      kata: 'Section ' + keyword + ' tidak ditemukan'
     };
   }
 }
@@ -640,12 +640,24 @@ var youtubeMusic = function(keyword) {
   );
   if (response.statusCode == 200) {
     var json = JSON.parse(response.getBody('utf8'));
-    var videoId = json.items[0].id.videoId;
-    var title = json.items[0].snippet.title;
+    if (json === null) {
+      var videoId = json.items[0].id.videoId;
+      var title = json.items[0].snippet.title;
 
+      return {
+        id: videoId,
+        judul: title
+      };
+    } else {
+      return {
+        err: 'error',
+        kata: 'Musik dengan judul : ' + keyword + ' tidak ditemukan'
+      };
+    }
+  } else {
     return {
-      id: videoId,
-      judul: title
+      err: 'error',
+      kata: 'Musik tidak ditemukan atau LIMIT'
     };
   }
 }

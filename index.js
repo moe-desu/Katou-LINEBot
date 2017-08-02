@@ -418,7 +418,7 @@ function handleEvent(event) {
                           ]
                         },
                         {
-                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/"best[0].beatmap_id"l.jpg",
+                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + best[0].beatmap_id + "l.jpg",
                           "title": "Beatmap Terakhir Dimainkan",
                           "text": deskripsi_best,
                           "actions": [{

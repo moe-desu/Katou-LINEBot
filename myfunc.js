@@ -792,10 +792,11 @@ var osuBeatmap = function(keyword) {
   return osu.get_beatmaps({
     "b": keyword,
     "limit": 1
-  }).then(function(result) {
+  }).then(function(results) {
     return results;
   });
 }
+
 
 //fungsi normal
 exports.searchImg = searchImg;

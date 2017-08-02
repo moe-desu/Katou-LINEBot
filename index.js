@@ -387,8 +387,8 @@ function handleEvent(event) {
               recent = hasil_recent;
               myfunc.osuBeatmap(recent[0].beatmap_id).then(function(hasil_beatmap) {
                 beatmap = hasil_beatmap;
-                // var deskripsi_profil = "Level : " + hasil_profile[0].level + "/n/nPP : " + hasil_profile[0].pp_rank + "/n/nTotal Score : " + hasil_profile[0].total_score;
-                // var deskripsi_recent = "Judul : " + hasil_beatmap[0].title;
+                var deskripsi_profil = "Level : " + hasil_profile[0].level + "/n/nPP : " + hasil_profile[0].pp_rank + "/n/nTotal Score : " + hasil_profile[0].total_score;
+                var deskripsi_recent = "Judul : " + hasil_beatmap[0].title;
                 return client.replyMessage(token, {
                   "type": "template",
                   "altText": "Stalk",
@@ -407,21 +407,21 @@ function handleEvent(event) {
                           "label": "Download Recent Beatmap",
                           "uri": "https://osu.ppy.sh/d/" + recent[0].beatmap_id
                         }]
-                      },
-                      {
-                        "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + recent[0].beatmap_id + ".jpg",
-                        "title": "Lagu Terakhir Dimainkan",
-                        "text": deskripsi_best,
-                        "actions": [{
-                          "type": "uri",
-                          "label": "Ke Profil",
-                          "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
-                        }, {
-                          "type": "uri",
-                          "label": "Download Recent Beatmap",
-                          "uri": "https://osu.ppy.sh/d/" + recent[0].beatmap_id
-                        }]
                       }
+                      // {
+                      //   "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + recent[0].beatmap_id + ".jpg",
+                      //   "title": "Lagu Terakhir Dimainkan",
+                      //   "text": deskripsi_best,
+                      //   "actions": [{
+                      //     "type": "uri",
+                      //     "label": "Ke Profil",
+                      //     "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
+                      //   }, {
+                      //     "type": "uri",
+                      //     "label": "Download Recent Beatmap",
+                      //     "uri": "https://osu.ppy.sh/d/" + recent[0].beatmap_id
+                      //   }]
+                      // }
                     ]
                   }
                 });

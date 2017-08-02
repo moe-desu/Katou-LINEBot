@@ -784,7 +784,7 @@ var osuBest = function(keyword, mode) {
     "m": mode,
     "limit": 1
   }).then(function(results) {
-    console.log(results);
+    return results;
   });
 }
 

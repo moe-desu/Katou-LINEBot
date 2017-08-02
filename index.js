@@ -401,14 +401,9 @@ function handleEvent(event) {
                           "title": profile[0].username,
                           "text": deskripsi_profil,
                           "actions": [{
-                              "type": "postback",
-                              "label": "Buy",
-                              "data": "action=buy&itemid=111"
-                            },
-                            {
-                              "type": "postback",
-                              "label": "Add to cart",
-                              "data": "action=add&itemid=111"
+                              "type": "uri",
+                              "label": "View detail",
+                              "uri": "http://example.com/page/111"
                             },
                             {
                               "type": "uri",
@@ -422,14 +417,9 @@ function handleEvent(event) {
                           "title": "Skor Terbaik",
                           "text": deskripsi_best,
                           "actions": [{
-                              "type": "postback",
-                              "label": "Buy",
-                              "data": "action=buy&itemid=111"
-                            },
-                            {
-                              "type": "postback",
-                              "label": "Add to cart",
-                              "data": "action=add&itemid=111"
+                              "type": "uri",
+                              "label": "View detail",
+                              "uri": "http://example.com/page/111"
                             },
                             {
                               "type": "uri",

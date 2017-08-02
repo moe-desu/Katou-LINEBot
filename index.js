@@ -381,40 +381,54 @@ function handleEvent(event) {
           myfunc.osuProfile(keyword, 0).then(function(hasil_profile) {
             myfunc.osuRecent(keyword, 0).then(function(hasil_recent) {
               myfunc.osuBeatmap(hasil_recent[0].beatmap_id).then(function(hasil_beatmap) {
-                var deskripsi_profil = "Level : " + hasil_profile[0].level + "/n/nPP : " + hasil_profile[0].pp_rank + "/n/nTotal Score : " + hasil_profile[0].total_score;
-                var deskripsi_recent = "Judul : " + hasil_beatmap[0].title;
+                // var deskripsi_profil = "Level : " + hasil_profile[0].level + "/n/nPP : " + hasil_profile[0].pp_rank + "/n/nTotal Score : " + hasil_profile[0].total_score;
+                // var deskripsi_recent = "Judul : " + hasil_beatmap[0].title;
                 return client.replyMessage(token, {
                   "type": "template",
-                  "altText": "Stalk",
+                  "altText": "this is a carousel template",
                   "template": {
                     "type": "carousel",
                     "columns": [{
-                        "thumbnailImageUrl": "https://a.ppy.sh/" + hasil_profile[0].user_id,
-                        "title": hasil_profile[0].username,
-                        "text": deskripsi_profil,
+                        "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+                        "title": "this is menu",
+                        "text": "description",
                         "actions": [{
-                          "type": "uri",
-                          "label": "Ke Profil",
-                          "uri": "https://osu.ppy.sh/u/" + hasil_profile[0].user_id
-                        }, {
-                          "type": "uri",
-                          "label": "Download Recent Beatmap",
-                          "uri": "https://osu.ppy.sh/d/" + hasil_recent[0].beatmap_id
-                        }]
+                            "type": "postback",
+                            "label": "Buy",
+                            "data": "action=buy&itemid=111"
+                          },
+                          {
+                            "type": "postback",
+                            "label": "Add to cart",
+                            "data": "action=add&itemid=111"
+                          },
+                          {
+                            "type": "uri",
+                            "label": "View detail",
+                            "uri": "http://example.com/page/111"
+                          }
+                        ]
                       },
                       {
-                        "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + hasil_recent[0].beatmap_id + ".jpg",
-                        "title": "Lagu Terakhir Dimainkan",
-                        "text": deskripsi_best,
+                        "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                        "title": "this is menu",
+                        "text": "description",
                         "actions": [{
-                          "type": "uri",
-                          "label": "Ke Profil",
-                          "uri": "https://osu.ppy.sh/u/" + hasil_profile[0].user_id
-                        }, {
-                          "type": "uri",
-                          "label": "Download Recent Beatmap",
-                          "uri": "https://osu.ppy.sh/d/" + hasil_recent[0].beatmap_id
-                        }]
+                            "type": "postback",
+                            "label": "Buy",
+                            "data": "action=buy&itemid=222"
+                          },
+                          {
+                            "type": "postback",
+                            "label": "Add to cart",
+                            "data": "action=add&itemid=222"
+                          },
+                          {
+                            "type": "uri",
+                            "label": "View detail",
+                            "uri": "http://example.com/page/222"
+                          }
+                        ]
                       }
                     ]
                   }
@@ -423,7 +437,6 @@ function handleEvent(event) {
             });
           });
         }
-
 
       }
     }, function(err) {

@@ -389,43 +389,11 @@ function handleEvent(event) {
               recent = hasil_recent;
               myfunc.osuBeatmap(recent[0].beatmap_id).then(function(hasil_beatmap) {
                 beatmap = hasil_beatmap;
-                // deskripsi_profil = "Level : " + profile[0].level + "/n/nPP : " + profile[0].pp_rank + "/n/nTotal Score : " + profile[0].total_score;
-                // deskripsi_recent = "Judul : " + beatmap[0].title;
-                return client.replyMessage(token, {
-                  "type": "template",
-                  "altText": "Stalk",
-                  "template": {
-                    "type": "carousel",
-                    "columns": [{
-                        "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                        "title": profile[0].username,
-                        "text": "deskripsi_profil",
-                        "actions": [{
-                          "type": "uri",
-                          "label": "Ke Profil",
-                          "uri": "https://example.com/bot/images/item2.jpg"
-                        }, {
-                          "type": "uri",
-                          "label": "Download Recent Beatmap",
-                          "uri": "https://example.com/bot/images/item2.jpg"
-                        }]
-                      }
-                      // {
-                      //   "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + recent[0].beatmap_id + ".jpg",
-                      //   "title": "Lagu Terakhir Dimainkan",
-                      //   "text": deskripsi_best,
-                      //   "actions": [{
-                      //     "type": "uri",
-                      //     "label": "Ke Profil",
-                      //     "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
-                      //   }, {
-                      //     "type": "uri",
-                      //     "label": "Download Recent Beatmap",
-                      //     "uri": "https://osu.ppy.sh/d/" + recent[0].beatmap_id
-                      //   }]
-                      // }
-                    ]
-                  }
+                deskripsi_profil = "Level : " + profile[0].level + "/n/nPP : " + profile[0].pp_rank + "/n/nTotal Score : " + profile[0].total_score;
+                deskripsi_recent = "Judul : " + beatmap[0].title;
+                return client.replyMessage(token,{
+                  type: 'text',
+                  text: deskripsi_profil+'/n/n'+deskripsi_recent
                 });
               });
             });

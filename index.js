@@ -381,14 +381,16 @@ function handleEvent(event) {
           var profile;
           var recent;
           var beatmap;
+          var deskripsi_profil;
+          var deskripsi_recent;
           myfunc.osuProfile(keyword, 0).then(function(hasil_profile) {
             profile = hasil_profile;
             myfunc.osuRecent(keyword, 0).then(function(hasil_recent) {
               recent = hasil_recent;
               myfunc.osuBeatmap(recent[0].beatmap_id).then(function(hasil_beatmap) {
                 beatmap = hasil_beatmap;
-                var deskripsi_profil = "Level : " + hasil_profile[0].level + "/n/nPP : " + hasil_profile[0].pp_rank + "/n/nTotal Score : " + hasil_profile[0].total_score;
-                var deskripsi_recent = "Judul : " + hasil_beatmap[0].title;
+                deskripsi_profil = "Level : " + profile[0].level + "/n/nPP : " + profile[0].pp_rank + "/n/nTotal Score : " + profile[0].total_score;
+                deskripsi_recent = "Judul : " + beatmap[0].title;
                 return client.replyMessage(token, {
                   "type": "template",
                   "altText": "Stalk",
@@ -396,7 +398,7 @@ function handleEvent(event) {
                     "type": "carousel",
                     "columns": [{
                         "thumbnailImageUrl": "https://a.ppy.sh/" + profile[0].user_id,
-                        "title": hasil_profile[0].username,
+                        "title": profile[0].username,
                         "text": deskripsi_profil,
                         "actions": [{
                           "type": "uri",

@@ -390,7 +390,7 @@ function handleEvent(event) {
                 myfunc.osuBeatmap(recent[0].beatmap_id).then(function(hasil_beatmap) {
                   beatmap = hasil_beatmap;
                   deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
-                  deskripsi_recent = "Judul : " + beatmap[0].title + "\nScore : " + recent[0].score + "\nCombo : " + recent.maxcombo;
+                  deskripsi_recent = "Judul : " + beatmap[0].title + "\nScore : " + recent[0].score + "\nCombo : " + recent[0].maxcombo;
                   return client.replyMessage(token, {
                     "type": "template",
                     "altText": "Osu Profile",
@@ -418,7 +418,7 @@ function handleEvent(event) {
                           ]
                         },
                         {
-                          "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + recent[0].beatmap_id + ".jpg",
                           "title": "Beatmap Terakhir Dimainkan",
                           "text": deskripsi_recent,
                           "actions": [{

@@ -20,7 +20,7 @@ Keyword yang digunakan
 
 -- Katou ucapkan selamat ulang tahun ke (nama) d
 
--- Katou cuaca (nama kota) d
+-- Katou cuaca (nama kota) d e
 
 -- Katou cari video (teks teks) d
 
@@ -34,7 +34,7 @@ Keyword yang digunakan
 
 -- Katou tulis (Teks yang ingin dirubah ke gambar) d
 
--- Katou 9gag (Section di 9gag, Kalau dibiarkan kosong akan mengambil dari section hot) untuk melihat list section buka "Katou help 9gag" d
+-- Katou 9gag (Section di 9gag, Kalau dibiarkan kosong akan mengambil dari section hot) untuk melihat list section buka "Katou help 9gag" d e
 
 -- Katou ubah alay (teks yang ingin diubah) d
 

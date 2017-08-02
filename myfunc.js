@@ -366,7 +366,7 @@ var stalkIg = function(keyword) {
   } else {
     return {
       err: 'error',
-      kata: 'Gagal menemukan user dengan id : ' + keyword
+      kata: 'Gagal menemukan user instagram dengan id : ' + keyword
     };
   }
 }
@@ -624,7 +624,10 @@ var search9gag = function(keyword) {
       memeImg: img[rand]
     };
   }else{
-    return 'Section '+keyword+' tidak ditemukan';
+    return {
+      err: 'error',
+      kata: 'Section '+keyword+' tidak ditemukan'
+    };
   }
 }
 

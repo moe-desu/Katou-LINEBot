@@ -393,11 +393,11 @@ function handleEvent(event) {
                   deskripsi_recent = "Judul : " + beatmap[0].title;
                   return client.replyMessage(token, {
                     "type": "template",
-                    "altText": "this is a carousel template",
+                    "altText": "Osu Profile",
                     "template": {
                       "type": "carousel",
                       "columns": [{
-                          "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
+                          "thumbnailImageUrl": "https://a.ppy.sh/"+profile[0].id,
                           "title": "this is menu",
                           "text": "description",
                           "actions": [{

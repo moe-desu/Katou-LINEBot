@@ -418,7 +418,7 @@ function handleEvent(event) {
                           ]
                         },
                         {
-                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + best[0].beatmap_id + "s.jpg",
+                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/584520.jpg",
                           "title": "Skor Terbaik",
                           "text": deskripsi_best,
                           "actions": [{

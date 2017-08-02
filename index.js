@@ -390,8 +390,40 @@ function handleEvent(event) {
                 // var deskripsi_profil = "Level : " + hasil_profile[0].level + "/n/nPP : " + hasil_profile[0].pp_rank + "/n/nTotal Score : " + hasil_profile[0].total_score;
                 // var deskripsi_recent = "Judul : " + hasil_beatmap[0].title;
                 return client.replyMessage(token, {
-                  type: 'text',
-                  text: profile[0].username+recent[0].beatmap_id+beatmap[0].title
+                  "type": "template",
+                  "altText": "Stalk",
+                  "template": {
+                    "type": "carousel",
+                    "columns": [{
+                        "thumbnailImageUrl": "https://a.ppy.sh/" + profile[0].user_id,
+                        "title": hasil_profile[0].username,
+                        "text": deskripsi_profil,
+                        "actions": [{
+                          "type": "uri",
+                          "label": "Ke Profil",
+                          "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
+                        }, {
+                          "type": "uri",
+                          "label": "Download Recent Beatmap",
+                          "uri": "https://osu.ppy.sh/d/" + recent[0].beatmap_id
+                        }]
+                      },
+                      {
+                        "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + recent[0].beatmap_id + ".jpg",
+                        "title": "Lagu Terakhir Dimainkan",
+                        "text": deskripsi_best,
+                        "actions": [{
+                          "type": "uri",
+                          "label": "Ke Profil",
+                          "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
+                        }, {
+                          "type": "uri",
+                          "label": "Download Recent Beatmap",
+                          "uri": "https://osu.ppy.sh/d/" + recent[0].beatmap_id
+                        }]
+                      }
+                    ]
+                  }
                 });
               });
             });

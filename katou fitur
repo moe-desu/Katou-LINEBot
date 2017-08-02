@@ -40,13 +40,17 @@ Keyword yang digunakan
 
 -- Katou terjemahkan alay (teks yang ingin diterjemahkan) catatan : teks yang dapat diterjemahkan hanya teks alay yang didapet dari katou d
 
--- tambahkan exception handling
+-- tambahkan exception handling e
 
 -- pindahkan callback ke node js
 
 -- buat testing node js app di heroku
 
 -- ganti repo katou di github
+
+-- tambahkan remote github katou
+
+-- tambahkan remote testing node js app heroku
 
 -- buat website teka-teki katou
 
@@ -57,40 +61,3 @@ Keyword yang digunakan
 Jika ada masalah silahkan kontak :
 Created by : Rehre(id:akl2340 18 tahun) ig: _rehre
 Bot ini diciptakan untuk memenuhi kebutuhan personal
-
-{
-  "type": "template",
-  "altText": "Stalk",
-  "template": {
-    "type": "carousel",
-    "columns": [{
-        "thumbnailImageUrl": "https://a.ppy.sh/" + hasil_profile[0].user_id,
-        "title": hasil_profile[0].username,
-        "text": deskripsi_profil,
-        "actions": [{
-          "type": "uri",
-          "label": "Ke Profil",
-          "uri": "https://osu.ppy.sh/u/" + hasil_profile[0].user_id
-        }, {
-          "type": "uri",
-          "label": "Download Recent Beatmap",
-          "uri": "https://osu.ppy.sh/d/" + hasil_recent[0].beatmap_id
-        }]
-      },
-      {
-        "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + hasil_recent[0].beatmap_id + ".jpg",
-        "title": "Lagu Terakhir Dimainkan",
-        "text": deskripsi_best,
-        "actions": [{
-          "type": "uri",
-          "label": "Ke Profil",
-          "uri": "https://osu.ppy.sh/u/" + hasil_profile[0].user_id
-        }, {
-          "type": "uri",
-          "label": "Download Recent Beatmap",
-          "uri": "https://osu.ppy.sh/d/" + hasil_recent[0].beatmap_id
-        }]
-      }
-    ]
-  }
-}

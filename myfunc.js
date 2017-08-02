@@ -640,7 +640,7 @@ var youtubeMusic = function(keyword) {
   );
   if (response.statusCode == 200) {
     var json = JSON.parse(response.getBody('utf8'));
-    if (json === null) {
+    if (json !== null) {
       var videoId = json.items[0].id.videoId;
       var title = json.items[0].snippet.title;
 
@@ -673,7 +673,7 @@ function youtubeVideo(key) {
   var thumbnails = [];
   if (response.statusCode == 200) {
     var json = JSON.parse(response.getBody('utf8'));
-    if (json === null) {
+    if (json !== null) {
       var items = json.items;
       for (i in items) {
         videoId.push(json.items[i].id.videoId);

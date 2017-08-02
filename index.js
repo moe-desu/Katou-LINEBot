@@ -397,8 +397,8 @@ function handleEvent(event) {
                     "template": {
                       "type": "carousel",
                       "columns": [{
-                          "thumbnailImageUrl": "https://a.ppy.sh/"+profile[0].id,
-                          "title": "this is menu",
+                          "thumbnailImageUrl": "https://a.ppy.sh/"+profile[0].user_id,
+                          "title": profile[0].username,
                           "text": "description",
                           "actions": [{
                               "type": "postback",

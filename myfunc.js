@@ -2,7 +2,7 @@ const request = require('sync-request');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 const cheerio = require('cheerio');
-
+const osu = require("osu")("d6e3cd4bc2c0b845e76c79fe58b0acedaec9381a");
 const jsdom = require('jsdom');
 const {
   JSDOM
@@ -769,6 +769,34 @@ var searchImg = function(keyword) {
   }
 }
 
+var osuProfile = function(keyword, mode) {
+  return osu.get_user({
+    "u": keyword,
+    "m": mode
+  }).then(function(results) {
+    return results;
+  });
+}
+
+var osuRecent = function(keyword, mode) {
+  return osu.get_user_recent({
+    "u": keyword,
+    "m": mode,
+    "limit": 1
+  }).then(function(results) {
+    return results;
+  });
+}
+
+var osuBeatmap = function(keyword) {
+  return osu.get_beatmaps({
+    "s": keyword,
+    "limit": 1
+  }).then(function(result) {
+    return results;
+  });
+}
+
 //fungsi normal
 exports.searchImg = searchImg;
 exports.youtubeGetUrlVideo = youtubeGetUrlVideo;
@@ -789,3 +817,8 @@ exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;
 exports.checkTekaTeki = checkTekaTeki;
 exports.hapusIdGame = hapusIdGame;
+
+//fungsi osu
+exports.osuProfile = osuProfile;
+exports.osuRecent = osuRecent;
+exports.osuBeatmap = osuBeatmap;

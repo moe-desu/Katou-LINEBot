@@ -358,7 +358,7 @@ function handleEvent(event) {
         }
 
         //katou cari gambar
-        if (msgText.indexOf('Katou cari gambar ') > -1) {
+        if (msgText.indexOf('Katou cari gambar') > -1) {
           var keyword = msgText.substr(18);
           var itemsGambar = myfunc.searchImg(keyword);
           if (itemsGambar.err === undefined) {
@@ -374,6 +374,56 @@ function handleEvent(event) {
             });
           }
         }
+
+        //katou osuprofile
+        if (msgText.indexOf('Katou osuprofile') > -1) {
+          var keyword = msgText.substr(17);
+          myfunc.osuProfile(keyword, 0).then(function(hasil_profile) {
+            myfunc.osuRecent(keyword, 0).then(function(hasil_recent) {
+              myfunc.osuBeatmap(hasil_recent[0].beatmap_id).then(function(hasil_beatmap) {
+                var deskripsi_profil = "Level : " + hasil_profile[0].level + "/n/nPP : " + hasil_profile[0].pp_rank + "/n/nTotal Score : " + hasil_profile[0].total_score;
+                var deskripsi_recent = "Judul : " + hasil_beatmap[0].title;
+                return client.replyMessage(token, {
+                  "type": "template",
+                  "altText": "Stalk",
+                  "template": {
+                    "type": "carousel",
+                    "columns": [{
+                        "thumbnailImageUrl": "https://a.ppy.sh/" + hasil_profile[0].user_id,
+                        "title": hasil_profile[0].username,
+                        "text": deskripsi_profil,
+                        "actions": [{
+                          "type": "uri",
+                          "label": "Ke Profil",
+                          "uri": "https://osu.ppy.sh/u/" + hasil_profile[0].user_id
+                        }, {
+                          "type": "uri",
+                          "label": "Download Recent Beatmap",
+                          "uri": "https://osu.ppy.sh/d/" + hasil_recent[0].beatmap_id
+                        }]
+                      },
+                      {
+                        "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + hasil_recent[0].beatmap_id + ".jpg",
+                        "title": "Lagu Terakhir Dimainkan",
+                        "text": deskripsi_best,
+                        "actions": [{
+                          "type": "uri",
+                          "label": "Ke Profil",
+                          "uri": "https://osu.ppy.sh/u/" + hasil_profile[0].user_id
+                        }, {
+                          "type": "uri",
+                          "label": "Download Recent Beatmap",
+                          "uri": "https://osu.ppy.sh/d/" + hasil_recent[0].beatmap_id
+                        }]
+                      }
+                    ]
+                  }
+                });
+              });
+            });
+          });
+        }
+
 
       }
     }, function(err) {

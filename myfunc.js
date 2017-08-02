@@ -8,27 +8,27 @@ const {
   JSDOM
 } = jsdom;
 
-function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
+// function shuffle(array) {
+//   var currentIndex = array.length,
+//     temporaryValue, randomIndex;
+//
+//   // While there remain elements to shuffle...
+//   while (0 !== currentIndex) {
+//
+//     // Pick a remaining element...
+//     randomIndex = Math.floor(Math.random() * currentIndex);
+//
+//     currentIndex -= 1;
+//
+//     // And swap it with the current element.
+//     temporaryValue = array[currentIndex];
+//
+//     array[currentIndex] = array[randomIndex];
+//     array[randomIndex] = temporaryValue;
+//   }
+//
+//   return array;
+// }
 
 var ramal = function() {
   var ramalan = [
@@ -38,8 +38,7 @@ var ramal = function() {
     "Hari ini mungkin akan sangat menguntungkan bagi keuanganmu",
     "Tiada hari yang lebih baik dari hari ini bagimu"
   ];
-  var ramalanKocok = shuffle(ramalan);
-  randomIndex = Math.floor(Math.random() * ramalanKocok.length);
+  randomIndex = Math.floor(Math.random() * ramalan.length);
   return ramalan[randomIndex];
 }
 
@@ -60,7 +59,7 @@ var wiki = function(keyword) {
       if (teksWiki == '') {
         return 'Link dialihkan ke ' + url;
       } else if (teksWiki == null) {
-        return 'tidak ditemukan hasil dengan keyword ' + keyword;
+        return 'Tidak ditemukan hasil dengan keyword ' + keyword;
       } else if (teksWiki != null) {
         if (teksWiki.length > 1900) {
           teksWiki = teksWiki.substr(0, 1900) + '...';
@@ -81,12 +80,16 @@ var cariLokasi = function(keyword) {
   if (response.statusCode == 200) {
     var json = JSON.parse(response.getBody('utf8'));
     var results = json.results;
-
-    for (i in results) {
-      var formatted_address = results[i].formatted_address;
-      var geometry = results[i].geometry;
-      var lat = geometry.location.lat;
-      var lng = geometry.location.lng;
+    var status = json.status;
+    var formatted_address;
+    var geometry;
+    var lat;
+    var lng;
+    if (status !== 'ZERO_RESULTS') {
+      formatted_address = results[0].formatted_address;
+      geometry = results[0].geometry;
+      lat = geometry.location.lat;
+      lng = geometry.location.lng;
 
       if (formatted_address.length > 100) {
         formatted_address = formatted_address.substr(0, 90) + '...';
@@ -96,6 +99,11 @@ var cariLokasi = function(keyword) {
         address: formatted_address,
         latitude: lat,
         longitude: lng
+      };
+    } else {
+      return {
+        err: 'error',
+        kata: 'Tidak menemukan lokasi : ' + keyword
       };
     }
   }
@@ -257,102 +265,106 @@ var stalkIg = function(keyword) {
   );
   if (response.statusCode == 200) {
     var json = JSON.parse(response.getBody('utf8'));
-    var user = json.user;
-    var media = json.user.media;
-    var nodes = media.nodes;
+    if (json !== null) {
+      var user = json.user;
+      var media = json.user.media;
+      var nodes = media.nodes;
 
-    var count = media.count;
-    var username = user.username;
-    var followers = user.followed_by;
-    var follows = user.follows;
-    var followers = followers.count;
-    var following = follows.count;
-    var profile_pic = user.profile_pic_url;
-    var is_private = user.is_private;
-    var profile_url = "https://www.instagram.com/" + username;
+      var count = media.count;
+      var username = user.username;
+      var followers = user.followed_by;
+      var follows = user.follows;
+      var followers = followers.count;
+      var following = follows.count;
+      var profile_pic = user.profile_pic_url;
+      var is_private = user.is_private;
+      var profile_url = "https://www.instagram.com/" + username;
 
-    var deskripsi_profil = "Following : " + following + "\nFollowers : " + followers;
+      var deskripsi_profil = "Following : " + following + "\nFollowers : " + followers;
 
-    if (count != '0' && is_private != 'true') {
-      for (i in nodes) {
-        var items = nodes[0];
-        var src = items.thumbnail_src;
-        var code = "https://www.instagram.com/p/" + items.code;
-        var commentCount = items.comments.count;
-        var likeCount = items.likes.count;
-        var deskripsi_post = "Likes : " + likeCount + "\nComments : " + commentCount;
-      }
+      if (count != '0' && is_private != 'true') {
+        for (i in nodes) {
+          var items = nodes[0];
+          var src = items.thumbnail_src;
+          var code = "https://www.instagram.com/p/" + items.code;
+          var commentCount = items.comments.count;
+          var likeCount = items.likes.count;
+          var deskripsi_post = "Likes : " + likeCount + "\nComments : " + commentCount;
+        }
 
-      jsonIg = {
-        "type": "template",
-        "altText": "Stalk",
-        "template": {
-          "type": "carousel",
-          "columns": [{
+        jsonIg = {
+          "type": "template",
+          "altText": "Stalk",
+          "template": {
+            "type": "carousel",
+            "columns": [{
+                "thumbnailImageUrl": profile_pic,
+                "title": username,
+                "text": deskripsi_profil,
+                "actions": [{
+                    "type": "uri",
+                    "label": "Ke Profil",
+                    "uri": profile_url
+                  },
+                  {
+                    "type": "uri",
+                    "label": "Ke Post",
+                    "uri": code
+                  },
+                  {
+                    "type": "uri",
+                    "label": "Download Gambar Post",
+                    "uri": src
+                  }
+                ]
+              },
+              {
+                "thumbnailImageUrl": src,
+                "title": "Postingan Terakhir",
+                "text": deskripsi_post,
+                "actions": [{
+                    "type": "uri",
+                    "label": "Ke Profil",
+                    "uri": profile_url
+                  },
+                  {
+                    "type": "uri",
+                    "label": "Ke Post",
+                    "uri": code
+                  },
+                  {
+                    "type": "uri",
+                    "label": "Download Gambar Post",
+                    "uri": src
+                  }
+                ]
+              }
+            ]
+          }
+        };
+      } else {
+        jsonIg = {
+          "type": "template",
+          "altText": "Stalk",
+          "template": {
+            "type": "carousel",
+            "columns": [{
               "thumbnailImageUrl": profile_pic,
               "title": username,
               "text": deskripsi_profil,
               "actions": [{
-                  "type": "uri",
-                  "label": "Ke Profil",
-                  "uri": profile_url
-                },
-                {
-                  "type": "uri",
-                  "label": "Ke Post",
-                  "uri": code
-                },
-                {
-                  "type": "uri",
-                  "label": "Download Gambar Post",
-                  "uri": src
-                }
-              ]
-            },
-            {
-              "thumbnailImageUrl": src,
-              "title": "Postingan Terakhir",
-              "text": deskripsi_post,
-              "actions": [{
-                  "type": "uri",
-                  "label": "Ke Profil",
-                  "uri": profile_url
-                },
-                {
-                  "type": "uri",
-                  "label": "Ke Post",
-                  "uri": code
-                },
-                {
-                  "type": "uri",
-                  "label": "Download Gambar Post",
-                  "uri": src
-                }
-              ]
-            }
-          ]
-        }
-      };
-    } else {
-      jsonIg = {
-        "type": "template",
-        "altText": "Stalk",
-        "template": {
-          "type": "carousel",
-          "columns": [{
-            "thumbnailImageUrl": profile_pic,
-            "title": username,
-            "text": deskripsi_profil,
-            "actions": [{
-              "type": "uri",
-              "label": "Ke Profil",
-              "uri": profile_url
+                "type": "uri",
+                "label": "Ke Profil",
+                "uri": profile_url
+              }]
             }]
-          }]
-        }
-      };
+          }
+        };
+      }
+      return jsonIg;
     }
-    return jsonIg;
+  } else {
+    return 'Gagal menemukan user dengan id : ' + keyword;
   }
 }
 
@@ -576,6 +588,8 @@ var weather = function(keyword) {
 
     var cuaca = "Temperatur di kota " + name + " : " + suhu + ", Kelembaban : " + kelembaban + ", Tekanan udara : " + tekanan + ", dan Kecepatan angin : " + kecepatan_angin;
     return cuaca;
+  } else {
+    return 'Tidak ditemukan daerah dengan nama : ' + keyword;
   }
 }
 
@@ -606,6 +620,8 @@ var search9gag = function(keyword) {
       memeTitle: title[rand],
       memeImg: img[rand]
     };
+  }else{
+    return 'Section '+keyword+' tidak ditemukan';
   }
 }
 

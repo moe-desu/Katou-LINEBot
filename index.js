@@ -206,13 +206,20 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou cari lokasi') > -1) {
           var keyword = msgText.substr(18);
           var location = myfunc.cariLokasi(keyword);
-          return client.replyMessage(token, {
-            type: "location",
-            title: keyword,
-            address: location.address,
-            latitude: location.latitude,
-            longitude: location.longitude
-          });
+          if(location.err === undefined){
+            return client.replyMessage(token, {
+              type: "location",
+              title: keyword,
+              address: location.address,
+              latitude: location.latitude,
+              longitude: location.longitude
+            });
+          }else{
+            return client.replyMessage(token, {
+              type: 'text',
+              text: location.kata
+            });
+          }
         }
 
         //katou tulis

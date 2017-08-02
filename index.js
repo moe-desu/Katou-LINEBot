@@ -385,7 +385,7 @@ function handleEvent(event) {
             profile = hasil_profile;
             return client.replyMessage(token, {
               type: 'text',
-              text: keyword
+              text: profile[0].username
             });
             // myfunc.osuRecent(keyword, 0).then(function(hasil_recent) {
             //   recent = hasil_recent;

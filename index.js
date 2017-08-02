@@ -385,15 +385,15 @@ function handleEvent(event) {
             profile = hasil_profile;
             return client.replyMessage(token, {
               type: 'text',
-              text: profile[0].username
+              text: keyword
             });
-            myfunc.osuRecent(keyword, 0).then(function(hasil_recent) {
-              recent = hasil_recent;
-              myfunc.osuBeatmap(recent[0].beatmap_id).then(function(hasil_beatmap) {
-                // var deskripsi_profil = "Level : " + hasil_profile[0].level + "/n/nPP : " + hasil_profile[0].pp_rank + "/n/nTotal Score : " + hasil_profile[0].total_score;
-                // var deskripsi_recent = "Judul : " + hasil_beatmap[0].title;
-              });
-            });
+            // myfunc.osuRecent(keyword, 0).then(function(hasil_recent) {
+            //   recent = hasil_recent;
+            //   myfunc.osuBeatmap(recent[0].beatmap_id).then(function(hasil_beatmap) {
+            //     // var deskripsi_profil = "Level : " + hasil_profile[0].level + "/n/nPP : " + hasil_profile[0].pp_rank + "/n/nTotal Score : " + hasil_profile[0].total_score;
+            //     // var deskripsi_recent = "Judul : " + hasil_beatmap[0].title;
+            //   });
+            // });
           });
         }
 

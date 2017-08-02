@@ -740,22 +740,32 @@ var searchImg = function(keyword) {
   if (response.statusCode == 200) {
     var json = JSON.parse(response.getBody('utf8'));
     var items = json.items;
+    var totalResults = json.searchInformation.totalResults
+    if (totalResults !== "0") {
+      var link = [];
+      for (i in items) {
+        link.push(items[i].link);
+      }
 
-    var link = [];
-    for (i in items) {
-      link.push(items[i].link);
+      var rand = Math.floor(Math.random() * items.length);
+      var urlImg = link[rand];
+      var httpnya = urlImg.substr(0, 5);
+      if (httpnya === "http:") {
+        urlImg = urlImg.replace('http', 'https');
+      }
+
+      return urlImg;
+    } else {
+      return {
+        err: 'error',
+        kata: 'Gambar dengan judul : ' + keyword + ' gagal ditemukan'
+      };
     }
-
-    var rand = Math.floor(Math.random() * items.length);
-    var urlImg = link[rand];
-    var httpnya = urlImg.substr(0, 5);
-    if (httpnya === "http:") {
-      urlImg = urlImg.replace('http', 'https');
-    }
-
-    return urlImg;
   } else {
-    return 'error'
+    return {
+      err: 'error',
+      kata: 'Gambar gagal ditemukan atau LIMIT'
+    };
   }
 }
 

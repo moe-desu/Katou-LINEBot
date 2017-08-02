@@ -343,13 +343,13 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou cari video') > -1) {
           var keyword = msgText.substr(17);
           var itemsVideo = myfunc.youtubeGetUrlVideo(keyword);
-          if(itemsVideo.err === undefined){
+          if (itemsVideo.err === undefined) {
             return client.replyMessage(token, {
               type: 'video',
               "originalContentUrl": itemsVideo.video,
               "previewImageUrl": itemsVideo.thumbnail
             });
-          }else{
+          } else {
             return client.replyMessage(token, {
               type: 'text',
               text: itemsVideo.kata
@@ -361,16 +361,16 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou cari gambar ') > -1) {
           var keyword = msgText.substr(18);
           var itemsGambar = myfunc.searchImg(keyword);
-          if (itemsGambar === 'error') {
-            return client.replyMessage(token, {
-              type: 'text',
-              text: 'Gambar gagal ditemukan atau LIMIT'
-            });
-          } else {
+          if (itemsGambar.err === undefined) {
             return client.replyMessage(token, {
               type: 'image',
               originalContentUrl: itemsGambar,
               previewImageUrl: itemsGambar
+            });
+          } else {
+            return client.replyMessage(token, {
+              type: 'text',
+              text: itemsGambar.kata
             });
           }
         }

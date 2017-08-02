@@ -758,7 +758,7 @@ var searchImg = function(keyword) {
     } else {
       return {
         err: 'error',
-        kata: 'Gambar dengan judul : ' + keyword + ' gagal ditemukan'
+        kata: 'Gambar dengan keyword : ' + keyword + ' gagal ditemukan'
       };
     }
   } else {

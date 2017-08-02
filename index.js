@@ -392,21 +392,20 @@ function handleEvent(event) {
                   deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "\nRank : " + profile[0].pp_rank + "\nTotal Score : " + profile[0].total_score + "\nPP :" + profile[0].pp_raw;
                   deskripsi_recent = "Judul : " + beatmap[0].title;
                   return client.replyMessage(token, {
-                    "type":"text",
+                    "type": "text",
                     "text": deskripsi_profil
                   });
                 });
               });
             });
-          });
-      }
+          }
 
-    }
-  },
-  function(err) {
-    console.error('The promise was rejected', err, err.stack);
-  });
-}
+        }
+      },
+      function(err) {
+        console.error('The promise was rejected', err, err.stack);
+      });
+  }
 }
 
 //running the server

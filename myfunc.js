@@ -59,7 +59,7 @@ var wiki = function(keyword) {
       if (teksWiki == '') {
         return 'Link dialihkan ke ' + url;
       } else if (teksWiki == null) {
-        return 'Tidak ditemukan hasil dengan keyword ' + keyword;
+        return 'Tidak ditemukan hasil dengan keyword : ' + keyword;
       } else if (teksWiki != null) {
         if (teksWiki.length > 1900) {
           teksWiki = teksWiki.substr(0, 1900) + '...';
@@ -626,7 +626,7 @@ var search9gag = function(keyword) {
   } else {
     return {
       err: 'error',
-      kata: 'Section ' + keyword + ' tidak ditemukan'
+      kata: 'Section : ' + keyword + ' tidak ditemukan'
     };
   }
 }
@@ -673,33 +673,52 @@ function youtubeVideo(key) {
   var thumbnails = [];
   if (response.statusCode == 200) {
     var json = JSON.parse(response.getBody('utf8'));
-    var items = json.items;
-    for (i in items) {
-      videoId.push(json.items[i].id.videoId);
-      thumbnails.push(json.items[i].snippet.thumbnails.default.url);
-    }
+    if (json === null) {
+      var items = json.items;
+      for (i in items) {
+        videoId.push(json.items[i].id.videoId);
+        thumbnails.push(json.items[i].snippet.thumbnails.default.url);
+      }
 
-    var rand = Math.floor(Math.random() * items.length);
+      var rand = Math.floor(Math.random() * items.length);
+      return {
+        id: videoId[rand],
+        gambar: thumbnails[rand]
+      };
+    } else {
+      return {
+        err: 'error',
+        kata: 'Video dengan judul : ' + key + ' tidak ditemukan'
+      };
+    }
+  } else {
     return {
-      id: videoId[rand],
-      gambar: thumbnails[rand]
+      err: 'error',
+      kata: 'Video tidak ditemukan atau LIMIT'
     };
   }
 }
 
 var youtubeGetUrlVideo = function(keyword) {
   var itemsVideo = youtubeVideo(keyword);
-  var url = "http://keepvid.com/?url=http%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3D" + itemsVideo.id;
-  var response = request(
-    'GET',
-    url
-  );
-  if (response.statusCode == 200) {
-    const $ = cheerio.load(response.getBody('utf8'));
-    var linkVideo = $('td:contains(480p)').parent().children().last().children().attr('href');
+  if (itemsVideo.err === undefined) {
+    var url = "http://keepvid.com/?url=http%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3D" + itemsVideo.id;
+    var response = request(
+      'GET',
+      url
+    );
+    if (response.statusCode == 200) {
+      const $ = cheerio.load(response.getBody('utf8'));
+      var linkVideo = $('td:contains(480p)').parent().children().last().children().attr('href');
+      return {
+        video: linkVideo,
+        thumbnail: itemsVideo.gambar
+      };
+    }
+  } else {
     return {
-      video: linkVideo,
-      thumbnail: itemsVideo.gambar
+      err: 'error',
+      kata: itemsVideo.kata
     };
   }
 }

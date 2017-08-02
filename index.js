@@ -343,11 +343,18 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou cari video') > -1) {
           var keyword = msgText.substr(17);
           var itemsVideo = myfunc.youtubeGetUrlVideo(keyword);
-          return client.replyMessage(token, {
-            type: 'video',
-            "originalContentUrl": itemsVideo.video,
-            "previewImageUrl": itemsVideo.thumbnail
-          });
+          if(itemsVideo.err === undefined){
+            return client.replyMessage(token, {
+              type: 'video',
+              "originalContentUrl": itemsVideo.video,
+              "previewImageUrl": itemsVideo.thumbnail
+            });
+          }else{
+            return client.replyMessage(token, {
+              type: 'text',
+              text: itemsVideo.kata
+            });
+          }
         }
 
         //katou cari gambar

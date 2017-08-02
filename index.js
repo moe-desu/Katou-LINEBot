@@ -379,18 +379,18 @@ function handleEvent(event) {
           if (msgText.indexOf('Katou osuprofile') > -1) {
             var keyword = msgText.substr(17);
             var profile;
-            var recent;
+            var best;
             var beatmap;
             var deskripsi_profil;
-            var deskripsi_recent;
+            var deskripsi_best;
             myfunc.osuProfile(keyword, 0).then(function(hasil_profile) {
               profile = hasil_profile;
-              myfunc.osuRecent(keyword, 0).then(function(hasil_recent) {
-                recent = hasil_recent;
-                myfunc.osuBeatmap(recent[0].beatmap_id).then(function(hasil_beatmap) {
+              myfunc.osuBest(keyword, 0).then(function(hasil_best) {
+                best = hasil_best;
+                myfunc.osuBeatmap(best[0].beatmap_id).then(function(hasil_beatmap) {
                   beatmap = hasil_beatmap;
                   deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
-                  deskripsi_recent = "Judul : " + beatmap[0].title + "\nScore : " + recent[0].score + "\nCombo : " + recent[0].maxcombo;
+                  deskripsi_best = "Judul : " + beatmap[0].title + "\nScore : " + best[0].score + "\nCombo : " + best[0].maxcombo;
                   return client.replyMessage(token, {
                     "type": "template",
                     "altText": "Osu Profile",
@@ -418,9 +418,9 @@ function handleEvent(event) {
                           ]
                         },
                         {
-                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/232290l.jpg",
+                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/"best[0].beatmap_id"l.jpg",
                           "title": "Beatmap Terakhir Dimainkan",
-                          "text": deskripsi_recent,
+                          "text": deskripsi_best,
                           "actions": [{
                               "type": "postback",
                               "label": "Buy",

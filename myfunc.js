@@ -778,8 +778,8 @@ var osuProfile = function(keyword, mode) {
   });
 }
 
-var osuRecent = function(keyword, mode) {
-  return osu.get_user_recent({
+var osuBest = function(keyword, mode) {
+  return osu.get_user_best({
     "u": keyword,
     "m": mode,
     "limit": 1
@@ -821,5 +821,5 @@ exports.hapusIdGame = hapusIdGame;
 
 //fungsi osu
 exports.osuProfile = osuProfile;
-exports.osuRecent = osuRecent;
+exports.osuBest = osuBest;
 exports.osuBeatmap = osuBeatmap;

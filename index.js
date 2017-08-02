@@ -418,8 +418,8 @@ function handleEvent(event) {
                           ]
                         },
                         {
-                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + best[0].beatmap_id + "l.jpg",
-                          "title": "Beatmap Terakhir Dimainkan",
+                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + best[0].beatmap_id + "s.jpg",
+                          "title": "Skor Terbaik",
                           "text": deskripsi_best,
                           "actions": [{
                               "type": "postback",

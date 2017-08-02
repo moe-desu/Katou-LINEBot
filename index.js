@@ -389,7 +389,7 @@ function handleEvent(event) {
               recent = hasil_recent;
               myfunc.osuBeatmap(recent[0].beatmap_id).then(function(hasil_beatmap) {
                 beatmap = hasil_beatmap;
-                deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level) + "\nRank : " + profile[0].pp_rank + "\nTotal Score : " + profile[0].total_score + "\nPP :" + profile[0].pp_raw;
+                deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "\nRank : " + profile[0].pp_rank + "\nTotal Score : " + profile[0].total_score + "\nPP :" + profile[0].pp_raw;
                 deskripsi_recent = "Judul : " + beatmap[0].title;
                 return client.replyMessage(token, {
                   "type": "template",

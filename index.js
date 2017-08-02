@@ -401,40 +401,30 @@ function handleEvent(event) {
                           "title": profile[0].username,
                           "text": deskripsi_profil,
                           "actions": [{
-                              "type": "postback",
-                              "label": "Buy",
-                              "data": "action=buy&itemid=111"
-                            },
-                            {
-                              "type": "postback",
-                              "label": "Add to cart",
-                              "data": "action=add&itemid=111"
+                              "type": "uri",
+                              "label": "Ke Profile",
+                              "data": "https://osu.ppy.sh/u/"+profile[0].user_id
                             },
                             {
                               "type": "uri",
-                              "label": "View detail",
-                              "uri": "http://example.com/page/111"
+                              "label": "Download Recent Beatmap",
+                              "uri": "https://osu.ppy.sh/d/"+recent[0].beatmap_id
                             }
                           ]
                         },
                         {
                           "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                          "title": "this is menu",
+                          "title": "Beatmap Terakhir Dimainkan",
                           "text": deskripsi_profil,
                           "actions": [{
-                              "type": "postback",
-                              "label": "Buy",
-                              "data": "action=buy&itemid=222"
-                            },
-                            {
-                              "type": "postback",
-                              "label": "Add to cart",
-                              "data": "action=add&itemid=222"
+                              "type": "uri",
+                              "label": "Ke Profile",
+                              "data": "https://osu.ppy.sh/u/"+profile[0].user_id
                             },
                             {
                               "type": "uri",
-                              "label": "View detail",
-                              "uri": "http://example.com/page/222"
+                              "label": "Download Recent Beatmap",
+                              "uri": "https://osu.ppy.sh/d/"+recent[0].beatmap_id
                             }
                           ]
                         }

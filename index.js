@@ -378,9 +378,14 @@ function handleEvent(event) {
         //katou osuprofile
         if (msgText.indexOf('Katou osuprofile') > -1) {
           var keyword = msgText.substr(17);
+          var profile;
+          var recent;
+          var beatmap;
           myfunc.osuProfile(keyword, 0).then(function(hasil_profile) {
+            profile = hasil_profile;
             myfunc.osuRecent(keyword, 0).then(function(hasil_recent) {
-              myfunc.osuBeatmap(hasil_recent[0].beatmap_id).then(function(hasil_beatmap) {
+              recent = hasil_recent;
+              myfunc.osuBeatmap(recent[0].beatmap_id).then(function(hasil_beatmap) {
                 // var deskripsi_profil = "Level : " + hasil_profile[0].level + "/n/nPP : " + hasil_profile[0].pp_rank + "/n/nTotal Score : " + hasil_profile[0].total_score;
                 // var deskripsi_recent = "Judul : " + hasil_beatmap[0].title;
                 return client.replyMessage(token, {

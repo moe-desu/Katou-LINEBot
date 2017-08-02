@@ -399,7 +399,7 @@ function handleEvent(event) {
                       "columns": [{
                           "thumbnailImageUrl": "https://a.ppy.sh/"+profile[0].user_id,
                           "title": profile[0].username,
-                          "text": "description",
+                          "text": deskripsi_profil,
                           "actions": [{
                               "type": "postback",
                               "label": "Buy",

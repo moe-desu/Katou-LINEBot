@@ -790,7 +790,7 @@ var osuRecent = function(keyword, mode) {
 
 var osuBeatmap = function(keyword) {
   return osu.get_beatmaps({
-    "s": keyword,
+    "b": keyword,
     "limit": 1
   }).then(function(result) {
     return results;

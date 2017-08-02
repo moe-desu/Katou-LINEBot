@@ -364,7 +364,10 @@ var stalkIg = function(keyword) {
       return jsonIg;
     }
   } else {
-    return 'Gagal menemukan user dengan id : ' + keyword;
+    return {
+      err: 'error',
+      kata: 'Gagal menemukan user dengan id : ' + keyword
+    };
   }
 }
 

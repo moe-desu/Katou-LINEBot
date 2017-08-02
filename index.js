@@ -237,7 +237,15 @@ function handleEvent(event) {
         if (msgText.indexOf('Katou stalk') > -1) {
           var keyword = msgText.substr(12);
           var objectIg = myfunc.stalkIg(keyword);
-          return client.replyMessage(token, objectIg);
+          if(objectIg.err === undefined){
+            return client.replyMessage(token, objectIg);
+          }else{
+            return client.replyMessage(token, {
+              type: 'text',
+              text: objectIg.kata
+            });
+          }
+
         }
 
         //katou ubah alay

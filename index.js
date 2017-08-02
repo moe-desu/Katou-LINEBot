@@ -389,42 +389,52 @@ function handleEvent(event) {
                 recent = hasil_recent;
                 myfunc.osuBeatmap(recent[0].beatmap_id).then(function(hasil_beatmap) {
                   beatmap = hasil_beatmap;
-                  deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "\nRank : " + profile[0].pp_rank +"\nPP :" + profile[0].pp_raw;
-                  deskripsi_recent = "Judul : " + beatmap[0].title;
+                  deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
+                  deskripsi_recent = "Judul : " + beatmap[0].title + "\nScore : " + recent[0].score + "\nCombo : " + recent.maxcombo;
                   return client.replyMessage(token, {
                     "type": "template",
                     "altText": "Osu Profile",
                     "template": {
                       "type": "carousel",
                       "columns": [{
-                          "thumbnailImageUrl": "https://a.ppy.sh/"+profile[0].user_id,
+                          "thumbnailImageUrl": "https://a.ppy.sh/" + profile[0].user_id,
                           "title": profile[0].username,
                           "text": deskripsi_profil,
                           "actions": [{
-                              "type": "uri",
-                              "label": "Ke Profile",
-                              "uri": "https://osu.ppy.sh/u/"+profile[0].user_id
+                              "type": "postback",
+                              "label": "Buy",
+                              "data": "action=buy&itemid=111"
+                            },
+                            {
+                              "type": "postback",
+                              "label": "Add to cart",
+                              "data": "action=add&itemid=111"
                             },
                             {
                               "type": "uri",
-                              "label": "Download Recent Beatmap",
-                              "uri": "https://osu.ppy.sh/d/"+recent[0].beatmap_id
+                              "label": "View detail",
+                              "uri": "http://example.com/page/111"
                             }
                           ]
                         },
                         {
-                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/"+recent[0].beatmap_id+".jpg",
+                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + recent[0].beatmap_id,
                           "title": "Beatmap Terakhir Dimainkan",
-                          "text": deskripsi_profil,
+                          "text": deskripsi_recent,
                           "actions": [{
-                              "type": "uri",
-                              "label": "Ke Profile",
-                              "uri": "https://osu.ppy.sh/u/"+profile[0].user_id
+                              "type": "postback",
+                              "label": "Buy",
+                              "data": "action=buy&itemid=111"
+                            },
+                            {
+                              "type": "postback",
+                              "label": "Add to cart",
+                              "data": "action=add&itemid=111"
                             },
                             {
                               "type": "uri",
-                              "label": "Download Recent Beatmap",
-                              "uri": "https://osu.ppy.sh/d/"+recent[0].beatmap_id
+                              "label": "View detail",
+                              "uri": "http://example.com/page/111"
                             }
                           ]
                         }

@@ -397,42 +397,42 @@ function handleEvent(event) {
                   "template": {
                     "type": "carousel",
                     "columns": [{
-                        "thumbnailImageUrl": "https://a.ppy.sh/"+profile[0].user_id,
+                        "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
                         "title": "this is menu",
                         "text": "description",
                         "actions": [{
                             "type": "uri",
                             "label": "Ke Profile",
-                            "data": "https://osu.ppy.sh/u/"+profile[0].user_id
+                            "data": "https://osu.ppy.sh/u/"
                           },
                           {
                             "type": "uri",
                             "label": "Download Recent Beatmap",
-                            "uri": "https://osu.ppy.sh/d"+recent[0].beatmap_id
+                            "uri": "http://example.com/page/111"
+                          }
+                        ]
+                      },
+                      {
+                        "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                        "title": "this is menu",
+                        "text": "description",
+                        "actions": [{
+                            "type": "postback",
+                            "label": "Buy",
+                            "data": "action=buy&itemid=222"
+                          },
+                          {
+                            "type": "postback",
+                            "label": "Add to cart",
+                            "data": "action=add&itemid=222"
+                          },
+                          {
+                            "type": "uri",
+                            "label": "View detail",
+                            "uri": "http://example.com/page/222"
                           }
                         ]
                       }
-                      // {
-                      //   "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
-                      //   "title": "this is menu",
-                      //   "text": "description",
-                      //   "actions": [{
-                      //       "type": "postback",
-                      //       "label": "Buy",
-                      //       "data": "action=buy&itemid=222"
-                      //     },
-                      //     {
-                      //       "type": "postback",
-                      //       "label": "Add to cart",
-                      //       "data": "action=add&itemid=222"
-                      //     },
-                      //     {
-                      //       "type": "uri",
-                      //       "label": "View detail",
-                      //       "uri": "http://example.com/page/222"
-                      //     }
-                      //   ]
-                      // }
                     ]
                   }
                 });

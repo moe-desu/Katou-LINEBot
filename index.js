@@ -8,8 +8,8 @@ var myfunc = require('./myfunc');
 
 //configure the bot information and adding express to app variable
 const config = {
-  channelAccessToken: 'Us6h+bLUpILGmXlwQLeKQbUt3rwsM9a9ZQDPu2J/oTVM1fgk6l8jVMzj3VMZmv5Kh01EfFdd3w/LB/ami46wRdRZUGZPf0HvjVGo4C4mo+oR3paKPGLlcQmyoTEuJ5UakqZuD4p9XZdWSZuuWQBiIwdB04t89/1O/w1cDnyilFU=',
-  channelSecret: '1d9404227cd61b49a81864ec9b47a877'
+  channelAccessToken: 'XrScKVvNSdipjnW8vX5TUemKTMdbss9MJ7Z6PulfQwh8yDdWZCVwWoKe5IwR2Tpk8V44lGune039T5Yw4Cl2PEZpiCqyX7QjcrYAgt3z+zeqyIjak0pA5YjuG20eYU0Mj77Pb4jGVjT8dq6fK6EGBQdB04t89/1O/w1cDnyilFU=',
+  channelSecret: '094811dcc54bd450fb23cf31f252b200'
 };
 const app = express();
 

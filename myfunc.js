@@ -797,7 +797,6 @@ var osuBeatmap = function(keyword) {
   });
 }
 
-osuProfile('Animz',0);
 //fungsi normal
 exports.searchImg = searchImg;
 exports.youtubeGetUrlVideo = youtubeGetUrlVideo;

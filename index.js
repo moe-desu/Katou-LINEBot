@@ -394,10 +394,30 @@ function handleEvent(event) {
                 myfunc.osuBest(keyword, 0).then(function(hasil_best) {
                   best = hasil_best;
                   if (best.length === 0) {
+                    deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "    Acc : " + Math.floor(parseInt(profile[0].accuracy)) + "%\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
                     return client.replyMessage(token, {
-                      type: 'text',
-                      text: 'itemsGambar.kata'
-                    });
+                      "type": "template",
+                      "altText": "Osu Profile",
+                      "template": {
+                        "type": "carousel",
+                        "columns": [{
+                          "thumbnailImageUrl": "https://a.ppy.sh/" + profile[0].user_id,
+                          "title": profile[0].username,
+                          "text": deskripsi_profil,
+                          "actions": [{
+                              "type": "uri",
+                              "label": "Ke profile",
+                              "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
+                            },
+                            {
+                              "type": "uri",
+                              "label": "Ke beatmap terbaik",
+                              "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
+                            }
+                          ]
+                        }]
+                      }
+                    }):
                   } else {
                     myfunc.osuBeatmap(best[0].beatmap_id).then(function(hasil_beatmap) {
                       beatmap = hasil_beatmap;

@@ -417,7 +417,7 @@ function handleEvent(event) {
                           ]
                         }]
                       }
-                    }):
+                    });
                   } else {
                     myfunc.osuBeatmap(best[0].beatmap_id).then(function(hasil_beatmap) {
                       beatmap = hasil_beatmap;

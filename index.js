@@ -385,7 +385,7 @@ function handleEvent(event) {
             var deskripsi_best;
             myfunc.osuProfile(keyword, 0).then(function(hasil_profile) {
               profile = hasil_profile;
-              if (profile.length < 0) {
+              if (profile.length === 0) {
                 return client.replyMessage(token, {
                   type: 'text',
                   text: 'User : ' + keyword + " tidak ditemukan"
@@ -393,7 +393,7 @@ function handleEvent(event) {
               } else {
                 myfunc.osuBest(keyword, 0).then(function(hasil_best) {
                   best = hasil_best;
-                  if (best.length < 0) {
+                  if (best.length === 0) {
                     return client.replyMessage(token, {
                       type: 'text',
                       text: 'itemsGambar.kata'

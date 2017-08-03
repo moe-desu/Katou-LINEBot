@@ -774,7 +774,7 @@ var osuProfile = function(keyword, mode) {
     "u": keyword,
     "m": mode
   }).then(function(results) {
-    console.log(results);
+    return results;
   });
 }
 

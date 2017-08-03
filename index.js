@@ -402,12 +402,12 @@ function handleEvent(event) {
                           "text": deskripsi_profil,
                           "actions": [{
                               "type": "uri",
-                              "label": "Ke profile",
+                              "label": "View detail",
                               "uri": "http://example.com/page/111"
                             },
                             {
                               "type": "uri",
-                              "label": "Download beatmap terbaik",
+                              "label": "View detail",
                               "uri": "https://b.ppy.sh/thumb/"+best[0].beatmap_id+".jpg"
                             }
                           ]
@@ -418,12 +418,12 @@ function handleEvent(event) {
                           "text": deskripsi_best,
                           "actions": [{
                               "type": "uri",
-                              "label": "Ke profile",
+                              "label": "View detail",
                               "uri": "http://example.com/page/111"
                             },
                             {
                               "type": "uri",
-                              "label": "Download beatmap terbaik",
+                              "label": "View detail",
                               "uri": "http://example.com/page/111"
                             }
                           ]

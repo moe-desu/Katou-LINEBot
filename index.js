@@ -430,8 +430,12 @@ function handleEvent(event) {
                   } else {
                     myfunc.osuBeatmap(best[0].beatmap_id).then(function(hasil_beatmap) {
                       beatmap = hasil_beatmap;
+                      var title = beatmap[0].title ;
+                      if(title.length > 26){
+                        title = title.substr(0,26)+"...";
+                      }
                       deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "    Acc : " + Math.floor(parseInt(profile[0].accuracy)) + "%\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
-                      deskripsi_best = beatmap[0].title + "\nScore : " + best[0].score + "\nPP : " + Math.floor(parseInt(best[0].pp));
+                      deskripsi_best = title + "\nScore : " + best[0].score + "\nPP : " + Math.floor(parseInt(best[0].pp));
                       return client.replyMessage(token, {
                         "type": "template",
                         "altText": "Osu Profile",

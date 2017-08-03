@@ -133,7 +133,7 @@ function handleEvent(event) {
           if (msgText === 'Katou') {
             return client.replyMessage(token, {
               type: 'text',
-              text: 'iya'
+              text: 'Iya'
             });
           }
 
@@ -273,7 +273,7 @@ function handleEvent(event) {
             var terjemahan = myfunc.terjemahkan(keyword, lang);
             return client.replyMessage(token, {
               type: 'text',
-              text: terjemahan
+              text: 'Hasil terjemahan : \n\n' + terjemahan
             });
           }
 
@@ -403,28 +403,28 @@ function handleEvent(event) {
                           "actions": [{
                               "type": "uri",
                               "label": "Ke profile",
-                              "uri": "http://example.com/page/111"
+                              "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
                             },
                             {
                               "type": "uri",
                               "label": "DL beatmap terbaik",
-                              "uri": "https://b.ppy.sh/thumb/"+best[0].beatmap_id+".jpg"
+                              "uri": "https://osu.ppy.sh/d/" + beatmap[0].beatmapset_id
                             }
                           ]
                         },
                         {
-                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/"+beatmap[0].beatmapset_id+"l.jpg",
+                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + beatmap[0].beatmapset_id + "l.jpg",
                           "title": "Skor Terbaik",
                           "text": deskripsi_best,
                           "actions": [{
                               "type": "uri",
-                              "label": "View detail",
-                              "uri": "http://example.com/page/111"
+                              "label": "Ke profile",
+                              "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
                             },
                             {
                               "type": "uri",
-                              "label": "View detail",
-                              "uri": "http://example.com/page/111"
+                              "label": "DL beatmap terbaik",
+                              "uri": "https://osu.ppy.sh/d/" + beatmap[0].beatmapset_id
                             }
                           ]
                         }

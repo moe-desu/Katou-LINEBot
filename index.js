@@ -66,27 +66,50 @@ function handleEvent(event) {
     var data;
     //ambil id source
     myfunc.checkId(source, id).then(function(items) {
-        //return kosong bila msg type selain text
-        if (event.message.type !== 'text') {
-          return Promise.resolve(null);
-        }
+          //return kosong bila msg type selain text
+          if (event.message.type !== 'text') {
+            return Promise.resolve(null);
+          }
 
-        data = items;
-        if (data[0].game !== "") {
-          if (data[0].game === "tekaTeki") {
-            var jawabanTekaTeki;
-            var jawabanAlasan;
-            if (msgText.indexOf('Katou jawab') > -1) {
-              var jawabanUser = msgText.substr(12);
-              jawabanUser = jawabanUser.toLowerCase();
-              myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban) {
-                jawabanTekaTeki = jawaban[0].jawaban;
-                jawabanAlasan = jawaban[0].alasan;
-                if (jawabanUser === jawabanTekaTeki.toLowerCase()) {
+          data = items;
+          if (data[0].game !== "") {
+            if (data[0].game === "tekaTeki") {
+              var jawabanTekaTeki;
+              var jawabanAlasan;
+              if (msgText.indexOf('Katou jawab') > -1) {
+                var jawabanUser = msgText.substr(12);
+                jawabanUser = jawabanUser.toLowerCase();
+                myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban) {
+                  jawabanTekaTeki = jawaban[0].jawaban;
+                  jawabanAlasan = jawaban[0].alasan;
+                  if (jawabanUser === jawabanTekaTeki.toLowerCase()) {
+                    myfunc.hapusIdGame(userType, data[0][userType]).then(function(data) {
+                      return client.replyMessage(token, [{
+                        type: 'text',
+                        text: 'yey jawaban mu benar : ' + jawabanTekaTeki.toLowerCase()
+                      }, {
+                        type: 'text',
+                        text: jawabanAlasan
+                      }, {
+                        type: 'text',
+                        text: 'jika ingin bermain lagi ketik Katou main tekateki'
+                      }]);
+                    });
+                  } else {
+                    return client.replyMessage(token, {
+                      type: 'text',
+                      text: 'Jawaban mu salah'
+                    });
+                  }
+                });
+              } else if (msgText === 'Katou nyerah') {
+                myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban) {
+                  jawabanTekaTeki = jawaban[0].jawaban;
+                  jawabanAlasan = jawaban[0].alasan;
                   myfunc.hapusIdGame(userType, data[0][userType]).then(function(data) {
                     return client.replyMessage(token, [{
                       type: 'text',
-                      text: 'yey jawaban mu benar : ' + jawabanTekaTeki.toLowerCase()
+                      text: 'jawaban yang benar adalah : ' + jawabanTekaTeki.toLowerCase()
                     }, {
                       type: 'text',
                       text: jawabanAlasan
@@ -95,202 +118,198 @@ function handleEvent(event) {
                       text: 'jika ingin bermain lagi ketik Katou main tekateki'
                     }]);
                   });
-                } else {
+                });
+              } else {
+                if (msgText.indexOf('Katou') > -1) {
                   return client.replyMessage(token, {
                     type: 'text',
-                    text: 'Jawaban mu salah'
+                    text: 'dijawab dulu teka teki diatas atau ketik Katou nyerah'
                   });
                 }
-              });
-            } else if (msgText === 'Katou nyerah') {
-              myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban) {
-                jawabanTekaTeki = jawaban[0].jawaban;
-                jawabanAlasan = jawaban[0].alasan;
-                myfunc.hapusIdGame(userType, data[0][userType]).then(function(data) {
-                  return client.replyMessage(token, [{
-                    type: 'text',
-                    text: 'jawaban yang benar adalah : ' + jawabanTekaTeki.toLowerCase()
-                  }, {
-                    type: 'text',
-                    text: jawabanAlasan
-                  }, {
-                    type: 'text',
-                    text: 'jika ingin bermain lagi ketik Katou main tekateki'
-                  }]);
-                });
-              });
-            } else {
-              if (msgText.indexOf('Katou') > -1) {
-                return client.replyMessage(token, {
-                  type: 'text',
-                  text: 'dijawab dulu teka teki diatas atau ketik Katou nyerah'
-                });
               }
             }
-          }
-        } else {
-          //katou merespon
-          if (msgText === 'Katou') {
-            return client.replyMessage(token, {
-              type: 'text',
-              text: 'Iya'
-            });
-          }
+          } else {
+            //katou merespon
+            if (msgText === 'Katou') {
+              return client.replyMessage(token, {
+                type: 'text',
+                text: 'Iya'
+              });
+            }
 
-          //checkId
-          if (msgText === 'Katou id') {
-            return client.replyMessage(token, {
-              type: 'text',
-              text: source + " : " + data[0][userType]
-            });
-          }
+            //checkId
+            if (msgText === 'Katou id') {
+              return client.replyMessage(token, {
+                type: 'text',
+                text: source + " : " + data[0][userType]
+              });
+            }
 
-          //games tekateki
-          var itemtekaTeki;
-          if (msgText === 'Katou main tekateki') {
-            myfunc.tekaTeki().then(function(itemGame) {
-              itemtekaTeki = itemGame;
-              myfunc.addidTekaTeki(userType, data[0][userType], itemtekaTeki[0]._id).then(function(database) {
-                return client.replyMessage(token, [{
-                  type: 'text',
-                  text: itemtekaTeki[0].tekateki
-                }, {
-                  type: 'text',
-                  text: itemtekaTeki[0].teks
-                }]);
+            //games tekateki
+            var itemtekaTeki;
+            if (msgText === 'Katou main tekateki') {
+              myfunc.tekaTeki().then(function(itemGame) {
+                itemtekaTeki = itemGame;
+                myfunc.addidTekaTeki(userType, data[0][userType], itemtekaTeki[0]._id).then(function(database) {
+                  return client.replyMessage(token, [{
+                    type: 'text',
+                    text: itemtekaTeki[0].tekateki
+                  }, {
+                    type: 'text',
+                    text: itemtekaTeki[0].teks
+                  }]);
+                }, function(err) {
+                  console.error('The promise was rejected', err, err.stack);
+                });
               }, function(err) {
                 console.error('The promise was rejected', err, err.stack);
               });
-            }, function(err) {
-              console.error('The promise was rejected', err, err.stack);
-            });
-          }
-
-          //kalkulator
-          if (msgText.indexOf('Katou berapa') > -1) {
-            var angka = msgText.substr(13);
-
-            return client.replyMessage(token, {
-              type: 'text',
-              text: 'Hasil dari ' + angka + ' adalah ' + eval(angka)
-            });
-          }
-
-          //ramal
-          if (msgText === 'Katou ramal') {
-            return client.replyMessage(token, {
-              type: 'text',
-              text: myfunc.ramal()
-            });
-          }
-
-          //selamat ulang tahun
-          if (msgText.indexOf('Katou ucapkan selamat ulang tahun ke') > -1) {
-            var nama = msgText.substr(37);
-            return client.replyMessage(token, {
-              type: 'text',
-              text: 'Selamat Ulang Tahun ' + nama + ' :D'
-            });
-          }
-
-          //wikipedia
-          if (msgText.indexOf('Katou apa itu') > -1) {
-            var keyword = msgText.substr(14);
-            return client.replyMessage(token, {
-              type: 'text',
-              text: myfunc.wiki(keyword)
-            });
-          }
-
-          //cari lokasi
-          if (msgText.indexOf('Katou cari lokasi') > -1) {
-            var keyword = msgText.substr(18);
-            var location = myfunc.cariLokasi(keyword);
-            if (location.err === undefined) {
-              return client.replyMessage(token, {
-                type: "location",
-                title: keyword,
-                address: location.address,
-                latitude: location.latitude,
-                longitude: location.longitude
-              });
-            } else {
-              return client.replyMessage(token, {
-                type: 'text',
-                text: location.kata
-              });
             }
-          }
 
-          //katou tulis
-          if (msgText.indexOf('Katou tulis') > -1) {
-            var keyword = msgText.substr(12);
-            keyword = encodeURI(keyword);
-            return client.replyMessage(token, {
-              type: "image",
-              originalContentUrl: "https://chart.apis.google.com/chart?chs=300x50&cht=p3&chtt=" + keyword + "&chts=FFFFFF,24&chf=bg,s,000000",
-              previewImageUrl: "https://chart.apis.google.com/chart?chs=300x50&cht=p3&chtt=" + keyword + "&chts=FFFFFF,24&chf=bg,s,000000"
-            });
-          }
+            //kalkulator
+            if (msgText.indexOf('Katou berapa') > -1) {
+              var angka = msgText.substr(13);
 
-          //katou stalk ig
-          if (msgText.indexOf('Katou stalk') > -1) {
-            var keyword = msgText.substr(12);
-            var objectIg = myfunc.stalkIg(keyword);
-            if (objectIg.err === undefined) {
-              return client.replyMessage(token, objectIg);
-            } else {
               return client.replyMessage(token, {
                 type: 'text',
-                text: objectIg.kata
+                text: 'Hasil dari ' + angka + ' adalah ' + eval(angka)
               });
             }
 
-          }
+            //ramal
+            if (msgText === 'Katou ramal') {
+              return client.replyMessage(token, {
+                type: 'text',
+                text: myfunc.ramal()
+              });
+            }
 
-          //katou ubah alay
-          if (msgText.indexOf('Katou ubah alay') > -1) {
-            var keyword = msgText.substr(16);
-            return client.replyMessage(token, {
-              type: 'text',
-              text: myfunc.ubahAlay(keyword)
-            });
-          }
+            //selamat ulang tahun
+            if (msgText.indexOf('Katou ucapkan selamat ulang tahun ke') > -1) {
+              var nama = msgText.substr(37);
+              return client.replyMessage(token, {
+                type: 'text',
+                text: 'Selamat Ulang Tahun ' + nama + ' :D'
+              });
+            }
 
-          //katou terjemahkan alay
-          if (msgText.indexOf('Katou terjemahkan alay') > -1) {
-            var keyword = msgText.substr(23);
-            return client.replyMessage(token, {
-              type: 'text',
-              text: myfunc.translateAlay(keyword)
-            });
-          }
+            //wikipedia
+            if (msgText.indexOf('Katou apa itu') > -1) {
+              var keyword = msgText.substr(14);
+              return client.replyMessage(token, {
+                type: 'text',
+                text: myfunc.wiki(keyword)
+              });
+            }
 
-          //katou terjemahkan
-          if (msgText.indexOf('Katou terjemahkan') > -1) {
-            var lang = msgText.substr(18, 5);
-            var keyword = msgText.substr(24);
-            var terjemahan = myfunc.terjemahkan(keyword, lang);
-            return client.replyMessage(token, {
-              type: 'text',
-              text: 'Hasil terjemahan : \n\n' + terjemahan
-            });
-          }
+            //cari lokasi
+            if (msgText.indexOf('Katou cari lokasi') > -1) {
+              var keyword = msgText.substr(18);
+              var location = myfunc.cariLokasi(keyword);
+              if (location.err === undefined) {
+                return client.replyMessage(token, {
+                  type: "location",
+                  title: keyword,
+                  address: location.address,
+                  latitude: location.latitude,
+                  longitude: location.longitude
+                });
+              } else {
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: location.kata
+                });
+              }
+            }
 
-          //katou cuaca
-          if (msgText.indexOf('Katou cuaca') > -1) {
-            var keyword = msgText.substr(12);
-            return client.replyMessage(token, {
-              type: 'text',
-              text: myfunc.weather(keyword)
-            });
-          }
+            //katou tulis
+            if (msgText.indexOf('Katou tulis') > -1) {
+              var keyword = msgText.substr(12);
+              keyword = encodeURI(keyword);
+              return client.replyMessage(token, {
+                type: "image",
+                originalContentUrl: "https://chart.apis.google.com/chart?chs=300x50&cht=p3&chtt=" + keyword + "&chts=FFFFFF,24&chf=bg,s,000000",
+                previewImageUrl: "https://chart.apis.google.com/chart?chs=300x50&cht=p3&chtt=" + keyword + "&chts=FFFFFF,24&chf=bg,s,000000"
+              });
+            }
 
-          //katou 9gag keyword
-          if (msgText.indexOf('Katou 9gag') > -1) {
-            var keyword = msgText.substr(11);
-            var items9gag = myfunc.search9gag(keyword);
-            if (items9gag.err === undefined) {
+            //katou stalk ig
+            if (msgText.indexOf('Katou stalk') > -1) {
+              var keyword = msgText.substr(12);
+              var objectIg = myfunc.stalkIg(keyword);
+              if (objectIg.err === undefined) {
+                return client.replyMessage(token, objectIg);
+              } else {
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: objectIg.kata
+                });
+              }
+
+            }
+
+            //katou ubah alay
+            if (msgText.indexOf('Katou ubah alay') > -1) {
+              var keyword = msgText.substr(16);
+              return client.replyMessage(token, {
+                type: 'text',
+                text: myfunc.ubahAlay(keyword)
+              });
+            }
+
+            //katou terjemahkan alay
+            if (msgText.indexOf('Katou terjemahkan alay') > -1) {
+              var keyword = msgText.substr(23);
+              return client.replyMessage(token, {
+                type: 'text',
+                text: myfunc.translateAlay(keyword)
+              });
+            }
+
+            //katou terjemahkan
+            if (msgText.indexOf('Katou terjemahkan') > -1) {
+              var lang = msgText.substr(18, 5);
+              var keyword = msgText.substr(24);
+              var terjemahan = myfunc.terjemahkan(keyword, lang);
+              return client.replyMessage(token, {
+                type: 'text',
+                text: 'Hasil terjemahan : \n\n' + terjemahan
+              });
+            }
+
+            //katou cuaca
+            if (msgText.indexOf('Katou cuaca') > -1) {
+              var keyword = msgText.substr(12);
+              return client.replyMessage(token, {
+                type: 'text',
+                text: myfunc.weather(keyword)
+              });
+            }
+
+            //katou 9gag keyword
+            if (msgText.indexOf('Katou 9gag') > -1) {
+              var keyword = msgText.substr(11);
+              var items9gag = myfunc.search9gag(keyword);
+              if (items9gag.err === undefined) {
+                return client.replyMessage(token, [{
+                  type: 'text',
+                  text: items9gag.memeTitle
+                }, {
+                  type: 'image',
+                  originalContentUrl: items9gag.memeImg,
+                  previewImageUrl: items9gag.memeImg
+                }]);
+              } else {
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: items9gag.kata
+                });
+              }
+            }
+
+            //katou 9gag
+            if (msgText === 'Katou 9gag') {
+              var items9gag = myfunc.search9gag('hot');
               return client.replyMessage(token, [{
                 type: 'text',
                 text: items9gag.memeTitle
@@ -299,141 +318,131 @@ function handleEvent(event) {
                 originalContentUrl: items9gag.memeImg,
                 previewImageUrl: items9gag.memeImg
               }]);
-            } else {
-              return client.replyMessage(token, {
-                type: 'text',
-                text: items9gag.kata
-              });
             }
-          }
 
-          //katou 9gag
-          if (msgText === 'Katou 9gag') {
-            var items9gag = myfunc.search9gag('hot');
-            return client.replyMessage(token, [{
-              type: 'text',
-              text: items9gag.memeTitle
-            }, {
-              type: 'image',
-              originalContentUrl: items9gag.memeImg,
-              previewImageUrl: items9gag.memeImg
-            }]);
-          }
-
-          //katou download musik
-          if (msgText.indexOf('Katou download musik') > -1) {
-            var keyword = msgText.substr(21);
-            var itemsMusic = myfunc.youtubeMusic(keyword);
-            if (itemsMusic.err === undefined) {
-              var linkDownload = "Link : http://mp3you.tube/get/?direct=https://www.youtube.com/watch?v=" + itemsMusic.id;
-              var messageLink = itemsMusic.judul + "\n\n" + linkDownload;
-              return client.replyMessage(token, {
-                type: 'text',
-                text: messageLink
-              });
-            } else {
-              return client.replyMessage(token, {
-                type: 'text',
-                text: itemsMusic.kata
-              });
-            }
-          }
-
-          //katou cari video
-          if (msgText.indexOf('Katou cari video') > -1) {
-            var keyword = msgText.substr(17);
-            var itemsVideo = myfunc.youtubeGetUrlVideo(keyword);
-            if (itemsVideo.err === undefined) {
-              return client.replyMessage(token, {
-                type: 'video',
-                "originalContentUrl": itemsVideo.video,
-                "previewImageUrl": itemsVideo.thumbnail
-              });
-            } else {
-              return client.replyMessage(token, {
-                type: 'text',
-                text: itemsVideo.kata
-              });
-            }
-          }
-
-          //katou cari gambar
-          if (msgText.indexOf('Katou cari gambar') > -1) {
-            var keyword = msgText.substr(18);
-            var itemsGambar = myfunc.searchImg(keyword);
-            if (itemsGambar.err === undefined) {
-              return client.replyMessage(token, {
-                type: 'image',
-                originalContentUrl: itemsGambar,
-                previewImageUrl: itemsGambar
-              });
-            } else {
-              return client.replyMessage(token, {
-                type: 'text',
-                text: itemsGambar.kata
-              });
-            }
-          }
-
-          //katou osuprofile
-          if (msgText.indexOf('Katou osuprofile') > -1) {
-            var keyword = msgText.substr(17);
-            var profile;
-            var best;
-            var beatmap;
-            var deskripsi_profil;
-            var deskripsi_best;
-            myfunc.osuProfile(keyword, 0).then(function(hasil_profile) {
-              profile = hasil_profile;
-              myfunc.osuBest(keyword, 0).then(function(hasil_best) {
-                best = hasil_best;
-                myfunc.osuBeatmap(best[0].beatmap_id).then(function(hasil_beatmap) {
-                  beatmap = hasil_beatmap;
-                  deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "    Acc : " + Math.floor(parseInt(profile[0].accuracy)) + "%\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
-                  deskripsi_best = beatmap[0].title + "\nScore : " + best[0].score + "\nPP : " + Math.floor(parseInt(best[0].pp));
-                  return client.replyMessage(token, {
-                    "type": "template",
-                    "altText": "Osu Profile",
-                    "template": {
-                      "type": "carousel",
-                      "columns": [{
-                          "thumbnailImageUrl": "https://a.ppy.sh/" + profile[0].user_id,
-                          "title": profile[0].username,
-                          "text": deskripsi_profil,
-                          "actions": [{
-                              "type": "uri",
-                              "label": "Ke profile",
-                              "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
-                            },
-                            {
-                              "type": "uri",
-                              "label": "Ke beatmap terbaik",
-                              "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
-                            }
-                          ]
-                        },
-                        {
-                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + beatmap[0].beatmapset_id + "l.jpg",
-                          "title": "Skor Terbaik",
-                          "text": deskripsi_best,
-                          "actions": [{
-                              "type": "uri",
-                              "label": "Ke profile",
-                              "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
-                            },
-                            {
-                              "type": "uri",
-                              "label": "Ke beatmap terbaik",
-                              "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  });
+            //katou download musik
+            if (msgText.indexOf('Katou download musik') > -1) {
+              var keyword = msgText.substr(21);
+              var itemsMusic = myfunc.youtubeMusic(keyword);
+              if (itemsMusic.err === undefined) {
+                var linkDownload = "Link : http://mp3you.tube/get/?direct=https://www.youtube.com/watch?v=" + itemsMusic.id;
+                var messageLink = itemsMusic.judul + "\n\n" + linkDownload;
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: messageLink
                 });
-              });
-            });
+              } else {
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: itemsMusic.kata
+                });
+              }
+            }
+
+            //katou cari video
+            if (msgText.indexOf('Katou cari video') > -1) {
+              var keyword = msgText.substr(17);
+              var itemsVideo = myfunc.youtubeGetUrlVideo(keyword);
+              if (itemsVideo.err === undefined) {
+                return client.replyMessage(token, {
+                  type: 'video',
+                  "originalContentUrl": itemsVideo.video,
+                  "previewImageUrl": itemsVideo.thumbnail
+                });
+              } else {
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: itemsVideo.kata
+                });
+              }
+            }
+
+            //katou cari gambar
+            if (msgText.indexOf('Katou cari gambar') > -1) {
+              var keyword = msgText.substr(18);
+              var itemsGambar = myfunc.searchImg(keyword);
+              if (itemsGambar.err === undefined) {
+                return client.replyMessage(token, {
+                  type: 'image',
+                  originalContentUrl: itemsGambar,
+                  previewImageUrl: itemsGambar
+                });
+              } else {
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: itemsGambar.kata
+                });
+              }
+            }
+
+            //katou osuprofile
+            if (msgText.indexOf('Katou osuprofile') > -1) {
+              var keyword = msgText.substr(17);
+              var profile;
+              var best;
+              var beatmap;
+              var deskripsi_profil;
+              var deskripsi_best;
+              myfunc.osuProfile(keyword, 0).then(function(hasil_profile) {
+                  profile = hasil_profile;
+                  myfunc.osuBest(keyword, 0).then(function(hasil_best) {
+                      best = hasil_best;
+                      if (best === null) {
+                        return client.replyMessage(token, {
+                          type: 'text',
+                          text: 'itemsGambar.kata'
+                        });
+                      } else {
+                        myfunc.osuBeatmap(best[0].beatmap_id).then(function(hasil_beatmap) {
+                          beatmap = hasil_beatmap;
+                          deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "    Acc : " + Math.floor(parseInt(profile[0].accuracy)) + "%\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
+                          deskripsi_best = beatmap[0].title + "\nScore : " + best[0].score + "\nPP : " + Math.floor(parseInt(best[0].pp));
+                          return client.replyMessage(token, {
+                            "type": "template",
+                            "altText": "Osu Profile",
+                            "template": {
+                              "type": "carousel",
+                              "columns": [{
+                                  "thumbnailImageUrl": "https://a.ppy.sh/" + profile[0].user_id,
+                                  "title": profile[0].username,
+                                  "text": deskripsi_profil,
+                                  "actions": [{
+                                      "type": "uri",
+                                      "label": "Ke profile",
+                                      "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
+                                    },
+                                    {
+                                      "type": "uri",
+                                      "label": "Ke beatmap terbaik",
+                                      "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
+                                    }
+                                  ]
+                                },
+                                {
+                                  "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + beatmap[0].beatmapset_id + "l.jpg",
+                                  "title": "Skor Terbaik",
+                                  "text": deskripsi_best,
+                                  "actions": [{
+                                      "type": "uri",
+                                      "label": "Ke profile",
+                                      "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
+                                    },
+                                    {
+                                      "type": "uri",
+                                      "label": "Ke beatmap terbaik",
+                                      "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          });
+                        });
+                      });
+                  });
+              }
+            }
+
           }
 
         }
@@ -441,7 +450,7 @@ function handleEvent(event) {
       function(err) {
         console.error('The promise was rejected', err, err.stack);
       });
-  }
+}
 }
 
 //running the server

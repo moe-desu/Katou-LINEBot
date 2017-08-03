@@ -387,10 +387,10 @@ function handleEvent(event) {
               profile = hasil_profile;
               myfunc.osuBest(keyword, 0).then(function(hasil_best) {
                 best = hasil_best;
-                if (best.err !== undefined) {
+                if (best.length < 0) {
                   return client.replyMessage(token, {
                     type: 'text',
-                    text: best.kata
+                    text: 'itemsGambar.kata'
                   });
                 } else {
                   myfunc.osuBeatmap(best[0].beatmap_id).then(function(hasil_beatmap) {

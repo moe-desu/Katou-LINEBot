@@ -785,11 +785,6 @@ var osuBest = function(keyword, mode) {
     "limit": 1
   }).then(function(results) {
     return results;
-  },function(err){
-    return {
-      err: 'error',
-      kata: 'user : '+keyword+" tidak mempunyai best skor di mode ini"
-    }
   });
 }
 
@@ -801,6 +796,7 @@ var osuBeatmap = function(keyword) {
     return results;
   });
 }
+
 
 //fungsi normal
 exports.searchImg = searchImg;

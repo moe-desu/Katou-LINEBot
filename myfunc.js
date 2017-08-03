@@ -774,7 +774,7 @@ var osuProfile = function(keyword, mode) {
     "u": keyword,
     "m": mode
   }).then(function(results) {
-    return results;
+    console.log(results);
   });
 }
 
@@ -784,7 +784,7 @@ var osuBest = function(keyword, mode) {
     "m": mode,
     "limit": 1
   }).then(function(results) {
-    return results;
+    console.log(results);
   });
 }
 
@@ -796,6 +796,8 @@ var osuBeatmap = function(keyword) {
     return results;
   });
 }
+
+osuBest('Rehre',3);
 
 //fungsi normal
 exports.searchImg = searchImg;

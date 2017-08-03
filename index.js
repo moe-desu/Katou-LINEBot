@@ -379,16 +379,16 @@ function handleEvent(event) {
           if (msgText.indexOf('Katou osu') > -1) {
             var keyword;
             var mode;
-            if (msgText.indexOf('Katou osuprofile') > -1){
+            if (msgText.indexOf('Katou osustd') > -1){
               keyword = msgText.substr(17);
               mode = 0;
-            }else if(msgText.indexOf('Katou taikoprofile') > -1){
+            }else if(msgText.indexOf('Katou osutaiko') > -1){
               keyword = msgText.substr(19);
               mode = 1;
-            }else if(msgText.indexOf('Katou ctbprofile') > -1){
+            }else if(msgText.indexOf('Katou osuctb') > -1){
               keyword = msgText.substr(17);
               mode = 2;
-            }else if(msgText.indexOf('Katou maniaprofile') > -1){
+            }else if(msgText.indexOf('Katou osumania') > -1){
               keyword = msgText.substr(19);
               mode = 3;
             }

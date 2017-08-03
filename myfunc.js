@@ -774,7 +774,7 @@ var osuProfile = function(keyword, mode) {
     "u": keyword,
     "m": mode
   }).then(function(results) {
-    return results;
+    console.log(results);
   });
 }
 
@@ -797,7 +797,7 @@ var osuBeatmap = function(keyword) {
   });
 }
 
-
+osuProfile('Animz',0);
 //fungsi normal
 exports.searchImg = searchImg;
 exports.youtubeGetUrlVideo = youtubeGetUrlVideo;

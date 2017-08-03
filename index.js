@@ -387,7 +387,7 @@ function handleEvent(event) {
                   profile = hasil_profile;
                   myfunc.osuBest(keyword, 0).then(function(hasil_best) {
                       best = hasil_best;
-                      if (best === null) {
+                      if (best === []) {
                         return client.replyMessage(token, {
                           type: 'text',
                           text: 'itemsGambar.kata'

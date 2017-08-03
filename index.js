@@ -402,28 +402,28 @@ function handleEvent(event) {
                           "text": deskripsi_profil,
                           "actions": [{
                               "type": "uri",
-                              "label": "View detail",
+                              "label": "Ke profile",
                               "uri": "http://example.com/page/111"
                             },
                             {
                               "type": "uri",
-                              "label": "View detail",
+                              "label": "Download beatmap terbaik",
                               "uri": "https://b.ppy.sh/thumb/"+best[0].beatmap_id+".jpg"
                             }
                           ]
                         },
                         {
-                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/"+best[0].beatmap_id+".jpg",
+                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/"+beatmap[0].beatmapset_id+".jpg",
                           "title": "Skor Terbaik",
                           "text": deskripsi_best,
                           "actions": [{
                               "type": "uri",
-                              "label": "View detail",
+                              "label": "Ke profile",
                               "uri": "http://example.com/page/111"
                             },
                             {
                               "type": "uri",
-                              "label": "View detail",
+                              "label": "Download beatmap terbaik",
                               "uri": "http://example.com/page/111"
                             }
                           ]

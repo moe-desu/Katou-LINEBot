@@ -380,7 +380,7 @@ function handleEvent(event) {
             var keyword;
             var mode;
             if (msgText.indexOf('Katou osustd') > -1){
-              keyword = msgText.substr(17);
+              keyword = msgText.substr(13);
               mode = 0;
             }else if(msgText.indexOf('Katou osutaiko') > -1){
               keyword = msgText.substr(15);

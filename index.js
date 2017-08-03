@@ -434,7 +434,7 @@ function handleEvent(event) {
                       if(title.length > 26){
                         title = title.substr(0,26)+"...";
                       }
-                      deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "    Acc : " + Math.floor(parseInt(profile[0].accuracy)) + "%\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
+                      deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "    Acc : " + Math.floor(parseInt(profile[0].accuracy)) + "%\nRank : " + profile[0].pp_rank + "\nPP : " + profile[0].pp_raw;
                       deskripsi_best = title + "\nScore : " + best[0].score + "\nPP : " + Math.floor(parseInt(best[0].pp));
                       return client.replyMessage(token, {
                         "type": "template",

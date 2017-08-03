@@ -407,7 +407,7 @@ function handleEvent(event) {
                             },
                             {
                               "type": "uri",
-                              "label": "View detail",
+                              "label": "Download beatmap terbaik",
                               "uri": "https://b.ppy.sh/thumb/"+best[0].beatmap_id+".jpg"
                             }
                           ]

@@ -376,14 +376,29 @@ function handleEvent(event) {
           }
 
           //katou osuprofile
-          if (msgText.indexOf('Katou osuprofile') > -1) {
-            var keyword = msgText.substr(17);
+          if (msgText.indexOf('Katou osu') > -1) {
+            var keyword;
+            var mode;
+            if (msgText.indexOf('Katou osuprofile') > -1){
+              keyword = msgText.substr(17);
+              mode = 0;
+            }else if(msgText.indexOf('Katou taikoprofile') > -1){
+              keyword = msgText.substr(19);
+              mode = 1;
+            }else if(msgText.indexOf('Katou ctbprofile') > -1){
+              keyword = msgText.substr(17);
+              mode = 2;
+            }else if(msgText.indexOf('Katou maniaprofile') > -1){
+              keyword = msgText.substr(19);
+              mode = 3;
+            }
+
             var profile;
             var best;
             var beatmap;
             var deskripsi_profil;
             var deskripsi_best;
-            myfunc.osuProfile(keyword, 0).then(function(hasil_profile) {
+            myfunc.osuProfile(keyword, mode).then(function(hasil_profile) {
               profile = hasil_profile;
               if (profile.length === 0) {
                 return client.replyMessage(token, {
@@ -391,7 +406,7 @@ function handleEvent(event) {
                   text: 'User : ' + keyword + " tidak ditemukan"
                 });
               } else {
-                myfunc.osuBest(keyword, 0).then(function(hasil_best) {
+                myfunc.osuBest(keyword, mode).then(function(hasil_best) {
                   best = hasil_best;
                   if (best.length === 0) {
                     deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "    Acc : " + Math.floor(parseInt(profile[0].accuracy)) + "%\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;

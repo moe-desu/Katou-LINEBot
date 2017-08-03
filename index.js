@@ -385,61 +385,68 @@ function handleEvent(event) {
             var deskripsi_best;
             myfunc.osuProfile(keyword, 0).then(function(hasil_profile) {
               profile = hasil_profile;
-              myfunc.osuBest(keyword, 0).then(function(hasil_best) {
-                best = hasil_best;
-                if (best.length < 0) {
-                  return client.replyMessage(token, {
-                    type: 'text',
-                    text: 'itemsGambar.kata'
-                  });
-                } else {
-                  myfunc.osuBeatmap(best[0].beatmap_id).then(function(hasil_beatmap) {
-                    beatmap = hasil_beatmap;
-                    deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "    Acc : " + Math.floor(parseInt(profile[0].accuracy)) + "%\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
-                    deskripsi_best = beatmap[0].title + "\nScore : " + best[0].score + "\nPP : " + Math.floor(parseInt(best[0].pp));
+              if (profile.length < 0) {
+                return client.replyMessage(token, {
+                  type: 'text',
+                  text: 'User : ' + keyword + " tidak ditemukan"
+                });
+              } else {
+                myfunc.osuBest(keyword, 0).then(function(hasil_best) {
+                  best = hasil_best;
+                  if (best.length < 0) {
                     return client.replyMessage(token, {
-                      "type": "template",
-                      "altText": "Osu Profile",
-                      "template": {
-                        "type": "carousel",
-                        "columns": [{
-                            "thumbnailImageUrl": "https://a.ppy.sh/" + profile[0].user_id,
-                            "title": profile[0].username,
-                            "text": deskripsi_profil,
-                            "actions": [{
-                                "type": "uri",
-                                "label": "Ke profile",
-                                "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
-                              },
-                              {
-                                "type": "uri",
-                                "label": "Ke beatmap terbaik",
-                                "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
-                              }
-                            ]
-                          },
-                          {
-                            "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + beatmap[0].beatmapset_id + "l.jpg",
-                            "title": "Skor Terbaik",
-                            "text": deskripsi_best,
-                            "actions": [{
-                                "type": "uri",
-                                "label": "Ke profile",
-                                "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
-                              },
-                              {
-                                "type": "uri",
-                                "label": "Ke beatmap terbaik",
-                                "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
-                              }
-                            ]
-                          }
-                        ]
-                      }
+                      type: 'text',
+                      text: 'itemsGambar.kata'
                     });
-                  });
-                }
-              });
+                  } else {
+                    myfunc.osuBeatmap(best[0].beatmap_id).then(function(hasil_beatmap) {
+                      beatmap = hasil_beatmap;
+                      deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "    Acc : " + Math.floor(parseInt(profile[0].accuracy)) + "%\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
+                      deskripsi_best = beatmap[0].title + "\nScore : " + best[0].score + "\nPP : " + Math.floor(parseInt(best[0].pp));
+                      return client.replyMessage(token, {
+                        "type": "template",
+                        "altText": "Osu Profile",
+                        "template": {
+                          "type": "carousel",
+                          "columns": [{
+                              "thumbnailImageUrl": "https://a.ppy.sh/" + profile[0].user_id,
+                              "title": profile[0].username,
+                              "text": deskripsi_profil,
+                              "actions": [{
+                                  "type": "uri",
+                                  "label": "Ke profile",
+                                  "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
+                                },
+                                {
+                                  "type": "uri",
+                                  "label": "Ke beatmap terbaik",
+                                  "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
+                                }
+                              ]
+                            },
+                            {
+                              "thumbnailImageUrl": "https://b.ppy.sh/thumb/" + beatmap[0].beatmapset_id + "l.jpg",
+                              "title": "Skor Terbaik",
+                              "text": deskripsi_best,
+                              "actions": [{
+                                  "type": "uri",
+                                  "label": "Ke profile",
+                                  "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
+                                },
+                                {
+                                  "type": "uri",
+                                  "label": "Ke beatmap terbaik",
+                                  "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      });
+                    });
+                  }
+                });
+              }
             });
           }
 

@@ -784,7 +784,7 @@ var osuBest = function(keyword, mode) {
     "m": mode,
     "limit": 1
   }).then(function(results) {
-    console.log(results);
+    return results;
   });
 }
 
@@ -796,8 +796,6 @@ var osuBeatmap = function(keyword) {
     return results;
   });
 }
-
-osuBest('GH_NATHALA', 0);
 
 //fungsi normal
 exports.searchImg = searchImg;

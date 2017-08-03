@@ -405,16 +405,10 @@ function handleEvent(event) {
                           "title": profile[0].username,
                           "text": deskripsi_profil,
                           "actions": [{
-                              "type": "uri",
-                              "label": "Ke profile",
-                              "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
-                            },
-                            {
-                              "type": "uri",
-                              "label": "Ke beatmap terbaik",
-                              "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
-                            }
-                          ]
+                            "type": "uri",
+                            "label": "Ke profile",
+                            "uri": "https://osu.ppy.sh/u/" + profile[0].user_id
+                          }]
                         }]
                       }
                     });

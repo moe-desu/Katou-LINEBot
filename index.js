@@ -383,13 +383,13 @@ function handleEvent(event) {
               keyword = msgText.substr(17);
               mode = 0;
             }else if(msgText.indexOf('Katou osutaiko') > -1){
-              keyword = msgText.substr(19);
+              keyword = msgText.substr(15);
               mode = 1;
             }else if(msgText.indexOf('Katou osuctb') > -1){
-              keyword = msgText.substr(17);
+              keyword = msgText.substr(13);
               mode = 2;
             }else if(msgText.indexOf('Katou osumania') > -1){
-              keyword = msgText.substr(19);
+              keyword = msgText.substr(15);
               mode = 3;
             }
 

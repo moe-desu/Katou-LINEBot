@@ -389,8 +389,8 @@ function handleEvent(event) {
                 best = hasil_best;
                 myfunc.osuBeatmap(best[0].beatmap_id).then(function(hasil_beatmap) {
                   beatmap = hasil_beatmap;
-                  deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
-                  deskripsi_best = "Judul : " + beatmap[0].title + "\nScore : " + best[0].score + "\nCombo : " + best[0].maxcombo;
+                  deskripsi_profil = "Level : " + Math.floor(parseInt(profile[0].level)) + "  Acc : "+Math.floor(parseInt(profile[0].accuracy))+"\nRank : " + profile[0].pp_rank + "\nPP :" + profile[0].pp_raw;
+                  deskripsi_best = "Judul : " + beatmap[0].title + "  PP : "+Math.floor(parseInt(best[0].pp))+"\nScore : " + best[0].score + "\nCombo : " + best[0].maxcombo;
                   return client.replyMessage(token, {
                     "type": "template",
                     "altText": "Osu Profile",
@@ -407,8 +407,8 @@ function handleEvent(event) {
                             },
                             {
                               "type": "uri",
-                              "label": "DL beatmap terbaik",
-                              "uri": "https://osu.ppy.sh/d/" + beatmap[0].beatmapset_id
+                              "label": "Ke beatmap terbaik",
+                              "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
                             }
                           ]
                         },
@@ -423,8 +423,8 @@ function handleEvent(event) {
                             },
                             {
                               "type": "uri",
-                              "label": "DL beatmap terbaik",
-                              "uri": "https://osu.ppy.sh/d/" + beatmap[0].beatmapset_id
+                              "label": "Ke beatmap terbaik",
+                              "uri": "https://osu.ppy.sh/s/" + beatmap[0].beatmapset_id
                             }
                           ]
                         }

@@ -402,7 +402,7 @@ function handleEvent(event) {
                           "text": deskripsi_profil,
                           "actions": [{
                               "type": "uri",
-                              "label": "View detail",
+                              "label": "Ke profile",
                               "uri": "http://example.com/page/111"
                             },
                             {
@@ -413,7 +413,7 @@ function handleEvent(event) {
                           ]
                         },
                         {
-                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/"+beatmap[0].beatmapset_id+".jpg",
+                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/"+beatmap[0].beatmapset_id+"l.jpg",
                           "title": "Skor Terbaik",
                           "text": deskripsi_best,
                           "actions": [{

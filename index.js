@@ -408,12 +408,12 @@ function handleEvent(event) {
                             {
                               "type": "uri",
                               "label": "View detail",
-                              "uri": "http://example.com/page/111"
+                              "uri": "https://b.ppy.sh/thumb/"+best[0].beatmap_id".jpg"
                             }
                           ]
                         },
                         {
-                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/584520.jpg",
+                          "thumbnailImageUrl": "https://b.ppy.sh/thumb/"+best[0].beatmap_id".jpg",
                           "title": "Skor Terbaik",
                           "text": deskripsi_best,
                           "actions": [{

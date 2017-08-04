@@ -175,16 +175,6 @@ function handleEvent(event) {
               }, function(err) {
                 console.error('The promise was rejected', err, err.stack);
               });
-            } else if (msgText === 'Katou main tekateki') {
-              return client.replyMessage(token, {
-                type: 'text',
-                text: 'Permainan teka teki sedang berlangsung ketik Katou selesai tekateki untuk menyelesaikannya'
-              });
-            } else if (msgText === 'Katou help tekateki') {
-              return client.replyMessage(token, {
-                type: 'text',
-                text: 'Bantuan permainan teka teki :\n\nUntuk menjawab silahkan ketik : Katou jawab (jawaban kamu)\n\nUntuk menyerah silahkan ketik : Katou nyerah\n\nJika ada masalah silahkan kontak :\nCreated by : Rehre(id:akl2340) 18 tahun ig: _rehre\nBot ini diciptakan untuk memenuhi kebutuhan personal'
-              });
             } else {
               if (msgText.indexOf('Katou') > -1) {
                 return client.replyMessage(token, {

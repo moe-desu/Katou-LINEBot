@@ -42,6 +42,18 @@ var ramal = function() {
   return ramalan[randomIndex];
 }
 
+var salah = function() {
+  var salah = [
+    "Jawaban mu salah",
+    "Salah ! Ayo coba lagi",
+    "SALAH !",
+    "Salah ! Ayo teruskan",
+    "Salah ! xD"
+  ];
+  randomIndex = Math.floor(Math.random() * salah.length);
+  return salah[randomIndex];
+}
+
 var wiki = function(keyword) {
   var replaced = keyword.replace(/ /g, '+');
   var url = 'https://id.wikipedia.org/wiki/' + replaced
@@ -180,6 +192,24 @@ var tekaTeki = function() {
       $sample: {
         size: 1
       }
+    }]).toArray();
+  });
+}
+
+var lanjutTekaTeki = function(keyword) {
+  return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
+    var collection = db.collection('tekateki');
+
+    return collection.aggregate([{
+      $match: {
+        _id: {
+          $ne: ObjectId(keyword)
+        }
+      }
+    }, {
+      $sample: {
+        size: 1
+      },
     }]).toArray();
   });
 }
@@ -797,6 +827,37 @@ var osuBeatmap = function(keyword) {
   });
 }
 
+var games = function() {
+  return {
+    "type": "template",
+    "altText": "Games",
+    "template": {
+      "type": "carousel",
+      "columns": [{
+        "thumbnailImageUrl": "https://image.ibb.co/nvvA9v/W3PmGlV.jpg",
+        "title": "Teka teki",
+        "text": "Bermain teka teki dengan katou :D",
+        "actions": [{
+            "type": "message",
+            "label": "Mulai",
+            "text": "Katou main tekateki"
+          },
+          {
+            "type": "message",
+            "label": "Bantuan",
+            "text": "Katou help tekateki"
+          },
+          {
+            "type": "uri",
+            "label": "Tambahkan teka teki",
+            "uri": "http://example.com/page/111"
+          }
+        ]
+      }]
+    }
+  }
+}
+
 //fungsi normal
 exports.searchImg = searchImg;
 exports.youtubeGetUrlVideo = youtubeGetUrlVideo;
@@ -816,6 +877,9 @@ exports.wiki = wiki;
 exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;
 exports.checkTekaTeki = checkTekaTeki;
+exports.lanjutTekaTeki = lanjutTekaTeki;
+exports.games = games;
+exports.salah = salah;
 exports.hapusIdGame = hapusIdGame;
 
 //fungsi osu

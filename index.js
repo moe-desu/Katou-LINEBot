@@ -80,101 +80,113 @@ function handleEvent(event) {
             if (msgText.indexOf('Katou jawab') > -1) {
               var jawabanUser = msgText.substr(12);
               jawabanUser = jawabanUser.toLowerCase();
-              myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban) {
-                jawabanTekaTeki = jawaban[0].jawaban;
-                jawabanAlasan = jawaban[0].alasan;
-                if (jawabanUser === jawabanTekaTeki.toLowerCase()) {
-                  return client.replyMessage(token, [{
-                    type: 'text',
-                    text: 'Yey, Jawabanmu benar : ' + jawabanTekaTeki.toLowerCase()
-                  }, {
-                    type: 'text',
-                    text: jawabanAlasan
-                  }, {
-                    "type": "template",
-                    "altText": "Konfirmasi lanjut",
-                    "template": {
-                      "type": "confirm",
-                      "text": "Ingin main lagi ?",
-                      "actions": [{
-                          "type": "message",
-                          "label": "Ya",
-                          "text": "Katou lanjut tekateki"
-                        },
-                        {
-                          "type": "message",
-                          "label": "Tidak",
-                          "text": "Katou selesai tekateki"
+              if (data[0].session === "") {
+                myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban) {
+                  jawabanTekaTeki = jawaban[0].jawaban;
+                  jawabanAlasan = jawaban[0].alasan;
+                  if (jawabanUser === jawabanTekaTeki.toLowerCase()) {
+                    myfunc.addLanjutTekaTeki(userType, data[0][userType], jawaban[0]._id).then(function(results) {
+                      return client.replyMessage(token, [{
+                        type: 'text',
+                        text: 'Yey, Jawabanmu benar : ' + jawabanTekaTeki.toLowerCase()
+                      }, {
+                        type: 'text',
+                        text: jawabanAlasan
+                      }, {
+                        "type": "template",
+                        "altText": "Konfirmasi lanjut",
+                        "template": {
+                          "type": "confirm",
+                          "text": "Ingin main lagi ?",
+                          "actions": [{
+                              "type": "message",
+                              "label": "Ya",
+                              "text": "Katou lanjut tekateki"
+                            },
+                            {
+                              "type": "message",
+                              "label": "Tidak",
+                              "text": "Katou selesai tekateki"
+                            }
+                          ]
                         }
-                      ]
-                    }
-                  }]);
-                } else {
-                  return client.replyMessage(token, {
-                    type: 'text',
-                    text: myfunc.salah()
-                  });
-                }
-              });
+                      }]);
+                    });
+                  } else {
+                    return client.replyMessage(token, {
+                      type: 'text',
+                      text: myfunc.salah()
+                    });
+                  }
+                });
+              } else {
+                return Promise.resolve(null);
+              }
             } else if (msgText === 'Katou nyerah') {
-              myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban) {
-                jawabanTekaTeki = jawaban[0].jawaban;
-                jawabanAlasan = jawaban[0].alasan;
+              if (data[0].session === "") {
+                myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban) {
+                  jawabanTekaTeki = jawaban[0].jawaban;
+                  jawabanAlasan = jawaban[0].alasan;
+                  myfunc.addLanjutTekaTeki(userType, data[0][userType], jawaban[0]._id).then(function(results) {
+                    return client.replyMessage(token, [{
+                      type: 'text',
+                      text: 'Jawaban yang benar adalah : ' + jawabanTekaTeki.toLowerCase()
+                    }, {
+                      type: 'text',
+                      text: jawabanAlasan
+                    }, {
+                      "type": "template",
+                      "altText": "Konfirmasi lanjut",
+                      "template": {
+                        "type": "confirm",
+                        "text": "Ingin main lagi ?",
+                        "actions": [{
+                            "type": "message",
+                            "label": "Ya",
+                            "text": "Katou lanjut tekateki"
+                          },
+                          {
+                            "type": "message",
+                            "label": "Tidak",
+                            "text": "Katou selesai tekateki"
+                          }
+                        ]
+                      }
+                    }]);
+                  });
+                });
+              } else {
+                return Promise.resolve(null);
+              }
+            } else if (msgText === 'Katou selesai tekateki') {
+              myfunc.hapusIdGame(userType, data[0][userType]).then(function(data) {
                 return client.replyMessage(token, [{
                   type: 'text',
-                  text: 'Jawaban yang benar adalah : ' + jawabanTekaTeki.toLowerCase()
-                }, {
-                  type: 'text',
-                  text: jawabanAlasan
-                }, {
-                  "type": "template",
-                  "altText": "Konfirmasi lanjut",
-                  "template": {
-                    "type": "confirm",
-                    "text": "Ingin main lagi ?",
-                    "actions": [{
-                        "type": "message",
-                        "label": "Ya",
-                        "text": "Katou lanjut tekateki"
-                      },
-                      {
-                        "type": "message",
-                        "label": "Tidak",
-                        "text": "Katou selesai tekateki"
-                      }
-                    ]
-                  }
+                  text: 'Permainan teka teki kamu telah dihentikan'
                 }]);
-              });
-            } else if (msgText === 'Katou selesai tekateki') {
-              myfunc.checkTekaTeki(data[0].gameid).then(function(jawaban) {
-                jawabanTekaTeki = jawaban[0].jawaban;
-                jawabanAlasan = jawaban[0].alasan;
-                myfunc.hapusIdGame(userType, data[0][userType]).then(function(data) {
-                  return client.replyMessage(token, [{
-                    type: 'text',
-                    text: 'Permainan teka teki kamu telah dihentikan'
-                  }]);
-                });
               });
             } else if (msgText === 'Katou lanjut tekateki') {
               var itemtekaTeki;
-              myfunc.lanjutTekaTeki(data[0].gameid).then(function(itemGame) {
-                itemtekaTeki = itemGame;
-                myfunc.addidTekaTeki(userType, data[0][userType], itemtekaTeki[0]._id).then(function(database) {
-                  return client.replyMessage(token, [{
-                    type: 'text',
-                    text: itemtekaTeki[0].tekateki
-                  }, {
-                    type: 'text',
-                    text: itemtekaTeki[0].teks
-                  }]);
+              if (data[0].session === "Lanjut") {
+                myfunc.lanjutTekaTeki(data[0].gameid).then(function(itemGame) {
+                  itemtekaTeki = itemGame;
+                  myfunc.addidTekaTeki(userType, data[0][userType], itemtekaTeki[0]._id).then(function(database) {
+                    return client.replyMessage(token, [{
+                      type: 'text',
+                      text: itemtekaTeki[0].tekateki
+                    }, {
+                      type: 'text',
+                      text: itemtekaTeki[0].teks
+                    }]);
+                  }, function(err) {
+                    console.error('The promise was rejected', err, err.stack);
+                  });
                 }, function(err) {
                   console.error('The promise was rejected', err, err.stack);
                 });
-              }, function(err) {
-                console.error('The promise was rejected', err, err.stack);
-              });
+              } else {
+                return Promise.resolve(null);
+              }
             } else if (msgText === 'Katou main tekateki') {
               return client.replyMessage(token, {
                 type: 'text',

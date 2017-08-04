@@ -141,6 +141,7 @@ var checkId = function(type, id) {
             "userId": id,
             "game": "",
             "gameid": "",
+            "session": ""
           }).then(function(hasilInsert) {
             return hasilInsert.ops;
           });
@@ -157,6 +158,7 @@ var checkId = function(type, id) {
             "groupId": id,
             "game": "",
             "gameid": "",
+            "session": ""
           }).then(function(hasilInsert) {
             return hasilInsert.ops;
           });
@@ -173,6 +175,7 @@ var checkId = function(type, id) {
             "roomId": id,
             "game": "",
             "gameid": "",
+            "session": ""
           }).then(function(hasilInsert) {
             return hasilInsert.ops;
           });
@@ -224,7 +227,8 @@ var addidTekaTeki = function(type, id, idtekateki) {
       }, {
         "userId": id,
         "game": "tekaTeki",
-        "gameid": idtekateki
+        "gameid": idtekateki,
+        "session": ""
       });
     } else if (type === "groupId") {
       return collection.update({
@@ -232,7 +236,8 @@ var addidTekaTeki = function(type, id, idtekateki) {
       }, {
         "groupId": id,
         "game": "tekaTeki",
-        "gameid": idtekateki
+        "gameid": idtekateki,
+        "session": ""
       });
     } else if (type === "roomId") {
       return collection.update({
@@ -240,7 +245,43 @@ var addidTekaTeki = function(type, id, idtekateki) {
       }, {
         "roomId": id,
         "game": "tekaTeki",
-        "gameid": idtekateki
+        "gameid": idtekateki,
+        "session": ""
+      });
+    }
+  });
+}
+
+var addLanjutTekaTeki = function(type, id, idtekateki) {
+  return MongoClient.connect('mongodb://rehre:akmal2340@ds059634.mlab.com:59634/katou').then(function(db) {
+    var collection = db.collection(type);
+
+    if (type === "userId") {
+      return collection.update({
+        "userId": id
+      }, {
+        "userId": id,
+        "game": "tekaTeki",
+        "gameid": idtekateki,
+        "session": "Lanjut"
+      });
+    } else if (type === "groupId") {
+      return collection.update({
+        "groupId": id
+      }, {
+        "groupId": id,
+        "game": "tekaTeki",
+        "gameid": idtekateki,
+        "session": "Lanjut"
+      });
+    } else if (type === "roomId") {
+      return collection.update({
+        "roomId": id
+      }, {
+        "roomId": id,
+        "game": "tekaTeki",
+        "gameid": idtekateki,
+        "session": "Lanjut"
       });
     }
   });
@@ -264,7 +305,8 @@ var hapusIdGame = function(type, id) {
       }, {
         "userId": id,
         "game": "",
-        "gameid": ""
+        "gameid": "",
+        "session": ""
       });
     } else if (type === 'groupId') {
       return collection.update({
@@ -272,7 +314,8 @@ var hapusIdGame = function(type, id) {
       }, {
         "groupId": id,
         "game": "",
-        "gameid": ""
+        "gameid": "",
+        "session": ""
       });
     } else if (type === 'roomId') {
       return collection.update({
@@ -280,7 +323,8 @@ var hapusIdGame = function(type, id) {
       }, {
         "roomId": id,
         "game": "",
-        "gameid": ""
+        "gameid": "",
+        "session": ""
       });
     }
   });
@@ -876,6 +920,7 @@ exports.wiki = wiki;
 //fungsi game
 exports.tekaTeki = tekaTeki;
 exports.addidTekaTeki = addidTekaTeki;
+exports.addLanjutTekaTeki = addLanjutTekaTeki;
 exports.checkTekaTeki = checkTekaTeki;
 exports.lanjutTekaTeki = lanjutTekaTeki;
 exports.games = games;

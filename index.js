@@ -178,7 +178,7 @@ function handleEvent(event) {
             } else if (msgText === 'Katou main tekateki') {
               return client.replyMessage(token, {
                 type: 'text',
-                text: 'Permainan tekateki sedang berlangsung ketik Katou selesai tekateki untuk menreset'
+                text: 'Permainan teka teki sedang berlangsung ketik Katou selesai tekateki untuk menreset'
               });
             } else if (msgText === 'Katou help tekateki') {
               return client.replyMessage(token, {

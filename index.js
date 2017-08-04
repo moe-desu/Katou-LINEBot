@@ -175,6 +175,16 @@ function handleEvent(event) {
               }, function(err) {
                 console.error('The promise was rejected', err, err.stack);
               });
+            } else if (msgText === 'Katou main tekateki') {
+              return client.replyMessage(token, {
+                type: 'text',
+                text: 'Permainan tekateki sedang berlangsung ketik Katou selesai tekateki untuk menreset'
+              });
+            } else if (msgText === 'Katou help tekateki') {
+              return client.replyMessage(token, {
+                type: 'text',
+                text: 'Bantuan permainan teka teki\n\nketik : \n-Katou jawab (jawaban mu) untuk menjawab\n-Katou nyerah untuk menyerah'
+              });
             } else {
               if (msgText.indexOf('Katou') > -1) {
                 return client.replyMessage(token, {

@@ -357,6 +357,7 @@ function handleEvent(event) {
     if (msgText.indexOf('Katou terjemahkan') > -1) {
       var lang = msgText.substr(18, 5);
       var keyword = msgText.substr(24);
+      keyword = encodeURI(keyword);
       var terjemahan = myfunc.terjemahkan(keyword, lang);
       return client.replyMessage(token, {
         type: 'text',

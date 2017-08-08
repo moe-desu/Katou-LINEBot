@@ -356,7 +356,7 @@ var stalkIg = function(keyword) {
 
       var deskripsi_profil = "Following : " + following + "\nFollowers : " + followers;
 
-      if (count != '0' && is_private != 'true') {
+      if (count != 0 && is_private != true) {
         for (i in nodes) {
           var items = nodes[0];
           var src = items.thumbnail_src;
@@ -643,8 +643,8 @@ var terjemahkan = function(keyword, lang) {
     url
   );
   if (response.statusCode == 200) {
-    var dom = new JSDOM(response.body);
-    return dom.window.document.querySelector("Translation text").textContent;
+    const $ = cheerio.load(response.getBody('utf8'));
+    return $("Translation text").text();
   }
 }
 

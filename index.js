@@ -48,6 +48,7 @@ function handleEvent(event) {
     //periksa source
     var source = event.source.type;
     var id;
+    var groupUserId;
     var userType;
     if (source === 'user') {
       userType = 'userId';
@@ -60,6 +61,7 @@ function handleEvent(event) {
       id = event.source.userId;
     } else if (source === 'group') {
       id = event.source.groupId;
+      groupUserId = event.source.userId;
     } else if (source === 'room') {
       id = event.source.roomId;
     }
@@ -209,9 +211,16 @@ function handleEvent(event) {
     //     } else {
     //katou merespon
     if (msgText === 'Katou') {
-      return client.replyMessage(token, {
-        type: 'text',
-        text: 'Iya'
+      client.getProfile(source == "group" ? groupUserId : id).then(function(profile) {
+        return client.replyMessage(token, {
+          type: 'text',
+          text: myfunc.getResponse(profile.displayName)
+        });
+      }).catch(function(err) {
+        return client.replyMessage(token, {
+          type: 'text',
+          text: err
+        });
       });
     }
 

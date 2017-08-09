@@ -42,6 +42,16 @@ var ramal = function() {
   return ramalan[randomIndex];
 }
 
+var getResponse = function(userDisplayName) {
+  var teksRespon = [
+    "Iya, " + userDisplayName + " ?",
+    "Ada apa " + userDisplayName + " ?",
+    "Ada yang bisa dibantu " + userDisplayName + " ?"
+  ];
+  randomIndex = Math.floor(Math.random() * teksRespon.length);
+  return teksRespon[randomIndex];
+}
+
 var salah = function() {
   var salah = [
     "Jawaban mu salah",
@@ -903,6 +913,7 @@ var games = function() {
 }
 
 //fungsi normal
+exports.getResponse = getResponse;
 exports.searchImg = searchImg;
 exports.youtubeGetUrlVideo = youtubeGetUrlVideo;
 exports.youtubeMusic = youtubeMusic;

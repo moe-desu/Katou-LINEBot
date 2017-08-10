@@ -219,7 +219,7 @@ function handleEvent(event) {
       }).catch(function(err) {
         return client.replyMessage(token, {
           type: 'text',
-          text: err
+          text: myfunc.getResponse("Tanpa Nama")
         });
       });
     }

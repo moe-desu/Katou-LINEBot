@@ -8,8 +8,8 @@ var myfunc = require('./myfunc');
 
 //configure the bot information and adding express to app variable
 const config = {
-  channelAccessToken: '',
-  channelSecret: ''
+  channelAccessToken: 'XrScKVvNSdipjnW8vX5TUemKTMdbss9MJ7Z6PulfQwh8yDdWZCVwWoKe5IwR2Tpk8V44lGune039T5Yw4Cl2PEZpiCqyX7QjcrYAgt3z+zeqyIjak0pA5YjuG20eYU0Mj77Pb4jGVjT8dq6fK6EGBQdB04t89/1O/w1cDnyilFU=',
+  channelSecret: '094811dcc54bd450fb23cf31f252b200'
 };
 const app = express();
 

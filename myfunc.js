@@ -912,6 +912,28 @@ var games = function() {
   }
 }
 
+let getCoupleName = function(keyword) {
+  let signPosition = keyword.indexOf(":");
+  let person1 = keyword.substr(16, signPosition - 16);
+  let person2 = keyword.substr(signPosition + 1);
+  return {
+    personName1: person1,
+    personName2: person2
+  };
+}
+
+let getLoveMeter = function(person1, person2) {
+  let response = request('GET', 'https://love-calculator.p.mashape.com/getPercentage?fname=' + person1 + '&sname=' + person2, {
+    'headers': {
+      "X-Mashape-Key": "eIn259Ue9cmshGou0GrwMhPQa67Wp1qy2eajsn9LrjzqOV2wiy",
+      "Accept": "application/json"
+    }
+  });
+  if (response.statusCode == 200) {
+    let json = JSON.parse(response.getBody('utf-8'));
+    return json;
+  }
+}
 //fungsi normal
 exports.getResponse = getResponse;
 exports.searchImg = searchImg;
@@ -927,6 +949,8 @@ exports.checkId = checkId;
 exports.cariLokasi = cariLokasi;
 exports.ramal = ramal;
 exports.wiki = wiki;
+exports.getCoupleName = getCoupleName;
+exports.getLoveMeter = getLoveMeter;
 
 //fungsi game
 exports.tekaTeki = tekaTeki;

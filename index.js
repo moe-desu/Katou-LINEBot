@@ -580,6 +580,16 @@ function handleEvent(event) {
       });
     }
 
+
+    //katou lovemeter
+    if (msgText.indexOf('Katou lovemeter') > -1) {
+      let couple = myfunc.getCoupleName(msgText);
+      let lovemeter = myfunc.getLoveMeter(couple.personName1, couple.personName2);
+      return client.replyMessage(token, {
+        type: 'text',
+        text: 'Hasil persentase kecocokan antara ' + couple.personName1 + ' dan ' + couple.personName2 + '\nPersentase : ' + lovemeter.percentage + '%\nSaran : ' + lovemeter.result
+      });
+    }
     //   }
     // },
     // function(err) {

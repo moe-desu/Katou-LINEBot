@@ -214,7 +214,7 @@ function handleEvent(event) {
       client.getProfile(source == "group" ? groupUserId : id).then(function(profile) {
         return client.replyMessage(token, {
           type: 'text',
-          text: myfunc.getResponse(profile.displayName)
+          text: myfunc.getResponse((profile.displayName == "Rehre")?"Master":profile.displayName)
         });
       }).catch(function(err) {
         return client.replyMessage(token, {

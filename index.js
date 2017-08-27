@@ -8,8 +8,8 @@ var myfunc = require('./myfunc');
 
 //configure the bot information and adding express to app variable
 const config = {
-  channelAccessToken: '',
-  channelSecret: ''
+  channelAccessToken: 'c1IwJtFhoK2t1mBfegIvxp9Vis6tpbcVtXAZmT0wZsOHYSDWK49GneeOpBPy9oNSi5hPbswpf3Wo3fMjicKfZZ1xpwQ8spkmXDpz8CbzQ0xNhjgDiCA/dEOZtXzh95TPqTYijqhOLa81jlzvp2LAlAdB04t89/1O/w1cDnyilFU=',
+  channelSecret: '8195e89c2fe996e22648c0beaa0163c6'
 };
 const app = express();
 
@@ -32,12 +32,12 @@ function handleEvent(event) {
     if (event.source.type === 'group') {
       return client.replyMessage(token, {
         type: 'text',
-        text: 'Halo Semuanya silahkan ketik \'Katou keyword\' untuk melihat keyword :D \n\nJika ada masalah silahkan kontak :\nCreated by : Rehre(id:akl2340) 18 tahun ig: _rehre\nBot ini diciptakan untuk memenuhi kebutuhan personal'
+        text: 'Halo Semuanya silahkan ketik "Kuma keyword" untuk melihat keyword'
       });
     } else if (event.source.type === 'room') {
       return client.replyMessage(token, {
         type: 'text',
-        text: 'Halo Semuanya silahkan ketik \'Katou keyword\' untuk melihat keyword :D \n\nJika ada masalah silahkan kontak :\nCreated by : Rehre(id:akl2340) 18 tahun ig: _rehre\nBot ini diciptakan untuk memenuhi kebutuhan personal'
+        text: 'Halo Semuanya silahkan ketik "Kuma keyword" untuk melihat keyword'
       });
     }
   } else if (event.type === 'message') {
@@ -210,22 +210,77 @@ function handleEvent(event) {
     //       }
     //     } else {
     //katou merespon
-    if (msgText === 'Katou') {
+    if (msgText === 'Kuma') {
       client.getProfile(source == "group" ? groupUserId : id).then(function(profile) {
         return client.replyMessage(token, {
           type: 'text',
-          text: myfunc.getResponse((profile.displayName == "Rehre")?"Master":profile.displayName)
+          text: myfunc.getResponse((profile.displayName == "Moe")?"Master":profile.displayName)
         });
       }).catch(function(err) {
         return client.replyMessage(token, {
           type: 'text',
-          text: myfunc.getResponse("Tanpa Nama")
+          text: myfunc.getResponse("~")
         });
       });
     }
 
+	//keyword
+	if (msgText === 'Keyword') {
+	  return client.replyMessage(token, {
+		"type": "template",
+        "altText": "Keyword",
+        "template": {
+            "type": "carousel",
+            "columns": [
+                {
+                  "thumbnailImageUrl": "http://j-cul.com/wp-content/uploads/2013/11/head38.jpg",
+                  "title": "Command Group",
+                  "text": "Command Untuk Grup Kuma",
+                  "actions": [
+                      {
+                          "type": "message",
+                          "label": "Welcome",
+                          "text": "Welcome"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Add to cart",
+                          "data": "action=add&itemid=111"
+                      },
+                      {
+                          "type": "uri",
+                          "label": "View detail",
+                          "uri": "http://example.com/page/111"
+                      }
+                  ]
+                },
+                {
+                  "thumbnailImageUrl": "https://example.com/bot/images/item2.jpg",
+                  "title": "this is menu",
+                  "text": "description",
+                  "actions": [
+                      {
+                          "type": "postback",
+                          "label": "Buy",
+                          "data": "action=buy&itemid=222"
+                      },
+                      {
+                          "type": "postback",
+                          "label": "Add to cart",
+                          "data": "action=add&itemid=222"
+                      },
+                      {
+                          "type": "uri",
+                          "label": "View detail",
+                          "uri": "http://example.com/page/222"
+                      }
+                  ]
+                }
+            ]
+        }
+      }
     //checkId
-    if (msgText === 'Katou id') {
+    if (msgText === '##################3Katou id') {
       return client.replyMessage(token, {
         type: 'text',
         text: userType + " : " + id
@@ -263,7 +318,7 @@ function handleEvent(event) {
     // }
 
     //kalkulator
-    if (msgText.indexOf('Katou berapa') > -1) {
+    if (msgText.indexOf('###########################Katou berapa') > -1) {
       var angka = msgText.substr(13);
 
       return client.replyMessage(token, {
@@ -273,7 +328,7 @@ function handleEvent(event) {
     }
 
     //ramal
-    if (msgText === 'Katou ramal') {
+    if (msgText === '##############################Katou ramal') {
       return client.replyMessage(token, {
         type: 'text',
         text: myfunc.ramal()
@@ -281,7 +336,7 @@ function handleEvent(event) {
     }
 
     //selamat ulang tahun
-    if (msgText.indexOf('Katou ucapkan selamat ulang tahun ke') > -1) {
+    if (msgText.indexOf('########################Katou ucapkan selamat ulang tahun ke') > -1) {
       var nama = msgText.substr(37);
       return client.replyMessage(token, {
         type: 'text',
@@ -290,7 +345,7 @@ function handleEvent(event) {
     }
 
     //wikipedia
-    if (msgText.indexOf('Katou apa itu') > -1) {
+    if (msgText.indexOf('##############################Katou apa itu') > -1) {
       var keyword = msgText.substr(14);
       return client.replyMessage(token, {
         type: 'text',
@@ -299,7 +354,7 @@ function handleEvent(event) {
     }
 
     //cari lokasi
-    if (msgText.indexOf('Katou cari lokasi') > -1) {
+    if (msgText.indexOf('#####################Katou cari lokasi') > -1) {
       var keyword = msgText.substr(18);
       var location = myfunc.cariLokasi(keyword);
       if (location.err === undefined) {
@@ -319,8 +374,8 @@ function handleEvent(event) {
     }
 
     //katou tulis
-    if (msgText.indexOf('Katou tulis') > -1) {
-      var keyword = msgText.substr(12);
+    if (msgText.indexOf('Kuma tulis') > -1) {
+      var keyword = msgText.substr(11);
       keyword = encodeURI(keyword);
       return client.replyMessage(token, {
         type: "image",
@@ -330,7 +385,7 @@ function handleEvent(event) {
     }
 
     //katou stalk ig
-    if (msgText.indexOf('Katou stalk') > -1) {
+    if (msgText.indexOf('########################Katou stalk') > -1) {
       var keyword = msgText.substr(12);
       var objectIg = myfunc.stalkIg(keyword);
       if (objectIg.err === undefined) {
@@ -345,7 +400,7 @@ function handleEvent(event) {
     }
 
     //katou ubah alay
-    if (msgText.indexOf('Katou ubah alay') > -1) {
+    if (msgText.indexOf('###################Katou ubah alay') > -1) {
       var keyword = msgText.substr(16);
       return client.replyMessage(token, {
         type: 'text',
@@ -354,7 +409,7 @@ function handleEvent(event) {
     }
 
     //katou terjemahkan alay
-    if (msgText.indexOf('Katou terjemahkan alay') > -1) {
+    if (msgText.indexOf('####################################Katou terjemahkan alay') > -1) {
       var keyword = msgText.substr(23);
       return client.replyMessage(token, {
         type: 'text',
@@ -363,7 +418,7 @@ function handleEvent(event) {
     }
 
     //katou terjemahkan
-    if (msgText.indexOf('Katou terjemahkan') > -1) {
+    if (msgText.indexOf('#########################Katou terjemahkan') > -1) {
       var lang = msgText.substr(18, 5);
       var keyword = msgText.substr(24);
       keyword = encodeURI(keyword);
@@ -375,7 +430,7 @@ function handleEvent(event) {
     }
 
     //katou cuaca
-    if (msgText.indexOf('Katou cuaca') > -1) {
+    if (msgText.indexOf('#######################Katou cuaca') > -1) {
       var keyword = msgText.substr(12);
       return client.replyMessage(token, {
         type: 'text',
@@ -384,7 +439,7 @@ function handleEvent(event) {
     }
 
     //katou 9gag keyword
-    if (msgText.indexOf('Katou 9gag') > -1) {
+    if (msgText.indexOf('##############Katou 9gag') > -1) {
       var keyword = msgText.substr(11);
       var items9gag = myfunc.search9gag(keyword);
       if (items9gag.err === undefined) {
@@ -405,7 +460,7 @@ function handleEvent(event) {
     }
 
     //katou 9gag
-    if (msgText === 'Katou 9gag') {
+    if (msgText === '#############Katou 9gag') {
       var items9gag = myfunc.search9gag('hot');
       return client.replyMessage(token, [{
         type: 'text',
@@ -418,7 +473,7 @@ function handleEvent(event) {
     }
 
     //katou download musik
-    if (msgText.indexOf('Katou download musik') > -1) {
+    if (msgText.indexOf('########Katou download musik') > -1) {
       var keyword = msgText.substr(21);
       var itemsMusic = myfunc.youtubeMusic(keyword);
       if (itemsMusic.err === undefined) {
@@ -437,7 +492,7 @@ function handleEvent(event) {
     }
 
     //katou cari video
-    if (msgText.indexOf('Katou cari video') > -1) {
+    if (msgText.indexOf('########Katou cari video') > -1) {
       var keyword = msgText.substr(17);
       var itemsVideo = myfunc.youtubeGetUrlVideo(keyword);
       if (itemsVideo.err === undefined) {
@@ -455,7 +510,7 @@ function handleEvent(event) {
     }
 
     //katou cari gambar
-    if (msgText.indexOf('Katou cari gambar') > -1) {
+    if (msgText.indexOf('###########Katou cari gambar') > -1) {
       var keyword = msgText.substr(18);
       var itemsGambar = myfunc.searchImg(keyword);
       if (itemsGambar.err === undefined) {
@@ -473,19 +528,19 @@ function handleEvent(event) {
     }
 
     //katou osuprofile
-    if (msgText.indexOf('Katou osu') > -1) {
+    if (msgText.indexOf('Katou osu#########') > -1) {
       var keyword;
       var mode;
-      if (msgText.indexOf('Katou osustd') > -1) {
+      if (msgText.indexOf('Katou osustd#########') > -1) {
         keyword = msgText.substr(13);
         mode = 0;
-      } else if (msgText.indexOf('Katou osutaiko') > -1) {
+      } else if (msgText.indexOf('Katou osutaiko########') > -1) {
         keyword = msgText.substr(15);
         mode = 1;
-      } else if (msgText.indexOf('Katou osuctb') > -1) {
+      } else if (msgText.indexOf('Katou osuctb##########') > -1) {
         keyword = msgText.substr(13);
         mode = 2;
-      } else if (msgText.indexOf('Katou osumania') > -1) {
+      } else if (msgText.indexOf('Katou osumania#########') > -1) {
         keyword = msgText.substr(15);
         mode = 3;
       }
@@ -582,12 +637,12 @@ function handleEvent(event) {
 
 
     //katou lovemeter
-    if (msgText.indexOf('Katou lovemeter') > -1) {
+    if (msgText.indexOf('Kuma love') > -1) {
       let couple = myfunc.getCoupleName(msgText);
       let lovemeter = myfunc.getLoveMeter(couple.personName1, couple.personName2);
       return client.replyMessage(token, {
         type: 'text',
-        text: 'Hasil persentase kecocokan antara ' + couple.personName1 + ' dan ' + couple.personName2 + '\nPersentase : ' + lovemeter.percentage + '%\nSaran : ' + lovemeter.result
+        text: 'Hasil kecocokan pasangan antara ' + couple.personName1 + ' dan ' + couple.personName2 + '\nPersentase : ' + lovemeter.percentage + '%\nSaran : ' + lovemeter.result
       });
     }
     //   }
